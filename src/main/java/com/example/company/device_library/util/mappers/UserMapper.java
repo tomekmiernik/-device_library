@@ -34,6 +34,7 @@ public class UserMapper implements Mapper<User, UserDto> {
         user.setActive(to.isActive());
         user.setLocalization(to.getLocalization());
         user.setPosition(to.getPosition());
+        user.setRoles(to.getRoles());
         return user;
     }
 }

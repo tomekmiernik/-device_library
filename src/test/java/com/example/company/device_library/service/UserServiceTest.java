@@ -16,6 +16,8 @@ import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
+
+
 @RunWith(SpringRunner.class)
 @DataJpaTest
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
@@ -24,17 +26,18 @@ public class UserServiceTest {
     @Autowired
     UserRepository userRepository;
 
-    private User userDto;
+    private User user;
 
     @Before
     public void initialize() {
-        userDto = new User();
-        userDto.setFirstName("UserFirstName");
-        userDto.setLastName("UserLastName");
-        userDto.setEmail("user@com.pl");
-        userDto.setLocalization("User workplace");
-        userDto.setActive(true);
-        userDto.setPosition("User work position");
+        user = new User();
+        user.setId(1L);
+        user.setFirstName("UserFirstName");
+        user.setLastName("UserLastName");
+        user.setEmail("user@com.pl");
+        user.setLocalization("User workplace");
+        user.setActive(true);
+        user.setPosition("User work position");
     }
 
     @After
@@ -48,12 +51,23 @@ public class UserServiceTest {
         Collection<User> userCollection = userRepository.findUsersByLastName("UserLastName");
         int collectionSize = userCollection.size();
 
-        userRepository.save(userDto);
+        userRepository.save(user);
         Optional<User> user1 = userRepository.findUserByUsernameAsEmail("user@com.pl");
         assertThat(user1.get().getId().longValue()).isNotEqualTo(0);
 
         userCollection = userRepository.findUsersByLastName("UserLastName");
         assertThat(userCollection.size()).isEqualTo(collectionSize + 1);
+    }
+
+    @Test
+    public void shouldUpdateUserInformation(){
+        User user = userRepository.save(this.user);
+
+        Optional<User> userBeforeChange = userRepository.findUserById(1L);
+        userBeforeChange.get().setPassword("newPassword");
+        userBeforeChange.ifPresent(u -> userRepository.save(user));
+
+        assertThat(user.getPassword()).isEqualTo("newPassword");
     }
 
     @Test

@@ -7,6 +7,7 @@ import com.example.company.device_library.model.Telephone;
 import lombok.*;
 
 import java.util.Collection;
+import java.util.Set;
 
 @Builder
 @Getter
@@ -26,5 +27,5 @@ public class UserDto {
     private boolean active;
     private Computer computer;
     private Telephone telephone;
-    private Collection<Role> roles;
+    private Set<Role> roles;
 }

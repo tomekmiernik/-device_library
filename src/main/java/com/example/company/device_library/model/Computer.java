@@ -12,6 +12,10 @@ import java.util.Collection;
 @Table(name = "computers")
 public class Computer extends Device {
 
+    @Enumerated(EnumType.STRING)
+    @Column
+    private ComputerType computerType;
+
     @OneToMany(mappedBy = "computer")
     private Collection<Software> softwareCollection;
 
@@ -26,4 +30,18 @@ public class Computer extends Device {
     @JoinColumn(name = "printer_id")
     private Printer printer;
 
+    enum ComputerType{
+        DESKTOP("Stacjonarny"),
+        LAPTOP("Laptop");
+
+        private String type;
+
+        ComputerType(String type){
+            this.type = type;
+        }
+
+        public String getType() {
+            return type;
+        }
+    }
 }

@@ -8,7 +8,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Collection;
+import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class UserService {
@@ -22,25 +24,27 @@ public class UserService {
         this.userMapper = userMapper;
     }
 
-    public Collection<User> getUsersByLastName(String userLastName) {
-        return userRepository.findUsersByLastName(userLastName);
+    public Collection<UserDto> getUsersByLastName(String userLastName) {
+        return userRepository.findUsersByLastName(userLastName)
+                .stream()
+                .map(userMapper::map)
+                .collect(Collectors.toList());
     }
 
     public User addUser(UserDto userDto) {
         return userRepository.save(userMapper.reverse(userDto));
     }
 
-    public Optional<User> getUserByUsernameAsEmail(String email) {
-        return userRepository.findUserByUsernameAsEmail(email);
+    public UserDto getUserByUsernameAsEmail(String email) {
+        return userRepository.findUserByUsernameAsEmail(email)
+                .map(userMapper::map)
+                .get();
     }
 
-    public User perform(UserDto userDto) {
-        return userMapper.reverse(userDto);
+    public Collection<UserDto> getAllUsers(){
+        return userRepository.findAll()
+                .stream()
+                .map(userMapper::map)
+                .collect(Collectors.toList());
     }
-
-
-    /*public UserDto getUserById(Long userId){
-        return userRepository.
-    }*/
-
 }

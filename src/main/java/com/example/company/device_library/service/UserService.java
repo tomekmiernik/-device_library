@@ -8,8 +8,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Collection;
-import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -19,7 +17,7 @@ public class UserService {
 
     @Autowired
     public UserService(UserRepository userRepository,
-                       UserMapper userMapper){
+                       UserMapper userMapper) {
         this.userRepository = userRepository;
         this.userMapper = userMapper;
     }
@@ -41,7 +39,7 @@ public class UserService {
                 .get();
     }
 
-    public Collection<UserDto> getAllUsers(){
+    public Collection<UserDto> getAllUsers() {
         return userRepository.findAll()
                 .stream()
                 .map(userMapper::map)

@@ -23,34 +23,7 @@ public class WelcomeControllerTest {
     @Autowired
     private MockMvc mvc;
 
-    @MockBean
-    private TestEntityManager entityManager;
 
-    @Before
-    public void initialize() {
-        User user = new User();
-        user.setId(1L);
-        user.setFirstName("UserFirstName");
-        user.setLastName("UserLastName");
-        user.setEmail("user@com.pl");
-        user.setLocalization("User workplace");
-        user.setActive(true);
-        user.setPosition("User work position");
-
-        User user1 = new User();
-        user1.setId(2L);
-        user1.setFirstName("User_1_FirstName");
-        user1.setLastName("User_1_LastName");
-        user1.setEmail("user_1@com.pl");
-        user1.setLocalization("User_1 workplace");
-        user1.setActive(true);
-        user1.setPosition("User_1 work position");
-
-        entityManager.persist(user);
-        entityManager.persist(user1);
-        entityManager.flush();
-
-    }
 
     @Test
     public void shouldLoadWelcomePageGivenAllUsers() throws Exception {

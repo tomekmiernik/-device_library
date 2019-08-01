@@ -1,10 +1,21 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title th:text="${title}"></title>
 </head>
 <body>
-Admin Tools
+<h4 th:text="${pageName}"></h4>
+<a th:href="@{/admin/add-computer}">Dodaj komputer</a><br>
+<a th:href="@{/admin/add-consumable}">Dodaj materiały do drukarki</a><br>
+<a th:href="@{/admin/add-department}">Dodaj dział w formie</a><br>
+<a th:href="@{/admin/manufacturer}">Dodaj producenta sprzętu</a><br>
+<a th:href="@{/admin/type}">Dodaj model sprzętu</a><br>
+<a th:href="@{/admin/add-peripheral}">Dodaj mysz / klawiaturę</a><br>
+<a th:href="@{/admin/add-printer}">Dodaj dodaj drukarkę</a><br>
+<a th:href="@{/admin/add-software}">Dodaj oprogramowanie</a><br>
+<a th:href="@{/admin/add-telephone}">Dodaj telefon</a><br>
+<a th:href="@{/admin/add-user}">Dodaj korzystającego</a><br>
+
 </body>
 </html>

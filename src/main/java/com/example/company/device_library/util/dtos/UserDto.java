@@ -6,7 +6,6 @@ import com.example.company.device_library.model.Role;
 import com.example.company.device_library.model.Telephone;
 import lombok.*;
 
-import java.util.Collection;
 import java.util.Set;
 
 @Builder
@@ -16,7 +15,7 @@ import java.util.Set;
 @AllArgsConstructor
 public class UserDto {
 
-    private Long id;
+    private Long userId;
     private String firstName;
     private String lastName;
     private String position;

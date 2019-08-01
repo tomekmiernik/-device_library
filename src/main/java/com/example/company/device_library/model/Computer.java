@@ -30,7 +30,7 @@ public class Computer extends Device {
     @JoinColumn(name = "printer_id")
     private Printer printer;
 
-    enum ComputerType{
+    public enum ComputerType{
         DESKTOP("Stacjonarny"),
         LAPTOP("Laptop");
 

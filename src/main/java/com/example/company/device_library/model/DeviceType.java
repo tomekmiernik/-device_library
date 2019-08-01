@@ -3,9 +3,7 @@ package com.example.company.device_library.model;
 import lombok.Getter;
 import lombok.Setter;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 @Entity
 @Getter
@@ -15,4 +13,8 @@ public class DeviceType extends BasicEntityField{
 
     @Column
     private String typeName;
+
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "manufacturer_id")
+    private DeviceManufacturer deviceManufacturer;
 }

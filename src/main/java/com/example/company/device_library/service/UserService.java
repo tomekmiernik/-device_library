@@ -45,4 +45,8 @@ public class UserService {
                 .map(userMapper::map)
                 .collect(Collectors.toList());
     }
+
+    public User getUserById(Long userId) {
+        return userRepository.getOne(userId);
+    }
 }

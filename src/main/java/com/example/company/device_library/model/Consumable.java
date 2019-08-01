@@ -25,7 +25,7 @@ public class Consumable extends BasicEntityField{
     @JoinColumn(name = "printer_id")
     private Printer printer;
 
-    enum ConsumableType{
+    public enum ConsumableType{
         INK("Tusz"),
         TONER("Toner");
 

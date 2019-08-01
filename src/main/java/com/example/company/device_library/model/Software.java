@@ -12,7 +12,7 @@ import javax.persistence.*;
 public class Software extends BasicEntityField{
 
     @Column
-    private String name;
+    private String softwareName;
     @Column
     private String licenseNumber;
 

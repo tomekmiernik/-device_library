@@ -13,7 +13,7 @@ public class Peripheral extends BasicEntityField{
 
     @Enumerated(EnumType.STRING)
     @Column
-    private Interface typeDevice;
+    private Interface typeInterface;
 
     @Column
     private String namePeripheral;
@@ -22,7 +22,7 @@ public class Peripheral extends BasicEntityField{
     @JoinColumn(name = "computer_id")
     private Computer computer;
 
-    enum Interface{
+    public enum Interface{
         WIRELESSLY("Bezprzewodowa"),
         WIRE("Przewodowa");
 

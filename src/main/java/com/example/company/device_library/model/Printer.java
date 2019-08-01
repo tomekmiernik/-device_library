@@ -21,4 +21,5 @@ public class Printer extends Device {
 
     @OneToMany(mappedBy = "printer", cascade = CascadeType.ALL)
     private Collection<Consumable> consumableCollection;
+
 }

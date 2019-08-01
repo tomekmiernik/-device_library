@@ -25,7 +25,7 @@ public class Telephone extends Device {
     @JoinColumn(name = "user_id")
     private User user;
 
-    enum PhoneType{
+    public enum PhoneType{
         PHONE("Stacjonarny"),
         MOBILE_PHONE("Komórkowy");
 

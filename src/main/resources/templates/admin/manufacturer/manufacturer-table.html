@@ -6,7 +6,7 @@
         <tr th:each="m : ${manufacturers}">
             <td th:text="${m.getManufacturerName()}"></td>
             <td>
-                <a th:href="@{${m.getManufacturerName()} + '/updateManufacturer'}">Edytuj</a>
+                <a th:href="@{'/admin/manufacturer/' +${m.getManufacturerId()} + '/updateManufacturer'}">Edytuj</a>
             </td>
             <td>
                 <form action="/delete" method="get">

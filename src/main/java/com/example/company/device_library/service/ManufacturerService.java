@@ -31,7 +31,22 @@ public class ManufacturerService {
                 .collect(Collectors.toList());
     }
 
-    public DeviceManufacturer getDeviceManufacturerById(Long manufacturerId){
-        return manufacturerRepository.getOne(manufacturerId);
+    public ManufacturerDto getDeviceManufacturerById(Long manufacturerId){
+        DeviceManufacturer getOne = manufacturerRepository.getOne(manufacturerId);
+        return manufacturerMapper.map(getOne);
+    }
+
+    public DeviceManufacturer getDeviceManufacturerByName(String typeName) {
+        return manufacturerRepository.getManufacturerByName(typeName)
+                .get();
+    }
+
+    public void updateManufacturer(ManufacturerDto manufacturerDto) {
+        manufacturerRepository.getManufacturerById(manufacturerDto.getManufacturerId())
+                .ifPresent(p-> {
+                    p.setManufacturerName(manufacturerDto.getManufacturerName());
+                    p.setDeviceTypeCollection(manufacturerDto.getDeviceTypes());
+                    manufacturerRepository.save(p);
+                });
     }
 }

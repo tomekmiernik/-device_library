@@ -1,21 +1,24 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-<head>
-    <meta charset="UTF-8">
-    <title th:text="${title}"></title>
-</head>
-<body>
-<h4 th:text="${pageName}"></h4>
-<a th:href="@{/admin/add-computer}">Dodaj komputer</a><br>
-<a th:href="@{/admin/add-consumable}">Dodaj materiały do drukarki</a><br>
-<a th:href="@{/admin/add-department}">Dodaj dział w formie</a><br>
-<a th:href="@{/admin/manufacturer}">Dodaj producenta sprzętu</a><br>
-<a th:href="@{/admin/type}">Dodaj model sprzętu</a><br>
-<a th:href="@{/admin/add-peripheral}">Dodaj mysz / klawiaturę</a><br>
-<a th:href="@{/admin/add-printer}">Dodaj dodaj drukarkę</a><br>
-<a th:href="@{/admin/add-software}">Dodaj oprogramowanie</a><br>
-<a th:href="@{/admin/add-telephone}">Dodaj telefon</a><br>
-<a th:href="@{/admin/add-user}">Dodaj korzystającego</a><br>
+<head th:replace="fragments/header :: header"></head>
+<div xmlns:th="http://www.thymeleaf.org" th:fragment="admin-tools">
+    <h4 th:text="${pageName}"></h4>
+    <a th:href="@{/admin/department}">Dodaj dział w firmie</a><br>
+    <a th:href="@{/admin/user}">Dodaj korzystającego</a><br>
+    <hr>
+    <a th:href="@{/admin/manufacturer}">Dodaj producenta sprzętu</a><br>
+    <a th:href="@{/admin/type}">Dodaj model sprzętu</a><br>
+    <hr>
+    <a th:href="@{/admin/telephone}">Dodaj telefon</a><br>
+    <hr>
+    <a th:href="@{/admin/computer}">Dodaj komputer</a><br>
+    <a th:href="@{/admin/monitor}">Dodaj monitor</a><br>
+    <a th:href="@{/admin/peripheral}">Dodaj mysz / klawiaturę</a><br>
+    <a th:href="@{/admin/software}">Dodaj oprogramowanie</a><br>
+    <hr>
+    <a th:href="@{/admin/printer}">Dodaj drukarkę</a><br>
+    <a th:href="@{/admin/consumable}">Dodaj materiały do drukarki</a><br>
+    <hr>
+    <!--<a th:href="@{/admin/kit}">Utwórz zestaw</a><br>-->
 
-</body>
-</html>
+</div>

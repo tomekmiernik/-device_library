@@ -1,0 +1,35 @@
+<div xmlns:th="http://www.thymeleaf.org" th:fragment="add-monitor">
+    <h4 th:text="${formName}"></h4>
+
+    <form th:action="@{'/admin/monitor'}" th:method="post" th:object="${monitorDto}">
+        <select name="deviceManufacturer">
+            <option disabled selected value="">Producent</option>
+            <option th:each="t : ${produces}"
+                    th:value="${t.getManufacturerName()}"
+                    th:text="${t.getManufacturerName()}"></option>
+        </select>
+
+        <select name="deviceType">
+            <option disabled selected value="">Model</option>
+            <option th:each="m : ${models}"
+                    th:value="${m.getTypeName()}"
+                    th:text="${m.getTypeName()}"></option>
+        </select>
+        <input type="text" name="serialNumber" placeholder="numer seryjny">
+        <input type="text" name="inchValue" placeholder="ilość cali">
+        <select name="monitorType">
+            <option disabled selected value="">Rodzaj</option>
+            <option th:each="m : ${T(com.example.company.device_library.model.Monitor.MonitorType).values()}"
+                    th:value="${m}"
+                    th:text="${m}"></option>
+        </select>
+        <!--<select name="computer">
+            <option disabled selected value="">Zestawiony komputer</option>
+            <option th:each="c : ${computers}"
+                    th:value="${c.getComputerId()}"
+                    th:text="${c.getSerialNumber()}"></option>
+        </select>-->
+        <button type="submit">Dodaj</button>
+
+    </form>
+</div>

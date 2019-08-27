@@ -1,0 +1,24 @@
+<div xmlns:th="http://www.thymeleaf.org" th:fragment="add-consumable">
+    <h4 th:text="${formName}"></h4>
+
+    <form th:action="@{'/admin/consumable'}" th:method="post" th:object="${consumableDto}">
+        <select name="consumableType">
+            <option selected disabled value="">Wybierz...</option>
+            <option th:each="c : ${T(com.example.company.device_library.model.Consumable.ConsumableType).values()}"
+                    th:text="${c.getType()}"
+                    th:value="${c}"></option>
+        </select>
+
+        <input type="text" name="color">
+        <input type="text" name="consumableMark">
+
+        <!--<select name="printer">
+            <option disabled selected value="">Wybierz...</option>
+            <option th:each="p : ${printers}"
+                    th:text="p.getIpAddress()"
+                    th:value="p.getId()"></option>
+        </select>-->
+        <button type="submit">Dodaj</button>
+
+    </form>
+</div>

@@ -2,7 +2,9 @@ package com.example.company.device_library.util.mappers;
 
 import com.example.company.device_library.model.Consumable;
 import com.example.company.device_library.util.dtos.ConsumableDto;
+import org.springframework.stereotype.Component;
 
+@Component
 public class ConsumableMapper implements Mapper<Consumable, ConsumableDto> {
     @Override
     public ConsumableDto map(Consumable from) {

@@ -12,8 +12,9 @@ import java.util.Collection;
 @AllArgsConstructor
 public class ComputerDto {
     private Long computerId;
-    private DeviceManufacturer deviceManufacturer;
-    private DeviceType deviceType;
+    private String computerAdName;
+    private String deviceManufacturer;
+    private String deviceType;
     private String serialNumber;
     private Computer.ComputerType computerType;
     private Collection<Software> softwareCollection;

@@ -3,7 +3,6 @@ package com.example.company.device_library.model;
 import lombok.*;
 
 import javax.persistence.*;
-import java.util.Collection;
 import java.util.Set;
 
 
@@ -14,7 +13,7 @@ import java.util.Set;
 @AllArgsConstructor
 @NoArgsConstructor
 @Table(name = "users")
-public class User extends BasicEntityField{
+public class User extends BasicEntityField {
 
     @Column
     private String firstName;
@@ -26,7 +25,7 @@ public class User extends BasicEntityField{
     private String position;
 
     @Column
-    private Department department;
+    private String department;
 
     @Column
     private String localization;
@@ -43,18 +42,18 @@ public class User extends BasicEntityField{
     @Column
     private boolean active;
 
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "computer_id")
     private Computer computer;
 
-    @OneToOne
-    @JoinColumn(name = "telephone_id")
-    private Telephone telephone;
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "mobileDevice_id")
+    private MobileDevice mobileDevice;
 
     @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinTable(name = "users_roles",
-        joinColumns = @JoinColumn(name = "user_id"),
-        inverseJoinColumns = @JoinColumn(name = "role_id"))
+            joinColumns = @JoinColumn(name = "user_id"),
+            inverseJoinColumns = @JoinColumn(name = "role_id"))
     private Set<Role> roles;
 
 }

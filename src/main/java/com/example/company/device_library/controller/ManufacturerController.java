@@ -5,10 +5,9 @@ import com.example.company.device_library.util.dtos.ManufacturerDto;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
+
+import javax.validation.Valid;
 
 @Controller
 @RequestMapping("/admin")
@@ -28,13 +27,27 @@ public class ManufacturerController {
     }
 
     @PostMapping("/manufacturer")
-    public String addNewManufacturerItem(@ModelAttribute("manufacturerDto") ManufacturerDto manufacturerDto,
+    public String addNewManufacturerItem(@Valid @ModelAttribute("manufacturerDto") ManufacturerDto manufacturerDto,
                                          BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
             return "admin/manufacturer/manufacturer";
         } else {
             manufacturerService.addDeviceManufacturer(manufacturerDto);
-            return "redirect:/admin/manufacturer/";
+            return "redirect:/admin/manufacturer";
         }
     }
+
+    @GetMapping("/manufacturer/{typeId}/updateManufacturer")
+    public String getPageForUpdateManufacturerItem(Model model, @PathVariable("typeId") Long typeId) {
+        model.addAttribute("manufacturerDto", manufacturerService.getDeviceManufacturerById(typeId));
+        return "admin/manufacturer/update-manufacturer";
+    }
+
+    @PutMapping("/manufacturer")
+    public String updateManufacturerItem(@ModelAttribute("manufacturerDto") ManufacturerDto manufacturerDto) {
+        manufacturerService.updateManufacturer(manufacturerDto);
+        return "redirect:/admin/manufacturer";
+    }
+
+
 }

@@ -1,0 +1,16 @@
+<div xmlns:th="http://www.thymeleaf.org" th:fragment="add-computer">
+    <h4 th:text="${formName}"></h4>
+
+    <form th:action="@{'/admin/user/addComputer/'+${userDto.getUserId()}}" th:method="post" th:object="${userDto}">
+
+        <select  name="computer">
+            <option selected disabled>Komputer</option>
+            <option th:each="c : ${computers}"
+                    th:value="${c.getComputerId()}"
+                    th:text="${c.getComputerAdName()+' | '+c.getSerialNumber()}">
+            </option>
+        </select>
+        <button type="submit">Dodaj</button>
+
+    </form>
+</div>

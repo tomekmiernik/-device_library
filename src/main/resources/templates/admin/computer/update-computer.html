@@ -1,0 +1,15 @@
+<div xmlns:th="http://www.thymeleaf.org" th:fragment="add-computer">
+    <h4 th:text="${formName}"></h4>
+
+    <form th:action="@{'/admin/computer'}" th:method="put" th:object="${computerDto}">
+        <input type="number" name="computerId" th:value="${computerDto.getComputerId()}" hidden="hidden">
+        <input type="text" name="deviceManufacturer" th:value="${computerDto.getDeviceManufacturer()}">
+        <input type="text" name="deviceType" th:value="${computerDto.getDeviceType()}">
+        <input type="text" name="computerType" th:value="${computerDto.getComputerType()}">
+        <input type="text" name="serialNumber" th:value="${computerDto.getSerialNumber()}">
+
+        <button type="submit">Edytuj</button>
+
+    </form>
+</div>
+

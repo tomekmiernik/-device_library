@@ -1,0 +1,15 @@
+<div xmlns:th="http://www.thymeleaf.org" th:fragment="add-monitor">
+    <h4 th:text="${formName}"></h4>
+
+    <form th:action="@{'/admin/monitor'}" th:method="put" th:object="${monitorDto}">
+        <input type="number" name="monitorId" th:value="${monitorDto.getMonitorId()}" readonly hidden="hidden">
+        <input type="text" name="deviceManufacturer" th:value="${monitorDto.getDeviceManufacturer()}">
+        <input type="text" name="deviceType" th:value="${monitorDto.getDeviceType()}">
+        <input type="text" name="serialNumber" th:value="${monitorDto.getSerialNumber()}">
+        <input type="text" name="inchValue" th:value="${monitorDto.getInchValue()}">
+        <input type="text" name="monitorType" th:value="${monitorDto.getMonitorType()}">
+        <input type="text" name="computer" th:value="${monitorDto.getComputer()}">
+        <button type="submit">Edytuj</button>
+
+    </form>
+</div>

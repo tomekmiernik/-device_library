@@ -34,4 +34,18 @@ public class DeviceTypeService {
     public DeviceType getDeviceTypeById(Long deviceTypeId){
         return deviceTypeRepository.getOne(deviceTypeId);
     }
+
+    public DeviceTypesDto getDeviceTypeByName(String typeName) {
+        return deviceTypeRepository.getDeviceTypeByName(typeName)
+                .map(deviceTypeMapper::map)
+                .get();
+    }
+
+    public void updateDeviceType(DeviceTypesDto typeDto) {
+        deviceTypeRepository.getDeviceTypeById(typeDto.getDeviceTypeId())
+                .ifPresent(t-> {
+                    t.setTypeName(typeDto.getTypeName());
+                    deviceTypeRepository.save(t);
+                });
+    }
 }

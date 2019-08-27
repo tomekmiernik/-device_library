@@ -1,0 +1,24 @@
+<div xmlns:th="http://www.thymeleaf.org" th:fragment="department-table">
+    <table>
+        <tr>
+            <th>Nazwa działu</th>
+            <th>Skrót nazwy</th>
+
+        </tr>
+        <tr th:each="d : ${departments}">
+            <td th:text="${d.getDepartmentName()}"></td>
+            <td th:text="${d.getDepartmentShortName()}"></td>
+            <td>
+                <a th:href="@{'/admin/department/' +${d.getDepartmentId()} + '/updateDepartment'}">Edytuj</a>
+            </td>
+            <td>
+                <form action="/delete" method="get">
+                    <input type="hidden" th:value="${d.getDepartmentId()}" name="departmentId">
+                    <button type="submit">
+                        <i aria-hidden="true"></i> Delete
+                    </button>
+                </form>
+            </td>
+        </tr>
+    </table>
+</div>

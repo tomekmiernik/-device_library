@@ -1,14 +1,10 @@
 package com.example.company.device_library.controller;
 
-import com.example.company.device_library.model.User;
-import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 
@@ -24,7 +20,6 @@ public class WelcomeControllerTest {
     private MockMvc mvc;
 
 
-
     @Test
     public void shouldLoadWelcomePageGivenAllUsers() throws Exception {
         mvc.perform(get("/"))
@@ -34,14 +29,14 @@ public class WelcomeControllerTest {
     }
 
     @Test
-    public void shouldLoadLoginPageGivenLoginForm() throws Exception{
+    public void shouldLoadLoginPageGivenLoginForm() throws Exception {
         mvc.perform(get("/login"))
                 .andExpect(status().isOk())
                 .andExpect(view().name("login"));
     }
 
     @Test
-    public void shouldLoadRegisterPageGivenRegisterForm() throws Exception{
+    public void shouldLoadRegisterPageGivenRegisterForm() throws Exception {
         mvc.perform(get("/register"))
                 .andExpect(status().isOk())
                 .andExpect(model().attributeExists("userDto"))

@@ -63,8 +63,8 @@ public class UserServiceTest {
     public void shouldUpdateUserInformation(){
         User user = userRepository.save(this.user);
 
-        Optional<User> userBeforeChange = userRepository.findUserById(1L);
-        userBeforeChange.get().setPassword("newPassword");
+        Optional<User> userBeforeChange = userRepository.getUserById(1L);
+        userBeforeChange.ifPresent(u -> u.setPassword("newPassword"));
         userBeforeChange.ifPresent(u -> userRepository.save(user));
 
         assertThat(user.getPassword()).isEqualTo("newPassword");

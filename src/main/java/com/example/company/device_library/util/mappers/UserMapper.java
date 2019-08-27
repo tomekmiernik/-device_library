@@ -20,7 +20,7 @@ public class UserMapper implements Mapper<User, UserDto> {
                 .localization(from.getLocalization())
                 .password(from.getPassword())
                 .roles(from.getRoles())
-                .telephone(from.getTelephone())
+                .mobileDevice(from.getMobileDevice())
                 .build();
     }
 
@@ -38,7 +38,7 @@ public class UserMapper implements Mapper<User, UserDto> {
         user.setLocalization(to.getLocalization());
         user.setPassword(to.getPassword());
         user.setRoles(to.getRoles());
-        user.setTelephone(to.getTelephone());
+        user.setMobileDevice(to.getMobileDevice());
         return user;
     }
 }

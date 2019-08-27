@@ -1,0 +1,37 @@
+<div xmlns:th="http://www.thymeleaf.org" th:fragment="add-kit">
+    <h4 th:text="${formName}"></h4>
+    <form th:action="@{'/admin/kit/'+${userDto.getUserId()}}" th:method="post" th:object="${kitDto}">
+        <input th:field="*{user}" hidden="hidden" readonly>
+        <label type="text" th:text="${firstName +' '+lastName}" readonly></label>
+        <select name="telephone">
+            <option disabled selected value="">Zestawiany telefon</option>
+            <option th:each="p : ${phones}"
+                    th:text="${p.getPhoneNumber()}"
+                    th:value="${p.getTelephoneId()}">
+            </option>
+        </select>
+        <select name="computer">
+            <option disabled selected value="">Zestawiany komputer</option>
+            <option th:each="c : ${comps}"
+                    th:text="${c.getDeviceManufacturer() +' | '+ c.getSerialNumber()}"
+                    th:value="${c.getComputerId()}">
+            </option>
+        </select>
+        <select name="monitor">
+            <option disabled selected value="">Zestawiany monitor</option>
+            <option th:each="m : ${monitors}"
+                    th:text="${m.getDeviceManufacturer() +' | '+ m.getSerialNumber()}"
+                    th:value="${m.getMonitorId()}">
+            </option>
+        </select>
+        <select name="printer">
+            <option disabled selected value="">Zestawiana drukarka</option>
+            <option th:each="p : ${prints}"
+                    th:text="${p.getDeviceManufacturer() +' | '+ p.getSerialNumber()}"
+                    th:value="${p.getPrinterId()}">
+            </option>
+        </select>
+        <button type="submit">Utwórz</button>
+    </form>
+</div>
+

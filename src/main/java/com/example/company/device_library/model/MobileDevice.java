@@ -1,15 +1,17 @@
 package com.example.company.device_library.model;
 
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.*;
 
 @Entity
 @Getter
 @Setter
-@Table(name = "telephones")
-public class Telephone extends Device {
+@AllArgsConstructor
+@NoArgsConstructor
+@Builder
+@Table(name = "mobile_device")
+public class MobileDevice extends Device {
 
     @Column
     private String phoneNumber;
@@ -23,11 +25,13 @@ public class Telephone extends Device {
 
     @OneToOne
     @JoinColumn(name = "user_id")
+    @Transient
     private User user;
 
     public enum PhoneType{
         PHONE("Stacjonarny"),
-        MOBILE_PHONE("Komórkowy");
+        MOBILE_PHONE("Komórkowy"),
+        TABLET("Tablet");
 
         private String type;
 

@@ -1,0 +1,16 @@
+<div xmlns:th="http://www.thymeleaf.org" th:fragment="add-kit">
+    <h4 th:text="${formName}"></h4>
+
+    <form th:action="@{'/admin/kit'}" th:method="put" th:object="${kitDto}">
+        <input type="number" name="kitId" th:value="${kitDto.getKitId()}" hidden="hidden">
+        <input type="text" name="user" th:value="${kitDto.getUser()}">
+        <input type="text" name="telephone" th:value="${kitDto.getTelephone()}">
+        <input type="text" name="computer" th:value="${kitDto.getComputer()}">
+        <input type="text" name="monitor" th:value="${kitDto.getMonitor()}">
+        <input type="text" name="printer" th:value="${kitDto.getPrinter()}">
+
+        <button type="submit">Edytuj</button>
+
+    </form>
+</div>
+

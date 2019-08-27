@@ -9,12 +9,13 @@ import javax.persistence.*;
 @Getter
 @Setter
 @MappedSuperclass
-public abstract class Device extends BasicEntityField {
-    
-    private DeviceManufacturer deviceManufacturer;
+public class Device extends BasicEntityField {
 
-    private DeviceType deviceType;
-
+    @Column
+    private String deviceManufacturer;
+    @Column
+    private String deviceType;
+    @Column
     private String serialNumber;
 
 }

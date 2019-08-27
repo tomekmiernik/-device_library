@@ -1,0 +1,25 @@
+<div xmlns:th="http://www.thymeleaf.org" th:fragment="add-printer">
+    <h4 th:text="${formName}"></h4>
+
+    <form th:action="@{'/admin/printer'}" th:method="post" th:object="${printerDto}">
+        <select name="deviceManufacturer">
+        <option disabled selected value="">Producent</option>
+        <option th:each="t : ${produces}"
+                th:value="${t.getManufacturerName()}"
+                th:text="${t.getManufacturerName()}"></option>
+    </select>
+
+        <select name="deviceType">
+            <option disabled selected value="">Model</option>
+            <option th:each="m : ${models}"
+                    th:value="${m.getTypeName()}"
+                    th:text="${m.getTypeName()}"></option>
+        </select>
+        <input type="text" name="serialNumber" placeholder="numer seryjny">
+        <input type="text" name="ipAddress" placeholder="adres IP">
+        <!--<input type="text" name="computer" placeholder="komputer">-->
+
+        <button type="submit">Dodaj</button>
+
+    </form>
+</div>

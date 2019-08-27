@@ -25,37 +25,6 @@ public class AdminController {
     }
 
 
-
-    @GetMapping("/add-computer")
-    public String getAddComputerFormPage(@ModelAttribute ComputerDto computerDto, Model model) {
-        model.addAttribute("title", "Dodawanie komputera");
-        model.addAttribute("formName", "dodawanie komputera");
-        return "admin/add-computer";
-    }
-
-    @GetMapping("/add-consumable")
-    public String getAddConsumableFormPage(@ModelAttribute ConsumableDto consumableDto, Model model) {
-        model.addAttribute("title", "Dodawanie tuszu / toneru");
-        model.addAttribute("formName", "dodawanie tuszu / toneru");
-        return "admin/add-consumable";
-    }
-
-    @GetMapping("/add-department")
-    public String getAddDepartmentFormPage(@ModelAttribute DepartmentDto departmentDto, Model model) {
-        model.addAttribute("title", "Dodawanie działu");
-        model.addAttribute("formName", "dodawanie działu");
-        return "admin/add-department";
-    }
-
-
-
-    /*@GetMapping("/add-types")
-    public String getAddTypesFormPage(@ModelAttribute DeviceTypesDto deviceTypesDto, Model model) {
-        model.addAttribute("title", "Dodawanie modelu sprzętu");
-        model.addAttribute("formName", "dodawanie modelu sprzętu");
-        return "admin/add-type";
-    }*/
-
     @GetMapping("/add-peripheral")
     public String getAddPeripheralFormPage(@ModelAttribute PeripheralDto peripheralDto, Model model) {
         model.addAttribute("title", "Dodawanie myszy / klawiatury");
@@ -70,18 +39,5 @@ public class AdminController {
         return "admin/add-printer";
     }
 
-    @GetMapping("/add-software")
-    public String getAddSoftwareFormPage(@ModelAttribute SoftwareDto softwareDto, Model model) {
-        model.addAttribute("title", "Dodawanie oprogramowania");
-        model.addAttribute("formName", "dodawanie oprogramowania");
-        return "admin/add-software";
-    }
-
-    @GetMapping("/add-telephone")
-    public String getAddTelephoneFormPage(@ModelAttribute TelephoneDto telephoneDto, Model model){
-        model.addAttribute("title", "Dodawanie telefonu");
-        model.addAttribute("formName", "dodawanie telefonu");
-        return "admin/add-telephone";
-    }
 
 }

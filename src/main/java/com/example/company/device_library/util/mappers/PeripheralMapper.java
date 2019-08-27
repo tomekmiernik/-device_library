@@ -2,7 +2,9 @@ package com.example.company.device_library.util.mappers;
 
 import com.example.company.device_library.model.Peripheral;
 import com.example.company.device_library.util.dtos.PeripheralDto;
+import org.springframework.stereotype.Component;
 
+@Component
 public class PeripheralMapper implements Mapper<Peripheral, PeripheralDto> {
     @Override
     public PeripheralDto map(Peripheral from) {

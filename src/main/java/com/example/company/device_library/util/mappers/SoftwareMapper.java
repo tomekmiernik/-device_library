@@ -2,7 +2,9 @@ package com.example.company.device_library.util.mappers;
 
 import com.example.company.device_library.model.Software;
 import com.example.company.device_library.util.dtos.SoftwareDto;
+import org.springframework.stereotype.Component;
 
+@Component
 public class SoftwareMapper implements Mapper<Software, SoftwareDto> {
     @Override
     public SoftwareDto map(Software from) {

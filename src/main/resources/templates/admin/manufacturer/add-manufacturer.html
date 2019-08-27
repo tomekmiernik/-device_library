@@ -2,7 +2,6 @@
     <h4 th:text="${formName}"></h4>
 
     <form th:action="@{'/admin/manufacturer'}" th:method="post" th:object="${manufacturerDto}">
-        <input type="number" name="manufacturerId" th:value="${manufacturerDto.getManufacturerId()}" hidden="hidden">
         <input type="text" name="manufacturerName" th:value="${manufacturerDto.getManufacturerName()}">
         <button type="submit">Dodaj</button>
 

@@ -1,0 +1,16 @@
+<div xmlns:th="http://www.thymeleaf.org" th:fragment="add-device">
+    <h4 th:text="${formName}"></h4>
+
+    <form th:action="@{'/admin/user/addDevice/'+${userDto.getUserId()}}" th:method="post" th:object="${userDto}">
+
+        <select  name="mobileDevice">
+            <option selected disabled>Urządzenie</option>
+            <option th:each="m : ${mobileDevices}"
+                    th:value="${m.getMobileDeviceId()}"
+                    th:text="${m.getPhoneNumber()+' | '+m.getSerialNumber()}">
+            </option>
+        </select>
+        <button type="submit">Dodaj</button>
+
+    </form>
+</div>

@@ -1,0 +1,29 @@
+<div xmlns:th="http://www.thymeleaf.org" th:fragment="user-table">
+    <table>
+        <tr>
+            <th>Imię i Nazwisko</th>
+            <th>Email</th>
+        </tr>
+        <tr th:each="u : ${users}">
+            <td th:text="${u.getFirstName()+' '+u.getLastName()}"></td>
+            <td th:text="${u.getEmail()}"></td>
+            <td>
+                <a th:href="@{'/admin/user/' +${u.getUserId()} + '/addComputer'}">Dodaj komputer</a>
+            </td>
+            <td>
+                <a th:href="@{'/admin/user/' +${u.getUserId()} + '/addDevice'}">Dodaj telefon/tablet</a>
+            </td>
+            <td>
+                <a th:href="@{'/admin/user/' +${u.getUserId()} + '/updateUser'}">Edytuj</a>
+            </td>
+            <td>
+                <form action="/delete" method="get">
+                    <input type="hidden" th:value="${u.getUserId()}" name="userId">
+                    <button type="submit">
+                        <i aria-hidden="true"></i> Delete
+                    </button>
+                </form>
+            </td>
+        </tr>
+    </table>
+</div>

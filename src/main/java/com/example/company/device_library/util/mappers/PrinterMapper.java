@@ -2,7 +2,9 @@ package com.example.company.device_library.util.mappers;
 
 import com.example.company.device_library.model.Printer;
 import com.example.company.device_library.util.dtos.PrinterDto;
+import org.springframework.stereotype.Component;
 
+@Component
 public class PrinterMapper implements Mapper<Printer, PrinterDto> {
     @Override
     public PrinterDto map(Printer from) {

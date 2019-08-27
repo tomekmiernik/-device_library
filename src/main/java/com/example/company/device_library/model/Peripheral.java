@@ -1,15 +1,17 @@
 package com.example.company.device_library.model;
 
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.*;
 
 @Entity
 @Getter
 @Setter
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
 @Table(name = "peripherals")
-public class Peripheral extends BasicEntityField{
+public class Peripheral extends Device{
 
     @Enumerated(EnumType.STRING)
     @Column
@@ -23,8 +25,8 @@ public class Peripheral extends BasicEntityField{
     private Computer computer;
 
     public enum Interface{
-        WIRELESSLY("Bezprzewodowa"),
-        WIRE("Przewodowa");
+        WIRELESSLY("Bezprzewodowo"),
+        WIRE("Przewodowo");
 
         private String type;
 

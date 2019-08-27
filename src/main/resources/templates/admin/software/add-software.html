@@ -1,0 +1,12 @@
+<div xmlns:th="http://www.thymeleaf.org" th:fragment="add-software">
+    <h4 th:text="${formName}"></h4>
+
+    <form th:action="@{'/admin/software'}" th:method="post" th:object="${softwareDto}">
+        <input type="text" name="softwareName" placeholder="nazwa programu">
+        <input type="text" name="licenseNumber" placeholder="numer licencji">
+        <input type="text" name="computer">
+
+        <button type="submit">Dodaj</button>
+
+    </form>
+</div>

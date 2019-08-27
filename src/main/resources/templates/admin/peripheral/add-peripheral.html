@@ -1,0 +1,31 @@
+<div xmlns:th="http://www.thymeleaf.org" th:fragment="add-peripheral">
+    <h4 th:text="${formName}"></h4>
+
+    <form th:action="@{'/admin/peripheral'}" th:method="post" th:object="${peripheralDto}">
+        <select name="deviceManufacturer">
+            <option disabled selected value="">Producent</option>
+            <option th:each="t : ${produces}"
+                    th:value="${t.getManufacturerName()}"
+                    th:text="${t.getManufacturerName()}"></option>
+        </select>
+
+        <select name="deviceType">
+            <option disabled selected value="">Model</option>
+            <option th:each="m : ${models}"
+                    th:value="${m.getTypeName()}"
+                    th:text="${m.getTypeName()}"></option>
+        </select>
+
+        <select name="typeInterface">
+            <option disabled selected value="">Rodzaj połaczenia</option>
+            <option th:each="t : ${T(com.example.company.device_library.model.Peripheral.Interface).values()}"
+                    th:value="${t}"
+                    th:text="${t.getType()}"></option>
+        </select>
+        <input type="text" name="namePeripheral" placeholder="nazwa urządzenia">
+        <!--<input type="text" name="computer" placeholder="powiązany komputer">-->
+
+        <button type="submit">Dodaj</button>
+
+    </form>
+</div>

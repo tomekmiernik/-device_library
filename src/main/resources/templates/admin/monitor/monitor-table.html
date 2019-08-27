@@ -1,0 +1,32 @@
+<div xmlns:th="http://www.thymeleaf.org" th:fragment="monitor-table">
+    <table>
+        <tr>
+            <th>Producent</th>
+            <th>Model</th>
+            <th>Numer seryjny</th>
+            <th>Ilość cali</th>
+            <th>Rodzaj wyświetlania</th>
+            <!--<th>Komputer zestawiony</th>-->
+
+        </tr>
+        <tr th:each="m : ${monitors}">
+            <td th:text="${m.getDeviceManufacturer()}"></td>
+            <td th:text="${m.getDeviceType()}"></td>
+            <td th:text="${m.getSerialNumber()}"></td>
+            <td th:text="${m.getInchValue()}"></td>
+            <td th:text="${m.getMonitorType()}"></td>
+           <!-- <td th:text="${m.getComputer().getSerialNumber()}"></td>-->
+            <td>
+                <a th:href="@{'/admin/monitor/' +${m.getMonitorId()} + '/updateMonitor'}">Edytuj</a>
+            </td>
+            <td>
+                <form action="/delete" method="get">
+                    <input type="hidden" th:value="${m.getMonitorId()}" name="monitorId">
+                    <button type="submit">
+                        <i aria-hidden="true"></i> Delete
+                    </button>
+                </form>
+            </td>
+        </tr>
+    </table>
+</div>

@@ -1,0 +1,12 @@
+<div xmlns:th="http://www.thymeleaf.org" th:fragment="add-consumable">
+    <h4 th:text="${formName}"></h4>
+
+    <form th:action="@{'/admin/consumable'}" th:method="put" th:object="${consumableDto}">
+        <input type="number" name="consumableId" th:value="${consumableDto.getConsumableId()}" readonly hidden="hidden">
+        <input type="text" name="consumableType" th:value="${consumableDto.getConsumableType()}">
+        <input type="text" name="color" th:value="${consumableDto.getColor()}">
+        <input type="text" name="consumableMark" th:value="${consumableDto.getConsumableMark()}">
+        <button type="submit">Edytuj</button>
+
+    </form>
+</div>

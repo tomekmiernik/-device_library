@@ -1,9 +1,8 @@
 package com.example.company.device_library.util.dtos;
 
 import com.example.company.device_library.model.Computer;
-import com.example.company.device_library.model.Department;
+import com.example.company.device_library.model.MobileDevice;
 import com.example.company.device_library.model.Role;
-import com.example.company.device_library.model.Telephone;
 import lombok.*;
 
 import java.util.Set;
@@ -19,12 +18,13 @@ public class UserDto {
     private String firstName;
     private String lastName;
     private String position;
-    private Department department;
+    private String department;
     private String localization;
     private String email;
     private String password;
     private boolean active;
     private Computer computer;
-    private Telephone telephone;
+    private MobileDevice mobileDevice;
     private Set<Role> roles;
+
 }

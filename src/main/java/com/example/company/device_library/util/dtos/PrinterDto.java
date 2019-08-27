@@ -15,8 +15,8 @@ import java.util.Collection;
 @AllArgsConstructor
 public class PrinterDto {
     private Long printerId;
-    private DeviceManufacturer deviceManufacturer;
-    private DeviceType deviceType;
+    private String deviceManufacturer;
+    private String deviceType;
     private String serialNumber;
     private String ipAddress;
     private Computer computer;

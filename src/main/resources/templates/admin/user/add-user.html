@@ -1,0 +1,24 @@
+<div xmlns:th="http://www.thymeleaf.org" th:fragment="add-user">
+    <h4 th:text="${formName}"></h4>
+
+    <form th:action="@{'/admin/user'}" th:method="post" th:object="${userDto}">
+
+        <input type="text" name="firstName" placeholder="Imię">
+        <input type="text" name="lastName" placeholder="nazwisko">
+        <input type="text" name="position" placeholder="stanowisko">
+        <input type="text" name="localization" placeholder="lokalizacja">
+        <input type="text" name="email" placeholder="e-mail">
+        <input type="checkbox" name="active" th:checked="${userDto?.isActive()}">
+
+        <select  name="department">
+            <option selected disabled>Dział</option>
+            <option th:each="d : ${departments}"
+                    th:value="${d.getDepartmentShortName()}"
+                    th:text="${d.getDepartmentShortName()}">
+
+            </option>
+        </select>
+        <button type="submit">Dodaj</button>
+
+    </form>
+</div>

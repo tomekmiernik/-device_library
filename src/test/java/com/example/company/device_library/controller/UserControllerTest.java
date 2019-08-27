@@ -21,11 +21,10 @@ public class UserControllerTest {
 
     @Test
     public void shouldLoadAddUserPageGivenAddUserForm() throws Exception {
-        mvc.perform(get("/admin/add-user"))
+        mvc.perform(get("/admin/user"))
                 .andExpect(status().isOk())
-                .andExpect(model().attribute("title", "Dodawanie osoby"))
-                .andExpect(model().attribute("formName", "dodawanie osoby"))
+                .andExpect(model().attribute("formName", "Dodawanie osoby"))
                 .andExpect(model().attributeExists("userDto"))
-                .andExpect(view().name("admin/add-user"));
+                .andExpect(view().name("admin/user/user"));
     }
 }

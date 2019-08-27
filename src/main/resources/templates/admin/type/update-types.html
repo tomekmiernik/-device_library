@@ -1,0 +1,10 @@
+<div xmlns:th="http://www.thymeleaf.org" th:fragment="add-types">
+    <h4 th:text="${formName}"></h4>
+
+    <form th:action="@{'/admin/type'}" th:method="put" th:object="${deviceTypeDto}">
+        <input type="number" name="deviceTypeId" th:value="${deviceTypeDto.getId()}" readonly hidden>
+        <input type="text" name="typeName" th:value="${deviceTypeDto.getTypeName()}">
+        <button type="submit">Edytuj</button>
+
+    </form>
+</div>

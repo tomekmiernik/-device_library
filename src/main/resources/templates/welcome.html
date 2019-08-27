@@ -230,6 +230,7 @@
                       <th>Lokalizacja</th>
                       <th>Numer telefonu</th>
                       <th>Adres e-mail</th>
+                      <th>Akcja</th>
                     </tr>
                   </thead>
                   <tfoot>
@@ -240,6 +241,7 @@
                       <th>Lokalizacja</th>
                       <th>Numer telefonu</th>
                       <th>Adres e-mail</th>
+                      <th>Akcja</th>
                     </tr>
                   </tfoot>
                   <tbody>
@@ -250,6 +252,7 @@
                     <td style="font-size: 18px;" th:text="${user.getLocalization()}"></td>
                     <td style="font-size: 18px;" th:text="${user.getMobileDevice().getPhoneNumber()}"></td>
                     <td style="font-size: 18px;" th:text="${user.getEmail()}"></td>
+                    <td style="font-size: 18px;"><a th:href="@{'/details/'+${user.getUserId()}}">Podgląd</a></td>
                   </tr>
                   </tbody>
                 </table>

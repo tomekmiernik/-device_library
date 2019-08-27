@@ -5,7 +5,6 @@
             <th>Model</th>
             <th>Numer seryjny</th>
             <th>Adres IP</th>
-            <!--<th>Komputer zestawiony</th>-->
 
         </tr>
         <tr th:each="p : ${printers}">
@@ -13,7 +12,9 @@
             <td th:text="${p.getDeviceType()}"></td>
             <td th:text="${p.getSerialNumber()}"></td>
             <td th:text="${p.getIpAddress()}"></td>
-            <!--<td th:text="${p.getComputer()}"></td>-->
+            <td>
+                <a th:href="@{'/admin/printer/' +${p.getPrinterId()} + '/addConsumable'}">Dodaj uzupełnienie</a>
+            </td>
             <td>
                 <a th:href="@{'/admin/printer/' +${p.getPrinterId()} + '/updatePrinter'}">Edytuj</a>
             </td>

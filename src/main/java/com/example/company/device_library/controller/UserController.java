@@ -2,13 +2,10 @@ package com.example.company.device_library.controller;
 
 import com.example.company.device_library.model.Computer;
 import com.example.company.device_library.model.MobileDevice;
-import com.example.company.device_library.model.User;
 import com.example.company.device_library.service.ComputerService;
 import com.example.company.device_library.service.DepartmentService;
 import com.example.company.device_library.service.MobileDeviceService;
 import com.example.company.device_library.service.UserService;
-import com.example.company.device_library.util.dtos.ComputerDto;
-import com.example.company.device_library.util.dtos.MobileDeviceDto;
 import com.example.company.device_library.util.dtos.UserDto;
 import com.example.company.device_library.util.mappers.ComputerMapper;
 import com.example.company.device_library.util.mappers.MobileDeviceMapper;
@@ -28,24 +25,15 @@ public class UserController {
     private final MobileDeviceService mobileDeviceService;
     private final ComputerService computerService;
     private final DepartmentService departmentService;
-    private UserMapper userMapper;
-    private MobileDeviceMapper mobileDeviceMapper;
-    private ComputerMapper computerMapper;
 
     public UserController(UserService userService,
                           MobileDeviceService mobileDeviceService,
                           ComputerService computerService,
-                          DepartmentService departmentService,
-                          UserMapper userMapper,
-                          MobileDeviceMapper mobileDeviceMapper,
-                          ComputerMapper computerMapper) {
+                          DepartmentService departmentService) {
         this.userService = userService;
         this.mobileDeviceService = mobileDeviceService;
         this.computerService = computerService;
         this.departmentService = departmentService;
-        this.userMapper = userMapper;
-        this.mobileDeviceMapper = mobileDeviceMapper;
-        this.computerMapper = computerMapper;
     }
 
     @GetMapping("/user")
@@ -104,7 +92,7 @@ public class UserController {
     }
 
     @PostMapping("/user/addComputer/{userId}")
-    public String addComputer(@PathVariable("userId") Long userId, Computer computer){
+    public String addComputer(@PathVariable("userId") Long userId, Computer computer) {
         userService.reloadComputer(computer, userService.getUserById(userId));
         return "redirect:/admin/user";
     }

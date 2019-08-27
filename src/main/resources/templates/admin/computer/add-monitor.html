@@ -1,0 +1,17 @@
+<div xmlns:th="http://www.thymeleaf.org" th:fragment="add-monitor">
+    <h4 th:text="${formName}"></h4>
+
+    <form th:action="@{'/admin/computer/addMonitor/'+${computerDto.getComputerId()}}"
+          th:method="post" th:object="${computerDto}">
+
+        <select  name="monitor">
+            <option selected disabled>Monitor</option>
+            <option th:each="m : ${monitors}"
+                    th:value="${m.getMonitorId()}"
+                    th:text="${m.getDeviceManufacturer()+' | '+m.getSerialNumber()+' | '+m.getInchValue()}">
+            </option>
+        </select>
+        <button type="submit">Dodaj</button>
+
+    </form>
+</div>

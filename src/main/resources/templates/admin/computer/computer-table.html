@@ -13,7 +13,12 @@
             <td th:text="${c.getComputerAdName()}"></td>
             <td th:text="${c.getSerialNumber()}"></td>
             <td th:text="${c.getComputerType().getType()}"></td>
-
+            <td>
+                <a th:href="@{'/admin/computer/' +${c.getComputerId()} + '/addMonitor'}">Dodaj monitor</a>
+            </td>
+            <td>
+                <a th:href="@{'/admin/computer/' +${c.getComputerId()} + '/addPrinter'}">Dodaj drukarkę</a>
+            </td>
             <td>
                 <a th:href="@{'/admin/computer/' +${c.getComputerId()} + '/updateComputer'}">Edytuj</a>
             </td>

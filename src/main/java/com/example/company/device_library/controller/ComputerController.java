@@ -20,15 +20,18 @@ public class ComputerController {
     private ManufacturerService manufacturerService;
     private UserService userService;
     private PrinterService printerService;
+    private MonitorService monitorService;
 
     public ComputerController(ComputerService computerService, DeviceTypeService deviceTypeService,
                               ManufacturerService manufacturerService, UserService userService,
-                              PrinterService printerService) {
+                              PrinterService printerService,
+                              MonitorService monitorService) {
         this.computerService = computerService;
         this.deviceTypeService = deviceTypeService;
         this.manufacturerService = manufacturerService;
         this.userService = userService;
         this.printerService = printerService;
+        this.monitorService = monitorService;
     }
 
     @GetMapping("/computer")
@@ -70,4 +73,24 @@ public class ComputerController {
         computerService.updateComputer(computerDto);
         return "redirect:/admin/computer";
     }
+
+    @GetMapping("/computer/{computerId}/addMonitor")
+    public String getPageForAddMonitorOfComputer(@PathVariable("computerId") Long computerId, Model model){
+        model.addAttribute("formName", "Dodawanie monitora do stacji roboczej");
+        model.addAttribute("computerDto", computerService.getComputerById(computerId));
+        model.addAttribute("monitors", monitorService.getAllMonitors());
+        return "admin/computer/add-monitor";
+    }
+
+    /*@PostMapping addMonitor*/
+
+    @GetMapping("/computer/{computerId}/addPrinter")
+    public String getPageForAddPrinterOfComputer(@PathVariable("computerId") Long computerId, Model model){
+        model.addAttribute("formName", "Dodawanie drukarki do stacji roboczej");
+        model.addAttribute("computerDto", computerService.getComputerById(computerId));
+        model.addAttribute("printers", printerService.getAllPrinters());
+        return "admin/computer/add-printer";
+    }
+
+    /*@PostMapping addPrinter*/
 }

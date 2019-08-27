@@ -1,0 +1,17 @@
+<div xmlns:th="http://www.thymeleaf.org" th:fragment="add-consumable">
+    <h4 th:text="${formName}"></h4>
+
+    <form th:action="@{'/admin/computer/addConsumable/'+${printerDto.getPrinterId()}}"
+          th:method="post" th:object="${printerDto}">
+
+        <select  name="consumableCollection">
+            <option selected disabled>Tusz / Toner</option>
+            <option th:each="c : ${consumables}"
+                    th:value="${c.getConsumableId()}"
+                    th:text="${c.getConsumableMark()+' | '+c.getConsumableType()+' | '+c.getColor()}">
+            </option>
+        </select>
+        <button type="submit">Dodaj</button>
+
+    </form>
+</div>

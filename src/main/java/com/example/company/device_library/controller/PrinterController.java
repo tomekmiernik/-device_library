@@ -1,5 +1,6 @@
 package com.example.company.device_library.controller;
 
+import com.example.company.device_library.service.ConsumableService;
 import com.example.company.device_library.service.DeviceTypeService;
 import com.example.company.device_library.service.ManufacturerService;
 import com.example.company.device_library.service.PrinterService;
@@ -15,11 +16,16 @@ public class PrinterController {
     private PrinterService printerService;
     private ManufacturerService manufacturerService;
     private DeviceTypeService deviceTypeService;
+    private ConsumableService consumableService;
 
-    public PrinterController(PrinterService printerService, ManufacturerService manufacturerService, DeviceTypeService deviceTypeService) {
+    public PrinterController(PrinterService printerService,
+                             ManufacturerService manufacturerService,
+                             DeviceTypeService deviceTypeService,
+                             ConsumableService consumableService) {
         this.printerService = printerService;
         this.manufacturerService = manufacturerService;
         this.deviceTypeService = deviceTypeService;
+        this.consumableService = consumableService;
     }
 
     @GetMapping("/printer")
@@ -53,4 +59,17 @@ public class PrinterController {
         printerService.updatePrinter(printerDto);
         return "redirect:/admin/printer";
     }
+
+    @GetMapping("/printer/{printerId}/addConsumable")
+    public String getPageForAddConsumableOfPrinter(@PathVariable("printerId") Long printerId, Model model){
+        model.addAttribute("formName", "Dodawanie materiałów eksploatacyjnych");
+        model.addAttribute("printerDto", printerService.getPrinterById(printerId));
+        model.addAttribute("consumables", consumableService.getAllConsumables());
+        return "admin/printer/add-consumable";
+    }
+
+    /*@PostMapping addConsumable
+    *
+    * printerService.reloadConsumable(consumable, printerService.getPrinterById(printerId));
+    * */
 }

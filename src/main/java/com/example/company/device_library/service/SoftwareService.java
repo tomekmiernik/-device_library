@@ -36,7 +36,7 @@ public class SoftwareService {
 
     public void updateSoftware(SoftwareDto softwareDto) {
         softwareRepository.getSoftwareById(softwareDto.getSoftwareId())
-                .ifPresent( s-> {
+                .ifPresent(s -> {
                     s.setSoftwareName(softwareDto.getSoftwareName());
                     s.setLicenseNumber(softwareDto.getLicenseNumber());
                     s.setComputer(softwareDto.getComputer());

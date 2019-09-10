@@ -15,23 +15,23 @@ public class ManufacturerService {
     private ManufacturerMapper manufacturerMapper;
 
     public ManufacturerService(ManufacturerRepository manufacturerRepository,
-                               ManufacturerMapper manufacturerMapper){
+                               ManufacturerMapper manufacturerMapper) {
         this.manufacturerRepository = manufacturerRepository;
         this.manufacturerMapper = manufacturerMapper;
     }
 
-    public DeviceManufacturer addDeviceManufacturer(ManufacturerDto manufacturerDto){
+    public DeviceManufacturer addDeviceManufacturer(ManufacturerDto manufacturerDto) {
         return manufacturerRepository.save(manufacturerMapper.reverse(manufacturerDto));
     }
 
-    public Collection<ManufacturerDto> getAllManufacturers(){
+    public Collection<ManufacturerDto> getAllManufacturers() {
         return manufacturerRepository.findAll()
                 .stream()
                 .map(manufacturerMapper::map)
                 .collect(Collectors.toList());
     }
 
-    public ManufacturerDto getDeviceManufacturerById(Long manufacturerId){
+    public ManufacturerDto getDeviceManufacturerById(Long manufacturerId) {
         DeviceManufacturer getOne = manufacturerRepository.getOne(manufacturerId);
         return manufacturerMapper.map(getOne);
     }
@@ -43,7 +43,7 @@ public class ManufacturerService {
 
     public void updateManufacturer(ManufacturerDto manufacturerDto) {
         manufacturerRepository.getManufacturerById(manufacturerDto.getManufacturerId())
-                .ifPresent(p-> {
+                .ifPresent(p -> {
                     p.setManufacturerName(manufacturerDto.getManufacturerName());
                     p.setDeviceTypeCollection(manufacturerDto.getDeviceTypes());
                     manufacturerRepository.save(p);

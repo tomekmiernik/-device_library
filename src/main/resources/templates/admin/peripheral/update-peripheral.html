@@ -2,10 +2,10 @@
     <h4 th:text="${formName}"></h4>
 
     <form th:action="@{'/admin/peripheral'}" th:method="put" th:object="${peripheralDto}">
-        <input type="number" name="manufacturerId" th:value="${peripheralDto}" readonly hidden="hidden">
+        <input type="number" name="peripheralId" th:value="${peripheralDto.getPeripheralId()}" readonly hidden="hidden">
         <input type="text" name="typeInterface" th:value="${peripheralDto.getTypeInterface()}">
         <input type="text" name="namePeripheral" th:value="${peripheralDto.getNamePeripheral()}">
-        <input type="text" name="computer" th:value="${peripheralDto.getComputer()}">
+        <input type="text" name="serialNumber" th:value="${peripheralDto.getSerialNumber()}">
         <button type="submit">Edytuj</button>
 
     </form>

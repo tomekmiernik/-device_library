@@ -30,23 +30,23 @@ public class ConsumableController {
     }
 
     @PostMapping("/consumable")
-    public String addNewConsumableItem(@ModelAttribute("consumableDto") ConsumableDto consumableDto, BindingResult bindingResult){
-        if(bindingResult.hasErrors()){
+    public String addNewConsumableItem(@ModelAttribute("consumableDto") ConsumableDto consumableDto, BindingResult bindingResult) {
+        if (bindingResult.hasErrors()) {
             return "admin/consumable/consumable";
-        }else {
+        } else {
             consumableService.addConsumable(consumableDto);
             return "redirect:/admin/consumable";
         }
     }
 
     @GetMapping("/consumable/{consumableId}/updateConsumable")
-    public String getPageForUpdateConsumableItem(Model model, @PathVariable("consumableId") Long consumableId){
+    public String getPageForUpdateConsumableItem(Model model, @PathVariable("consumableId") Long consumableId) {
         model.addAttribute("consumableDto", consumableService.getConsumableById(consumableId));
         return "admin/consumable/update-consumable";
     }
 
     @PutMapping("/consumable")
-    public String updateConsumableItem(@ModelAttribute("consumableDto") ConsumableDto consumableDto){
+    public String updateConsumableItem(@ModelAttribute("consumableDto") ConsumableDto consumableDto) {
         consumableService.updateConsumable(consumableDto);
         return "redirect:/admin/consumable";
     }

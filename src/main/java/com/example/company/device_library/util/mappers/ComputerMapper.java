@@ -17,6 +17,8 @@ public class ComputerMapper implements Mapper<Computer, ComputerDto> {
                 .computerType(from.getComputerType())
                 .softwareCollection(from.getSoftwareCollection())
                 .peripheralCollection(from.getPeripheralCollection())
+                .monitor(from.getMonitor())
+                .printer(from.getPrinter())
                 .build();
     }
 
@@ -31,6 +33,8 @@ public class ComputerMapper implements Mapper<Computer, ComputerDto> {
         computer.setComputerType(to.getComputerType());
         computer.setSoftwareCollection(to.getSoftwareCollection());
         computer.setPeripheralCollection(to.getPeripheralCollection());
+        computer.setMonitor(to.getMonitor());
+        computer.setPrinter(to.getPrinter());
         return computer;
     }
 }

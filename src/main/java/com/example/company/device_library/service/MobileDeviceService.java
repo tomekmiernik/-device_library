@@ -1,6 +1,7 @@
 package com.example.company.device_library.service;
 
 import com.example.company.device_library.model.MobileDevice;
+import com.example.company.device_library.model.SimCard;
 import com.example.company.device_library.repository.MobileDeviceRepository;
 import com.example.company.device_library.util.dtos.MobileDeviceDto;
 import com.example.company.device_library.util.mappers.MobileDeviceMapper;
@@ -36,14 +37,18 @@ public class MobileDeviceService {
 
     public void updateMobileDevice(MobileDeviceDto mobileDeviceDto) {
         mobileDeviceRepository.getMobileDeviceById(mobileDeviceDto.getMobileDeviceId())
-                .ifPresent(t->{
+                .ifPresent(t -> {
                     t.setImeiNumber(mobileDeviceDto.getImeiNumber());
-                    t.setPhoneNumber(mobileDeviceDto.getPhoneNumber());
                     t.setPhoneType(mobileDeviceDto.getPhoneType());
-                    t.setUser(mobileDeviceDto.getUser());
                     t.setDeviceManufacturer(mobileDeviceDto.getDeviceManufacturer());
                     t.setDeviceType(mobileDeviceDto.getDeviceType());
                     mobileDeviceRepository.save(t);
                 });
+    }
+
+    public void getComputerAndAddSimCardHim(SimCard simCard, MobileDeviceDto databaseMobileDevice) {
+        databaseMobileDevice.setSimCard(simCard);
+        mobileDeviceRepository.save(mobileDeviceMapper.reverse(databaseMobileDevice));
+
     }
 }

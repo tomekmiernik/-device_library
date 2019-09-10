@@ -19,7 +19,7 @@ public class ComputerDto {
     private Computer.ComputerType computerType;
     private Collection<Software> softwareCollection;
     private Collection<Peripheral> peripheralCollection;
-    private User user;
     private Printer printer;
+    private Monitor monitor;
 
 }

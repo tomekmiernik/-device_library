@@ -1,6 +1,7 @@
 package com.example.company.device_library.util.dtos;
 
 import com.example.company.device_library.model.MobileDevice;
+import com.example.company.device_library.model.SimCard;
 import com.example.company.device_library.model.User;
 import lombok.*;
 
@@ -17,5 +18,6 @@ public class MobileDeviceDto {
     private String phoneNumber;
     private String imeiNumber;
     private MobileDevice.PhoneType phoneType;
+    private SimCard simCard;
     private User user;
 }

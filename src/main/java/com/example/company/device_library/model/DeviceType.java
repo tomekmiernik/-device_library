@@ -9,7 +9,7 @@ import javax.persistence.*;
 @Getter
 @Setter
 @Table(name = "device_types")
-public class DeviceType extends BasicEntityField{
+public class DeviceType extends BasicEntityField {
 
     @Column
     private String typeName;

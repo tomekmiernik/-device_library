@@ -11,7 +11,7 @@ import javax.persistence.*;
 @AllArgsConstructor
 @Builder
 @Table(name = "peripherals")
-public class Peripheral extends Device{
+public class Peripheral extends Device {
 
     @Enumerated(EnumType.STRING)
     @Column
@@ -20,11 +20,11 @@ public class Peripheral extends Device{
     @Column
     private String namePeripheral;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne
     @JoinColumn(name = "computer_id")
     private Computer computer;
 
-    public enum Interface{
+    public enum Interface {
         WIRELESSLY("Bezprzewodowo"),
         WIRE("Przewodowo");
 

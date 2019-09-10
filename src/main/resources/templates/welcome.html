@@ -138,11 +138,11 @@
           </button>
 
           <!-- Topbar Search -->
-          <form class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
+          <form th:action="@{/search}" th:method="post" class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
             <div class="input-group">
-              <input type="text" class="form-control bg-light border-0 small" placeholder="Search for..." aria-label="Search" aria-describedby="basic-addon2">
+              <input type="text" name="name" class="form-control bg-light border-0 small" placeholder="Wpisz nazwisko osoby" aria-label="Search" aria-describedby="basic-addon2">
               <div class="input-group-append">
-                <button class="btn btn-primary" type="button">
+                <button class="btn btn-primary" type="submit">
                   <i class="fas fa-search fa-sm"></i>
                 </button>
               </div>
@@ -250,7 +250,7 @@
                     <td style="font-size: 18px;" th:text="${user.getLastName()}"></td>
                     <td style="font-size: 18px;" th:text="${user.getDepartment()}"></td>
                     <td style="font-size: 18px;" th:text="${user.getLocalization()}"></td>
-                    <td style="font-size: 18px;" th:text="${user.getMobileDevice().getPhoneNumber()}"></td>
+                    <td style="font-size: 18px;" th:text="${user.getMobileDevice().getSimCard().getPhoneNumber()}"></td>
                     <td style="font-size: 18px;" th:text="${user.getEmail()}"></td>
                     <td style="font-size: 18px;"><a th:href="@{'/details/'+${user.getUserId()}}">Podgląd</a></td>
                   </tr>

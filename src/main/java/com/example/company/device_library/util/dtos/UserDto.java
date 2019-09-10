@@ -13,7 +13,6 @@ import java.util.Set;
 @NoArgsConstructor
 @AllArgsConstructor
 public class UserDto {
-
     private Long userId;
     private String firstName;
     private String lastName;
@@ -26,5 +25,4 @@ public class UserDto {
     private Computer computer;
     private MobileDevice mobileDevice;
     private Set<Role> roles;
-
 }

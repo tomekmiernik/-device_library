@@ -17,13 +17,10 @@ public class Monitor extends Device {
     String inchValue;
 
     @Column
+    @Enumerated(EnumType.STRING)
     MonitorType monitorType;
 
-    @OneToOne
-    @JoinColumn(name = "computer_id")
-    private Computer computer;
-
-    public enum MonitorType{
+    public enum MonitorType {
         CRT,
         LCD,
         LED,

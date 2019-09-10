@@ -1,0 +1,13 @@
+<div xmlns:th="http://www.thymeleaf.org" th:fragment="add-sim">
+    <h4 th:text="${formName}"></h4>
+
+    <form th:action="@{'/admin/sim'}" th:method="put" th:object="${simCardDto}">
+        <input type="number" name="simCardId" th:value="${simCardDto.getSimCardId()}" readonly hidden>
+        <input type="text" name="phoneNumber" th:value="${simCardDto.getPhoneNumber()}">
+        <input type="text" name="pinNumber" th:value="${simCardDto.getPinNumber()}">
+        <input type="text" name="pukNumber" th:value="${simCardDto.getPukNumber()}">
+        <input type="text" name="simCardNumber" th:value="${simCardDto.getSimCardNumber()}">
+        <button type="submit">Edytuj</button>
+
+    </form>
+</div>

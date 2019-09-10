@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/header :: header"></head>
+
+<body>
+<h5 th:text="${userInfo}"></h5>
+
+<h6>Komputer</h6>
+<h6 th:text="${computerManufacturer}"></h6>
+<h6 th:text="${computerAdName}"></h6>
+<h6 th:text="${computerSerialNumber}"></h6>
+<h6 th:text="${computerType}"></h6>
+
+<h6>Peryferia</h6>
+<h6 th:each="p: ${peripherals}" th:text="${p.getNamePeripheral() +' - '+
+p.getDeviceManufacturer() +' | '+ p.getSerialNumber()}"></h6>
+<br>
+<h6>Oprogramowanie</h6>
+<h6 th:each="s: ${software}" th:text="${s.getSoftwareName()+' | '+
+s.getLicenseNumber()}"></h6>
+
+
+<br>
+<h6>Monitor</h6>
+<h6 th:text="${monitorManufacturer}"></h6>
+<h6 th:text="${monitorType}"></h6>
+<h6 th:text="${monitorSerialNumber}"></h6>
+<br>
+<h6>Drukarka</h6>
+<h6 th:text="${printerManufacturer}"></h6>
+<h6 th:text="${printerDeviceType}"></h6>
+<h6 th:text="${printerSerialNumber}"></h6>
+<h6 th:each="c : ${consumables}" th:text="${c.getConsumableType() +' | '+
+c.getConsumableMark() +' | '+c.getColor()}"></h6>
+<br>
+<h6>Telefon</h6>
+<h6 th:text="${deviceManufacturer}"></h6>
+<h6 th:text="${deviceTypes}"></h6>
+<h6 th:text="${devicePhoneNumber}"></h6>
+<h6 th:text="${deviceImeiNumber}"></h6>
+<h6 th:text="${deviceSerialNumber}"></h6>
+
+</body>
+</html>

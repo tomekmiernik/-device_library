@@ -1,0 +1,17 @@
+<div xmlns:th="http://www.thymeleaf.org" th:fragment="add-software">
+    <h4 th:text="${formName}"></h4>
+
+    <form th:action="@{'/admin/computer/addSoftware/'+${computerDto.getComputerId()}}"
+          th:method="post" th:object="${computerDto}">
+
+        <select name="software">
+            <option selected disabled>Program</option>
+            <option th:each="s : ${softwares}"
+                    th:value="${s.getSoftwareId()}"
+                    th:text="${s.getSoftwareName()+' | '+s.getLicenseNumber()}">
+            </option>
+        </select>
+        <button type="submit">Dodaj</button>
+
+    </form>
+</div>

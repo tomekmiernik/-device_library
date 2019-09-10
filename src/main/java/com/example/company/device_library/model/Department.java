@@ -1,6 +1,5 @@
 package com.example.company.device_library.model;
 
-import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -12,7 +11,7 @@ import javax.persistence.Table;
 @Getter
 @Setter
 @Table(name = "departments")
-public class Department extends BasicEntityField{
+public class Department extends BasicEntityField {
 
     @Column
     private String departmentName;

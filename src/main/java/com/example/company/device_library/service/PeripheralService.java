@@ -39,7 +39,7 @@ public class PeripheralService {
                 .ifPresent(p -> {
                     p.setTypeInterface(peripheralDto.getTypeInterface());
                     p.setNamePeripheral(peripheralDto.getNamePeripheral());
-                    p.setComputer(peripheralDto.getComputer());
+                    p.setSerialNumber(peripheralDto.getSerialNumber());
                     peripheralRepository.save(p);
                 });
     }

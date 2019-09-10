@@ -18,16 +18,12 @@ public class Printer extends Device {
     @Column
     private String ipAddress;
 
-    @OneToOne
-    @JoinColumn(name = "computer_id")
-    private Computer computer;
-
     @OneToMany(mappedBy = "printer", cascade = CascadeType.ALL)
     private Collection<Consumable> consumableCollection = new HashSet<>();
 
 
-    public void addConsumable(Consumable consumable){
-        if(consumableCollection == null){
+    public void addConsumable(Consumable consumable) {
+        if (consumableCollection == null) {
             consumableCollection = new HashSet<>();
         }
         consumable.setPrinter(this);

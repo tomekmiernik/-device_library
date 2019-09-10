@@ -9,7 +9,7 @@ import javax.persistence.*;
 @Getter
 @Setter
 @Table(name = "consumables")
-public class Consumable extends BasicEntityField{
+public class Consumable extends BasicEntityField {
 
     @Column
     @Enumerated(EnumType.STRING)
@@ -21,17 +21,17 @@ public class Consumable extends BasicEntityField{
     @Column
     private String consumableMark;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne
     @JoinColumn(name = "printer_id")
     private Printer printer;
 
-    public enum ConsumableType{
+    public enum ConsumableType {
         INK("Tusz"),
         TONER("Toner");
 
         private String type;
 
-        ConsumableType(String type){
+        ConsumableType(String type) {
             this.type = type;
         }
 

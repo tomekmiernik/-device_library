@@ -7,9 +7,6 @@ import com.example.company.device_library.service.DepartmentService;
 import com.example.company.device_library.service.MobileDeviceService;
 import com.example.company.device_library.service.UserService;
 import com.example.company.device_library.util.dtos.UserDto;
-import com.example.company.device_library.util.mappers.ComputerMapper;
-import com.example.company.device_library.util.mappers.MobileDeviceMapper;
-import com.example.company.device_library.util.mappers.UserMapper;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -40,8 +37,6 @@ public class UserController {
     public String userPage(Model model) {
         model.addAttribute("formName", "Dodawanie osoby");
         model.addAttribute("userDto", new UserDto());
-        model.addAttribute("computers", computerService.getAllComputers());
-        model.addAttribute("telephones", mobileDeviceService.getAllMobileDevices());
         model.addAttribute("users", userService.getAllUsers());
         model.addAttribute("departments", departmentService.getAllDepartments());
         return "admin/user/user";
@@ -79,7 +74,7 @@ public class UserController {
 
     @PostMapping("/user/addDevice/{userId}")
     public String addDevice(@PathVariable("userId") Long userId, MobileDevice mobileDevice) {
-        userService.reloadDevice(mobileDevice, userService.getUserById(userId));
+        userService.addDevice(mobileDevice, userService.getUserById(userId));
         return "redirect:/admin/user";
     }
 
@@ -93,7 +88,7 @@ public class UserController {
 
     @PostMapping("/user/addComputer/{userId}")
     public String addComputer(@PathVariable("userId") Long userId, Computer computer) {
-        userService.reloadComputer(computer, userService.getUserById(userId));
+        userService.addComputer(computer, userService.getUserById(userId));
         return "redirect:/admin/user";
     }
 }

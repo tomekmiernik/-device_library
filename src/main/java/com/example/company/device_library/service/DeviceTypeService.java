@@ -15,23 +15,23 @@ public class DeviceTypeService {
     private DeviceTypeMapper deviceTypeMapper;
 
     public DeviceTypeService(DeviceTypeRepository deviceTypeRepository,
-        DeviceTypeMapper deviceTypeMapper){
+                             DeviceTypeMapper deviceTypeMapper) {
         this.deviceTypeRepository = deviceTypeRepository;
         this.deviceTypeMapper = deviceTypeMapper;
     }
 
-    public DeviceType addDeviceType(DeviceTypesDto deviceTypesDto){
+    public DeviceType addDeviceType(DeviceTypesDto deviceTypesDto) {
         return deviceTypeRepository.save(deviceTypeMapper.reverse(deviceTypesDto));
     }
 
-    public Collection<DeviceTypesDto> getAllDeviceTypes(){
+    public Collection<DeviceTypesDto> getAllDeviceTypes() {
         return deviceTypeRepository.findAll()
                 .stream()
                 .map(deviceTypeMapper::map)
                 .collect(Collectors.toList());
     }
 
-    public DeviceType getDeviceTypeById(Long deviceTypeId){
+    public DeviceType getDeviceTypeById(Long deviceTypeId) {
         return deviceTypeRepository.getOne(deviceTypeId);
     }
 
@@ -43,7 +43,7 @@ public class DeviceTypeService {
 
     public void updateDeviceType(DeviceTypesDto typeDto) {
         deviceTypeRepository.getDeviceTypeById(typeDto.getDeviceTypeId())
-                .ifPresent(t-> {
+                .ifPresent(t -> {
                     t.setTypeName(typeDto.getTypeName());
                     deviceTypeRepository.save(t);
                 });

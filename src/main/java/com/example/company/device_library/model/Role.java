@@ -13,7 +13,7 @@ import java.util.Set;
 @Getter
 @Setter
 @Table(name = "roles")
-public class Role extends BasicEntityField{
+public class Role extends BasicEntityField {
 
     @Column
     private String roleName;

@@ -1,14 +1,18 @@
 <div xmlns:th="http://www.thymeleaf.org" th:fragment="peripheral-table">
     <table>
         <tr>
+            <th>Producent</th>
+            <th>Model</th>
             <th>Rodzaj połączenia</th>
             <th>Nazwa urządzenia</th>
-            <th>Powiązany komputer</th>
+            <th>Numer seryjny</th>
         </tr>
         <tr th:each="p : ${peripherals}">
-            <td th:text="${p.getTypeInterface()}"></td>
+            <td th:text="${p.getDeviceManufacturer()}"></td>
+            <td th:text="${p.getDeviceType()}"></td>
+            <td th:text="${p.getTypeInterface().getType()}"></td>
             <td th:text="${p.getNamePeripheral()}"></td>
-            <td th:text="${p.getComputer()}"></td>
+            <td th:text="${p.getSerialNumber()}"></td>
             <td>
                 <a th:href="@{'/admin/peripheral/' +${p.getPeripheralId()} + '/updatePeripheral'}">Edytuj</a>
             </td>

@@ -11,6 +11,9 @@ import lombok.*;
 @AllArgsConstructor
 public class PeripheralDto {
     private Long peripheralId;
+    private String deviceManufacturer;
+    private String deviceType;
+    private String serialNumber;
     private Peripheral.Interface typeInterface;
     private String namePeripheral;
     private Computer computer;

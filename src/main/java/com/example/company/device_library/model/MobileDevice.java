@@ -3,6 +3,8 @@ package com.example.company.device_library.model;
 import lombok.*;
 
 import javax.persistence.*;
+import java.util.Collection;
+import java.util.HashSet;
 
 @Entity
 @Getter
@@ -14,28 +16,24 @@ import javax.persistence.*;
 public class MobileDevice extends Device {
 
     @Column
-    private String phoneNumber;
-
-    @Column
     private String imeiNumber;
 
     @Enumerated(EnumType.STRING)
     @Column
     private PhoneType phoneType;
 
-    @OneToOne
-    @JoinColumn(name = "user_id")
-    @Transient
-    private User user;
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "simCard_id")
+    private SimCard simCard;
 
-    public enum PhoneType{
-        PHONE("Stacjonarny"),
+    public enum PhoneType {
+        MODEM("Modem"),
         MOBILE_PHONE("Komórkowy"),
         TABLET("Tablet");
 
         private String type;
 
-        PhoneType(String type){
+        PhoneType(String type) {
             this.type = type;
         }
 

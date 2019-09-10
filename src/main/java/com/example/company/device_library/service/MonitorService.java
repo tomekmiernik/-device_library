@@ -36,13 +36,12 @@ public class MonitorService {
 
     public void updateMonitor(MonitorDto monitorDto) {
         monitorRepository.getMonitorsById(monitorDto.getMonitorId())
-                .ifPresent(m->{
+                .ifPresent(m -> {
                     m.setDeviceManufacturer(monitorDto.getDeviceManufacturer());
                     m.setDeviceType(monitorDto.getDeviceType());
                     m.setSerialNumber(monitorDto.getSerialNumber());
                     m.setInchValue(monitorDto.getInchValue());
                     m.setMonitorType(monitorDto.getMonitorType());
-                    m.setComputer(monitorDto.getComputer());
                     monitorRepository.save(m);
                 });
     }

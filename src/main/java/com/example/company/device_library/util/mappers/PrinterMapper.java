@@ -14,7 +14,6 @@ public class PrinterMapper implements Mapper<Printer, PrinterDto> {
                 .deviceType(from.getDeviceType())
                 .serialNumber(from.getSerialNumber())
                 .ipAddress(from.getIpAddress())
-                .computer(from.getComputer())
                 .consumableCollection(from.getConsumableCollection())
                 .build();
     }
@@ -27,7 +26,6 @@ public class PrinterMapper implements Mapper<Printer, PrinterDto> {
         printer.setDeviceType(to.getDeviceType());
         printer.setSerialNumber(to.getSerialNumber());
         printer.setIpAddress(to.getIpAddress());
-        printer.setComputer(to.getComputer());
         printer.setConsumableCollection(to.getConsumableCollection());
         return printer;
     }

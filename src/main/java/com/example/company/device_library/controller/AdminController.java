@@ -1,6 +1,7 @@
 package com.example.company.device_library.controller;
 
-import com.example.company.device_library.util.dtos.*;
+import com.example.company.device_library.util.dtos.PeripheralDto;
+import com.example.company.device_library.util.dtos.PrinterDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;

@@ -1,0 +1,11 @@
+<div xmlns:th="http://www.thymeleaf.org" th:fragment="add-sim">
+    <h4 th:text="${formName}"></h4>
+
+    <form th:action="@{'/admin/sim'}" th:method="post" th:object="${simCardDto}">
+        <input type="text" name="phoneNumber" placeholder="numer telefonu">
+        <input type="text" name="pinNumber" placeholder="kod PIN">
+        <input type="text" name="pukNumber" placeholder="kod PUK">
+        <input type="text" name="simCardNumber" placeholder="numer karty SIM">
+        <button type="submit">Dodaj</button>
+    </form>
+</div>

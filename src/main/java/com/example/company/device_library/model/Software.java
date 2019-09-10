@@ -11,14 +11,14 @@ import javax.persistence.*;
 @AllArgsConstructor
 @Builder
 @Table(name = "softwares")
-public class Software extends BasicEntityField{
+public class Software extends BasicEntityField {
 
     @Column
     private String softwareName;
     @Column
     private String licenseNumber;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne
     @JoinColumn(name = "computer_id")
     private Computer computer;
 }

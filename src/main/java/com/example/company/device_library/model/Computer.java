@@ -26,13 +26,12 @@ public class Computer extends Device {
     @OneToMany(mappedBy = "computer", cascade = CascadeType.ALL)
     private Collection<Peripheral> peripheralCollection = new HashSet<>();
 
-    @OneToOne(mappedBy = "computer", cascade = CascadeType.ALL)
-    private User user;
-
-    @OneToOne(mappedBy = "computer", cascade = CascadeType.ALL)
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "monitor_id")
     private Monitor monitor;
 
-    @OneToOne(mappedBy = "computer", cascade = CascadeType.ALL)
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "printer_id")
     private Printer printer;
 
     public enum ComputerType {

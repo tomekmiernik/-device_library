@@ -1,6 +1,5 @@
 package com.example.company.device_library.model;
 
-import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
 

@@ -17,7 +17,7 @@ public class SoftwareController {
     }
 
     @GetMapping("/software")
-    public String softwarePage(Model model){
+    public String softwarePage(Model model) {
         model.addAttribute("formName", "Dodawanie oprogramowania");
         model.addAttribute("softwareDto", new SoftwareDto());
         model.addAttribute("software", softwareService.getAllSoftwares());
@@ -25,23 +25,23 @@ public class SoftwareController {
     }
 
     @PostMapping("/software")
-    public String addNewSoftwareItem(@ModelAttribute("softwareDto") SoftwareDto softwareDto, BindingResult bindingResult){
-        if(bindingResult.hasErrors()){
+    public String addNewSoftwareItem(@ModelAttribute("softwareDto") SoftwareDto softwareDto, BindingResult bindingResult) {
+        if (bindingResult.hasErrors()) {
             return "admin/software/software";
-        }else {
+        } else {
             softwareService.addSoftware(softwareDto);
             return "redirect:/admin/software";
         }
     }
 
     @GetMapping("/software/{softwareId}/updateSoftware")
-    public String getPageForUpdateSoftwareItem(Model model, @PathVariable("softwareId") Long softwareId){
+    public String getPageForUpdateSoftwareItem(Model model, @PathVariable("softwareId") Long softwareId) {
         model.addAttribute("softwareDto", softwareService.getSoftwareById(softwareId));
         return "admin/software/update-software";
     }
 
     @PutMapping("/software")
-    public String updateSoftwareItem(@ModelAttribute("softwareDto") SoftwareDto softwareDto){
+    public String updateSoftwareItem(@ModelAttribute("softwareDto") SoftwareDto softwareDto) {
         softwareService.updateSoftware(softwareDto);
         return "redirect:/admin/software";
     }

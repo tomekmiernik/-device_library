@@ -4,22 +4,21 @@
             <th>Producent</th>
             <th>Model</th>
             <th>Numer seryjny</th>
-            <th>Numer telefonu</th>
             <th>Numer IMEI</th>
             <th>Typ telefonu</th>
-           <!-- <th>Korzystający</th>-->
 
         </tr>
         <tr th:each="t : ${telephones}">
             <td th:text="${t.getDeviceManufacturer()}"></td>
             <td th:text="${t.getDeviceType()}"></td>
             <td th:text="${t.getSerialNumber()}"></td>
-            <td th:text="${t.getPhoneNumber()}"></td>
             <td th:text="${t.getImeiNumber()}"></td>
             <td th:text="${t.getPhoneType().getType()}"></td>
-            <!--<td th:text="${t.getUser().getFirstName() +' '+t.getUser().getLastName()}"></td>-->
             <td>
                 <a th:href="@{'/admin/telephone/' +${t.getMobileDeviceId()} + '/updateTelephone'}">Edytuj</a>
+            </td>
+            <td>
+                <a th:href="@{'/admin/telephone/' +${t.getMobileDeviceId()} + '/addSimCard'}">Przypisz kartę SIM</a>
             </td>
             <td>
                 <form action="/delete" method="get">

@@ -10,9 +10,11 @@ public class PeripheralMapper implements Mapper<Peripheral, PeripheralDto> {
     public PeripheralDto map(Peripheral from) {
         return PeripheralDto.builder()
                 .peripheralId(from.getId())
+                .deviceManufacturer(from.getDeviceManufacturer())
+                .deviceType(from.getDeviceType())
                 .typeInterface(from.getTypeInterface())
+                .serialNumber(from.getSerialNumber())
                 .namePeripheral(from.getNamePeripheral())
-                .computer(from.getComputer())
                 .build();
     }
 
@@ -20,9 +22,11 @@ public class PeripheralMapper implements Mapper<Peripheral, PeripheralDto> {
     public Peripheral reverse(PeripheralDto to) {
         Peripheral peripheral = new Peripheral();
         peripheral.setId(to.getPeripheralId());
+        peripheral.setDeviceManufacturer(to.getDeviceManufacturer());
+        peripheral.setDeviceType(to.getDeviceType());
+        peripheral.setSerialNumber(to.getSerialNumber());
         peripheral.setTypeInterface(to.getTypeInterface());
         peripheral.setNamePeripheral(to.getNamePeripheral());
-        peripheral.setComputer(to.getComputer());
         return peripheral;
     }
 }

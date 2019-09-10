@@ -4,7 +4,7 @@
     <form th:action="@{'/admin/computer/addPrinter/'+${computerDto.getComputerId()}}"
           th:method="post" th:object="${computerDto}">
 
-        <select  name="monitor">
+        <select name="printer">
             <option selected disabled>Drukarka</option>
             <option th:each="p : ${printers}"
                     th:value="${p.getPrinterId()}"

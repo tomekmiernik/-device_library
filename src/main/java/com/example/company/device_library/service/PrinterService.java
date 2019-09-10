@@ -1,5 +1,6 @@
 package com.example.company.device_library.service;
 
+import com.example.company.device_library.model.Consumable;
 import com.example.company.device_library.model.Printer;
 import com.example.company.device_library.repository.PrinterRepository;
 import com.example.company.device_library.util.dtos.PrinterDto;
@@ -36,13 +37,18 @@ public class PrinterService {
 
     public void updatePrinter(PrinterDto printerDto) {
         printerRepository.findById(printerDto.getPrinterId())
-                .ifPresent(p-> {
+                .ifPresent(p -> {
                     p.setDeviceManufacturer(printerDto.getDeviceManufacturer());
                     p.setDeviceType(printerDto.getDeviceType());
-                    p.setComputer(printerDto.getComputer());
                     p.setIpAddress(printerDto.getIpAddress());
                     p.setSerialNumber(printerDto.getSerialNumber());
                     printerRepository.save(p);
                 });
+    }
+
+    public void getPrinterAndAddConsumableHer(Consumable consumable, PrinterDto databasePrinter) {
+        consumable.setPrinter(printerMapper.reverse(databasePrinter));
+        printerMapper.reverse(databasePrinter).addConsumable(consumable);
+        printerRepository.save(printerMapper.reverse(databasePrinter));
     }
 }

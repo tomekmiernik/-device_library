@@ -1,6 +1,5 @@
 package com.example.company.device_library.repository;
 
-import com.example.company.device_library.controller.DeviceTypeController;
 import com.example.company.device_library.model.DeviceType;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;

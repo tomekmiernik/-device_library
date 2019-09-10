@@ -1,9 +1,7 @@
 package com.example.company.device_library.controller;
 
-import com.example.company.device_library.service.DeviceTypeService;
-import com.example.company.device_library.service.ManufacturerService;
-import com.example.company.device_library.service.MobileDeviceService;
-import com.example.company.device_library.service.UserService;
+import com.example.company.device_library.model.SimCard;
+import com.example.company.device_library.service.*;
 import com.example.company.device_library.util.dtos.MobileDeviceDto;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -18,13 +16,16 @@ public class MobileDeviceController {
     private ManufacturerService manufacturerService;
     private DeviceTypeService deviceTypeService;
     private UserService userService;
+    private SimCardService simCardService;
 
     public MobileDeviceController(MobileDeviceService mobileDeviceService, ManufacturerService manufacturerService,
-                                  DeviceTypeService deviceTypeService, UserService userService) {
+                                  DeviceTypeService deviceTypeService, UserService userService,
+                                  SimCardService simCardService) {
         this.mobileDeviceService = mobileDeviceService;
         this.manufacturerService = manufacturerService;
         this.deviceTypeService = deviceTypeService;
         this.userService = userService;
+        this.simCardService = simCardService;
     }
 
     @GetMapping("/telephone")
@@ -62,4 +63,17 @@ public class MobileDeviceController {
         return "redirect:/admin/telephone";
     }
 
+    @GetMapping("/telephone/{telephoneId}/addSimCard")
+    public String getPageForAddSimCardOfTelephone(@PathVariable("telephoneId") Long telephoneId, Model model){
+        model.addAttribute("formName", "Przypisywanie karty SIM");
+        model.addAttribute("telephoneDto", mobileDeviceService.getMobileDeviceById(telephoneId));
+        model.addAttribute("sims", simCardService.getAllCardSims());
+        return "admin/telephone/add-sim";
+    }
+
+    @PostMapping("/telephone/addSimCard/{telephoneId}")
+    public String addSimCard(@PathVariable("telephoneId") Long telephoneId, SimCard simCard){
+        mobileDeviceService.getComputerAndAddSimCardHim(simCard, mobileDeviceService.getMobileDeviceById(telephoneId));
+        return "redirect:/admin/telephone";
+    }
 }

@@ -1,10 +1,7 @@
 package com.example.company.device_library.util.dtos;
 
 import com.example.company.device_library.model.DeviceManufacturer;
-import com.example.company.device_library.model.DeviceType;
 import lombok.*;
-
-import java.util.Collection;
 
 @Builder
 @Getter

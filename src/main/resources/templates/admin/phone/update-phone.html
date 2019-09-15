@@ -1,0 +1,34 @@
+<div xmlns:th="http://www.thymeleaf.org" th:fragment="add-phone">
+    <h4 th:text="${formName}"></h4>
+
+    <form th:action="@{'/admin/phone'}" th:method="put" th:object="${telephoneDto}">
+        <input type="number" name="telephoneId" th:value="${telephoneDto.getTelephoneId()}" readonly hidden="hidden">
+        <select name="deviceManufacturer">
+            <option disabled selected value="">Producent</option>
+            <option th:each="p : ${produces}"
+                    th:value="${p.getManufacturerName()}"
+                    th:text="${p.getManufacturerName()}">
+            </option>
+        </select>
+        <select name="deviceType">
+            <option disabled selected value="">Model</option>
+            <option th:each="m : ${models}"
+                    th:value="${m.getTypeName()}"
+                    th:text="${m.getTypeName()}">
+            </option>
+        </select>
+        <input type="text" name="serialNumber" th:value="${telephoneDto.getSerialNumber()}">
+        <input type="text" name="phoneNumber" th:value="${telephoneDto.getPhoneNumber()}">
+        <input type="text" name="internalNumber" th:value="${telephoneDto.getInternalNumber()}">
+        <select name="phoneType">
+            <option disabled selected value="">Typ telefonu</option>
+            <option th:each="t : ${T(com.example.company.device_library.model.Telephone.PhoneType).values()}"
+                    th:value="${t}"
+                    th:text="${t.getType()}">
+            </option>
+        </select>
+
+        <button type="submit">Edytuj</button>
+
+    </form>
+</div>

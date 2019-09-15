@@ -1,0 +1,34 @@
+<div xmlns:th="http://www.thymeleaf.org" th:fragment="phone-table">
+    <table>
+        <tr>
+            <th>Producent</th>
+            <th>Model</th>
+            <th>Numer seryjny</th>
+            <th>Numer telefonu</th>
+            <th>Numer wewnętrzny</th>
+            <th>Typ telefonu</th>
+
+        </tr>
+        <tr th:each="p : ${phones}">
+            <td th:text="${p.getDeviceManufacturer()}"></td>
+            <td th:text="${p.getDeviceType()}"></td>
+            <td th:text="${p.getSerialNumber()}"></td>
+            <td th:text="${p.getPhoneNumber()}"></td>
+            <td th:text="${p.getInternalNumber()}"></td>
+            <td th:text="${p.getPhoneType().getType()}"></td>
+
+            <td>
+                <a th:href="@{'/admin/phone/' +${p.getTelephoneId()} + '/updatePhone'}">Edytuj urządzenie</a>
+            </td>
+
+            <td>
+                <form action="/delete" method="get">
+                    <input type="hidden" th:value="${p.getTelephoneId()}" name="telephoneId">
+                    <button type="submit">
+                        <i aria-hidden="true"></i> Delete
+                    </button>
+                </form>
+            </td>
+        </tr>
+    </table>
+</div>

@@ -38,8 +38,9 @@ public class UserController {
         model.addAttribute("formName", "Dodawanie osoby");
         model.addAttribute("userDto", new UserDto());
         model.addAttribute("users", userService.getAllUsers());
-        model.addAttribute("departments", departmentService.getAllDepartments());
+        setDepartments(model);
         return "admin/user/user";
+
     }
 
     @PostMapping("/user")
@@ -54,7 +55,9 @@ public class UserController {
 
     @GetMapping("/user/{userId}/updateUser")
     public String getPageForUserUpdate(@PathVariable("userId") Long userId, Model model) {
+        model.addAttribute("formName", "Edytowanie danych osoby");
         model.addAttribute("userDto", userService.getUserById(userId));
+        setDepartments(model);
         return "admin/user/update-user";
     }
 
@@ -90,5 +93,9 @@ public class UserController {
     public String addComputer(@PathVariable("userId") Long userId, Computer computer) {
         userService.addComputer(computer, userService.getUserById(userId));
         return "redirect:/admin/user";
+    }
+
+    private void setDepartments(Model model) {
+        model.addAttribute("departments", departmentService.getAllDepartments());
     }
 }

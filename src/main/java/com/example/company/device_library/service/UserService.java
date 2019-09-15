@@ -14,6 +14,7 @@ import com.example.company.device_library.util.mappers.UserMapper;
 import org.springframework.stereotype.Service;
 
 import java.util.Collection;
+import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
@@ -35,10 +36,12 @@ public class UserService {
 
 
     public Collection<UserDto> getUsersByLastName(String userLastName) {
-        return userRepository.findUsersByLastName(userLastName)
+        List<UserDto> collectUsers = userRepository.findUsersByLastName(userLastName)
                 .stream()
                 .map(userMapper::map)
                 .collect(Collectors.toList());
+        setDefaultCharsWhenUserHasNotMobileDevice(collectUsers);
+        return collectUsers;
     }
 
     public User addUser(UserDto userDto) {
@@ -93,12 +96,16 @@ public class UserService {
     }
 
     public void getUsersFilerByPhoneNumber(Collection<UserDto> users) {
-         users.stream()
-                .filter(u-> u.getMobileDevice() == null)
+        setDefaultCharsWhenUserHasNotMobileDevice(users);
+    }
+
+    private void setDefaultCharsWhenUserHasNotMobileDevice(Collection<UserDto> users) {
+        users.stream()
+                .filter(u -> u.getMobileDevice() == null)
                 .forEach(u -> {
                     u.setMobileDevice(new MobileDevice());
                     u.getMobileDevice().setSimCard(new SimCard());
-                    u.getMobileDevice().getSimCard().setPhoneNumber("---");
+                    u.getMobileDevice().getSimCard().setPhoneNumber("- - -");
                 });
     }
 }

@@ -1,0 +1,29 @@
+<div xmlns:th="http://www.thymeleaf.org" th:fragment="device-table">
+    <table>
+        <tr>
+            <th>Producent</th>
+            <th>Model</th>
+            <th>Nazwa urządzenia</th>
+            <th>Numer seryjny</th>
+            <th>Rodzaj urządzenia</th>
+        </tr>
+        <tr th:each="o : ${otherDevices}">
+            <td th:text="${o.getDeviceManufacturer()}"></td>
+            <td th:text="${o.getDeviceType()}"></td>
+            <td th:text="${o.getDescription()}"></td>
+            <td th:text="${o.getSerialNumber()}"></td>
+            <td th:text="${o.getOtherDeviceType().getType()}"></td>
+            <td>
+                <a th:href="@{'/admin/other/' +${o.getOtherDeviceId()} + '/updateDevice'}">Edytuj</a>
+            </td>
+            <td>
+                <form action="/delete" method="get">
+                    <input type="hidden" th:value="${o.getOtherDeviceId()}" name="otherDeviceId">
+                    <button type="submit">
+                        <i aria-hidden="true"></i> Delete
+                    </button>
+                </form>
+            </td>
+        </tr>
+    </table>
+</div>

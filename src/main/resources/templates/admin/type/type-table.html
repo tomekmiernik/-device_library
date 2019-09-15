@@ -6,7 +6,7 @@
         <tr th:each="t : ${types}">
             <td th:text="${t.getTypeName()}"></td>
             <td>
-                <a th:href="@{'/admin/type/' + ${t.getDeviceTypeId()} + '/updateTypes'}">Edytuj</a>
+                <a th:href="@{'/admin/type/' + ${t.getDeviceTypeId()} + '/updateType'}">Edytuj</a>
             </td>
             <td>
                 <form action="/delete" method="get">

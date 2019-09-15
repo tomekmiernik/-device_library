@@ -1,8 +1,8 @@
 <div xmlns:th="http://www.thymeleaf.org" th:fragment="add-sim">
     <h4 th:text="${formName}"></h4>
 
-    <form th:action="@{'/admin/telephone/addSimCard/'+${telephoneDto.getMobileDeviceId()}}"
-          th:method="post" th:object="${telephoneDto}">
+    <form th:action="@{'/admin/mobile/addSimCard/'+${mobileDeviceDto.getMobileDeviceId()}}"
+          th:method="post" th:object="${mobileDeviceDto}">
 
         <select  name="simCard">
             <option selected disabled>Karta SIM</option>

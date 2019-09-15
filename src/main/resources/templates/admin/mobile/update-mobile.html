@@ -1,7 +1,8 @@
-<div xmlns:th="http://www.thymeleaf.org" th:fragment="add-telephone">
+<div xmlns:th="http://www.thymeleaf.org" th:fragment="add-mobile">
     <h4 th:text="${formName}"></h4>
 
-    <form th:action="@{'/admin/telephone'}" th:method="post" th:object="${mobileDeviceDto}">
+    <form th:action="@{'/admin/mobile'}" th:method="put" th:object="${mobileDeviceDto}">
+        <input type="number" name="mobileDeviceId" th:value="${mobileDeviceDto.getMobileDeviceId()}" readonly hidden="hidden">
         <select name="deviceManufacturer">
             <option disabled selected value="">Producent</option>
             <option th:each="p : ${produces}"
@@ -9,7 +10,6 @@
                     th:text="${p.getManufacturerName()}">
             </option>
         </select>
-
         <select name="deviceType">
             <option disabled selected value="">Model</option>
             <option th:each="m : ${models}"
@@ -17,10 +17,8 @@
                     th:text="${m.getTypeName()}">
             </option>
         </select>
-
-        <input type="text" name="serialNumber" placeholder="numer seryjny">
-        <input type="text" name="imeiNumber" placeholder="numer IMEI">
-
+        <input type="text" name="serialNumber" th:value="${mobileDeviceDto.getSerialNumber()}">
+        <input type="text" name="imeiNumber" th:value="${mobileDeviceDto.getImeiNumber()}">
         <select name="phoneType">
             <option disabled selected value="">Typ telefonu</option>
             <option th:each="t : ${T(com.example.company.device_library.model.MobileDevice.PhoneType).values()}"
@@ -29,7 +27,7 @@
             </option>
         </select>
 
-        <button type="submit">Dodaj</button>
+        <button type="submit">Edytuj</button>
 
     </form>
 </div>

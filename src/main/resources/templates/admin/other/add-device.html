@@ -1,0 +1,32 @@
+<div xmlns:th="http://www.thymeleaf.org" th:fragment="add-device">
+    <h4 th:text="${formName}"></h4>
+
+    <form th:action="@{'/admin/other'}" th:method="post" th:object="${otherDeviceDto}">
+        <select name="deviceManufacturer">
+            <option disabled selected value="">Producent</option>
+            <option th:each="t : ${produces}"
+                    th:value="${t.getManufacturerName()}"
+                    th:text="${t.getManufacturerName()}"></option>
+        </select>
+
+        <select name="deviceType">
+            <option disabled selected value="">Model</option>
+            <option th:each="m : ${models}"
+                    th:value="${m.getTypeName()}"
+                    th:text="${m.getTypeName()}"></option>
+        </select>
+
+        <input type="text" name="description" placeholder="nazwa urządzenia">
+        <input type="text" name="serialNumber" placeholder="numer seryjny">
+
+        <select name="otherDeviceType">
+            <option disabled selected value="">Rodzaj urządzenia</option>
+            <option th:each="t : ${T(com.example.company.device_library.model.OtherDevice.OtherDeviceType).values()}"
+                    th:value="${t}"
+                    th:text="${t.getType()}"></option>
+        </select>
+
+        <button type="submit">Dodaj</button>
+
+    </form>
+</div>

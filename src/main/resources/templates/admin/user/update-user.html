@@ -6,12 +6,17 @@
         <input type="text" name="firstName" th:value="${userDto.getFirstName()}">
         <input type="text" name="lastName" th:value="${userDto.getLastName()}">
         <input type="text" name="position" th:value="${userDto.getPosition()}">
-        <input type="text" name="department" th:value="${userDto.getDepartment()}">
+        <select  name="department">
+            <option selected disabled>Dział</option>
+            <option th:each="d : ${departments}"
+                    th:value="${d.getDepartmentShortName()}"
+                    th:text="${d.getDepartmentShortName()}">
+
+            </option>
+        </select>
         <input type="text" name="localization" th:value="${userDto.getLocalization()}">
         <input type="text" name="email" th:value="${userDto.getEmail()}">
         <input type="checkbox" name="active" th:checked="${userDto?.isActive()}">
-        <!--<input type="text" name="computer" th:value="${userDto.getComputer()}">
-        <input type="text" name="telephone" th:value="${userDto.getTelephone()}">-->
         <button type="submit">Edytuj</button>
 
     </form>

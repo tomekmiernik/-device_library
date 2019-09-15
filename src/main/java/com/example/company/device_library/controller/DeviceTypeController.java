@@ -14,20 +14,16 @@ import javax.validation.Valid;
 @RequestMapping("/admin")
 public class DeviceTypeController {
     private DeviceTypeService deviceTypeService;
-    private ManufacturerService manufacturerService;
 
-    public DeviceTypeController(DeviceTypeService deviceTypeService,
-                                ManufacturerService manufacturerService) {
+    public DeviceTypeController(DeviceTypeService deviceTypeService) {
         this.deviceTypeService = deviceTypeService;
-        this.manufacturerService = manufacturerService;
     }
 
     @GetMapping("/type")
     public String deviceTypePage(Model model) {
-        model.addAttribute("typeDto", new DeviceTypesDto());
-        model.addAttribute("produces", manufacturerService.getAllManufacturers());
-        model.addAttribute("types", deviceTypeService.getAllDeviceTypes());
         model.addAttribute("formName", "Dodawanie modelu sprzętu");
+        model.addAttribute("typeDto", new DeviceTypesDto());
+        model.addAttribute("types", deviceTypeService.getAllDeviceTypes());
         return "admin/type/type";
     }
 
@@ -41,10 +37,11 @@ public class DeviceTypeController {
         }
     }
 
-    @GetMapping("/type/{typeId}/updateTypes")
+    @GetMapping("/type/{typeId}/updateType")
     public String getPageForUpdateDeviceTypeItem(Model model, @PathVariable("typeId") Long typeId) {
+        model.addAttribute("formName", "Edycja modelu urządzenia");
         model.addAttribute("deviceTypeDto", deviceTypeService.getDeviceTypeById(typeId));
-        return "admin/type/update-types";
+        return "admin/type/update-type";
     }
 
     @PutMapping("/type")

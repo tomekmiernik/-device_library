@@ -5,37 +5,31 @@ import lombok.*;
 import javax.persistence.*;
 
 @Entity
-@Setter
 @Getter
-@AllArgsConstructor
+@Setter
 @NoArgsConstructor
+@AllArgsConstructor
 @Builder
-@Table(name = "telephones")
-public class Telephone extends Device {
+@Table(name = "other_device")
+public class OtherDevice extends Device {
 
     @Column
-    private String phoneNumber;
-
-    @Column
-    private String internalNumber;
+    private String description;
 
     @Column
     @Enumerated(EnumType.STRING)
-    private PhoneType phoneType;
+    private OtherDeviceType otherDeviceType;
 
-    public enum PhoneType{
-        WIRELESSLY("Bezprzewodowy"),
-        WIRE("Przewodowy");
-
+    public enum OtherDeviceType {
+        MOBILE("Przenośne"),
+        STATIONARY("Stacjonarne");
 
         private String type;
-        PhoneType(String type){
+        OtherDeviceType(String type){
             this.type = type;
         }
-
         public String getType(){
             return type;
         }
-
     }
 }

@@ -21,10 +21,12 @@ public class MobileDeviceService {
     }
 
     public Collection<MobileDeviceDto> getAllMobileDevices() {
-        return mobileDeviceRepository.findAll()
+        Collection<MobileDeviceDto> mobileDevices = mobileDeviceRepository.findAll()
                 .stream()
                 .map(mobileDeviceMapper::map)
                 .collect(Collectors.toList());
+        setDefaultCharsWhenMobileDeviceHasNotSimCard(mobileDevices);
+        return mobileDevices;
     }
 
     public MobileDevice addMobileDevice(MobileDeviceDto mobileDeviceDto) {
@@ -41,6 +43,7 @@ public class MobileDeviceService {
                     t.setImeiNumber(mobileDeviceDto.getImeiNumber());
                     t.setPhoneType(mobileDeviceDto.getPhoneType());
                     t.setDeviceManufacturer(mobileDeviceDto.getDeviceManufacturer());
+                    t.setSerialNumber(mobileDeviceDto.getSerialNumber());
                     t.setDeviceType(mobileDeviceDto.getDeviceType());
                     mobileDeviceRepository.save(t);
                 });
@@ -50,5 +53,13 @@ public class MobileDeviceService {
         databaseMobileDevice.setSimCard(simCard);
         mobileDeviceRepository.save(mobileDeviceMapper.reverse(databaseMobileDevice));
 
+    }
+
+    private void setDefaultCharsWhenMobileDeviceHasNotSimCard(Collection<MobileDeviceDto> mobileDevices) {
+        mobileDevices.stream().filter(md -> md.getSimCard() == null)
+                .forEach(md -> {
+                    md.setSimCard(new SimCard());
+                    md.getSimCard().setPhoneNumber("Brak karty SIM");
+                });
     }
 }

@@ -1,0 +1,9 @@
+<div xmlns:th="http://www.thymeleaf.org" th:fragment="add-type">
+    <h4 th:text="${formName}"></h4>
+
+    <form th:action="@{'/admin/type'}" th:method="post" th:object="${typeDto}">
+        <input type="text" name="typeName" placeholder="model urządzenia">
+        <button type="submit">Dodaj</button>
+
+    </form>
+</div>

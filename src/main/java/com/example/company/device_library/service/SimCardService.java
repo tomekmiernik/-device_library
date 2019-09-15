@@ -41,6 +41,7 @@ public class SimCardService {
                     s.setPinNumber(simCardDto.getPinNumber());
                     s.setPukNumber(simCardDto.getPukNumber());
                     s.setSimCardNumber(simCardDto.getSimCardNumber());
+                    simCardRepository.save(s);
                 });
     }
 }

@@ -4,6 +4,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashSet;
 
@@ -20,11 +21,17 @@ public class Computer extends Device {
     @Column
     private ComputerType computerType;
 
-    @OneToMany(mappedBy = "computer", cascade = CascadeType.ALL)
-    private Collection<Software> softwareCollection = new HashSet<>();
+    @Column
+    private Boolean isUse;
+
+    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @JoinTable(name = "comp_soft",
+            joinColumns = @JoinColumn(name = "computer_id"),
+            inverseJoinColumns = @JoinColumn(name = "software_id"))
+    private Collection<Software> softwareCollection;
 
     @OneToMany(mappedBy = "computer", cascade = CascadeType.ALL)
-    private Collection<Peripheral> peripheralCollection = new HashSet<>();
+    private Collection<Peripheral> peripheralCollection;
 
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "monitor_id")
@@ -48,21 +55,5 @@ public class Computer extends Device {
         public String getType() {
             return type;
         }
-    }
-
-    public void addSoftware(Software software) {
-        if (softwareCollection == null) {
-            softwareCollection = new HashSet<>();
-        }
-        software.setComputer(this);
-        softwareCollection.add(software);
-    }
-
-    public void addPeripheral(Peripheral peripheral) {
-        if (peripheralCollection == null) {
-            peripheralCollection = new HashSet<>();
-        }
-        peripheral.setComputer(this);
-        peripheralCollection.add(peripheral);
     }
 }

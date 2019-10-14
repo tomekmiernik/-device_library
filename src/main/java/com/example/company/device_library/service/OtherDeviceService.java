@@ -1,9 +1,9 @@
 package com.example.company.device_library.service;
 
-import com.example.company.device_library.model.OtherDevice;
 import com.example.company.device_library.repository.OtherDeviceRepository;
 import com.example.company.device_library.util.dtos.OtherDeviceDto;
 import com.example.company.device_library.util.mappers.OtherDeviceMapper;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 
 import java.util.Collection;
@@ -27,8 +27,16 @@ public class OtherDeviceService {
                 .collect(Collectors.toList());
     }
 
-    public OtherDevice addOtherDevice(OtherDeviceDto otherDeviceDto) {
-            return otherDeviceRepository.save(otherDeviceMapper.reverse(otherDeviceDto));
+    public boolean addOtherDevice(OtherDeviceDto otherDeviceDto) {
+        boolean checked = checkDataBeforeSave(otherDeviceDto);
+        if (checked) {
+            try {
+                otherDeviceRepository.save(otherDeviceMapper.reverse(otherDeviceDto));
+            } catch (DataIntegrityViolationException dive) {
+                checked = false;
+            }
+        }
+        return checked;
     }
 
     public OtherDeviceDto getOtherDeviceById(Long otherDeviceId) {
@@ -45,5 +53,10 @@ public class OtherDeviceService {
                     od.setOtherDeviceType(otherDeviceDto.getOtherDeviceType());
                     otherDeviceRepository.save(od);
                 });
+    }
+
+    private boolean checkDataBeforeSave(OtherDeviceDto otherDeviceDto) {
+        return otherDeviceRepository.findAll().stream()
+                .noneMatch(od -> od.getSerialNumber().matches(otherDeviceDto.getSerialNumber()));
     }
 }

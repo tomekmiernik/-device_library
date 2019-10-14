@@ -3,31 +3,52 @@
 
     <form th:action="@{'/admin/mobile'}" th:method="put" th:object="${mobileDeviceDto}">
         <input type="number" name="mobileDeviceId" th:value="${mobileDeviceDto.getMobileDeviceId()}" readonly hidden="hidden">
-        <select name="deviceManufacturer">
+
+        <label for="deviceManufacturer" style="color: #FF0000"
+               th:if="${#fields.hasErrors('deviceManufacturer')}"
+               th:errors="*{deviceManufacturer}"></label>
+        <select name="deviceManufacturer" id="deviceManufacturer">
             <option disabled selected value="">Producent</option>
             <option th:each="p : ${produces}"
                     th:value="${p.getManufacturerName()}"
                     th:text="${p.getManufacturerName()}">
             </option>
         </select>
-        <select name="deviceType">
+
+        <label for="deviceType" style="color: #FF0000"
+               th:if="${#fields.hasErrors('deviceType')}"
+               th:errors="*{deviceType}"></label>
+        <select name="deviceType" id="deviceType">
             <option disabled selected value="">Model</option>
             <option th:each="m : ${models}"
                     th:value="${m.getTypeName()}"
                     th:text="${m.getTypeName()}">
             </option>
         </select>
-        <input type="text" name="serialNumber" th:value="${mobileDeviceDto.getSerialNumber()}">
-        <input type="text" name="imeiNumber" th:value="${mobileDeviceDto.getImeiNumber()}">
-        <select name="phoneType">
-            <option disabled selected value="">Typ telefonu</option>
+
+        <label for="serialNumber" style="color: #FF0000"
+               th:if="${#fields.hasErrors('serialNumber')}"
+               th:errors="*{serialNumber}"></label>
+        <input id="serialNumber" type="text" name="serialNumber" th:value="${mobileDeviceDto.getSerialNumber()}">
+
+        <label for="imeiNumber" style="color: #FF0000"
+               th:if="${#fields.hasErrors('imeiNumber')}"
+               th:errors="*{imeiNumber}"></label>
+        <input id="imeiNumber" type="text" name="imeiNumber" th:value="${mobileDeviceDto.getImeiNumber()}">
+
+        <label for="phoneType" style="color: #FF0000"
+               th:if="${#fields.hasErrors('phoneType')}"
+               th:errors="*{phoneType}"></label>
+        <select name="phoneType" id="phoneType">
+            <option selected disabled>Rodzaj</option>
             <option th:each="t : ${T(com.example.company.device_library.model.MobileDevice.PhoneType).values()}"
                     th:value="${t}"
                     th:text="${t.getType()}">
             </option>
         </select>
-
         <button type="submit">Edytuj</button>
-
     </form>
+    <a th:href="@{'/admin/mobile'}">
+        <button>Cofnij</button>
+    </a>
 </div>

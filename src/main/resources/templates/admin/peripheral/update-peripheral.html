@@ -3,10 +3,50 @@
 
     <form th:action="@{'/admin/peripheral'}" th:method="put" th:object="${peripheralDto}">
         <input type="number" name="peripheralId" th:value="${peripheralDto.getPeripheralId()}" readonly hidden="hidden">
-        <input type="text" name="typeInterface" th:value="${peripheralDto.getTypeInterface()}">
-        <input type="text" name="namePeripheral" th:value="${peripheralDto.getNamePeripheral()}">
-        <input type="text" name="serialNumber" th:value="${peripheralDto.getSerialNumber()}">
-        <button type="submit">Edytuj</button>
 
+        <label for="namePeripheral" style="color: #FF0000"
+               th:if="${#fields.hasErrors('namePeripheral')}"
+               th:errors="*{namePeripheral}"></label>
+        <input id="namePeripheral" type="text" name="namePeripheral" th:value="${peripheralDto.getNamePeripheral()}">
+
+        <label for="deviceManufacturer" style="color: #FF0000"
+        th:if="${#fields.hasErrors('deviceManufacturer')}"
+        th:errors="*{deviceManufacturer}"></label>
+        <select id="deviceManufacturer" name="deviceManufacturer">
+            <option disabled selected value="">Producent</option>
+            <option th:each="t : ${produces}"
+            th:value="${t.getManufacturerName()}"
+            th:text="${t.getManufacturerName()}"></option>
+        </select>
+
+        <label for="deviceType" style="color: #FF0000"
+        th:if="${#fields.hasErrors('deviceType')}"
+        th:errors="*{deviceType}"></label>
+        <select id="deviceType" name="deviceType">
+            <option disabled selected value="">Model</option>
+            <option th:each="m : ${models}"
+            th:value="${m.getTypeName()}"
+            th:text="${m.getTypeName()}"></option>
+        </select>
+
+        <label for="typeInterface" style="color: #FF0000"
+        th:if="${#fields.hasErrors('typeInterface')}"
+        th:errors="*{typeInterface}"></label>
+        <select id="typeInterface" name="typeInterface">
+            <option disabled selected value="">Rodzaj połaczenia</option>
+            <option th:each="t : ${T(com.example.company.device_library.model.Peripheral.Interface).values()}"
+            th:value="${t}"
+            th:text="${t.getType()}"></option>
+        </select>
+
+
+        <label for="serialNumber" style="color: #FF0000"
+               th:if="${#fields.hasErrors('serialNumber')}"
+               th:errors="*{serialNumber}"></label>
+        <input id="serialNumber" type="text" name="serialNumber" th:value="${peripheralDto.getSerialNumber()}">
+        <button type="submit">Edytuj</button>
     </form>
+    <a th:href="@{'/admin/peripheral'}">
+        <button>Cofnij</button>
+    </a>
 </div>

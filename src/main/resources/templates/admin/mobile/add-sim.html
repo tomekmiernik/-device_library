@@ -2,16 +2,21 @@
     <h4 th:text="${formName}"></h4>
 
     <form th:action="@{'/admin/mobile/addSimCard/'+${mobileDeviceDto.getMobileDeviceId()}}"
-          th:method="post" th:object="${mobileDeviceDto}">
-
-        <select  name="simCard">
-            <option selected disabled>Karta SIM</option>
-            <option th:each="s : ${sims}"
-                    th:value="${s.getSimCardId()}"
-                    th:text="${s.getPhoneNumber()+' | '+s.getSimCardNumber()}">
-            </option>
-        </select>
+          th:method="put" th:object="${mobileDeviceDto}">
+        <span th:text="${mobileInfoWarning}" style="color: #FF0000"></span>
+        <ul style="list-style-type: none">
+            <li th:each="s : ${sims}">
+                <label for="simCard"></label>
+                <input id="simCard" name="simCard" type="radio" th:value="${s.getSimCardId()}"
+                       th:text="${s.getPhoneNumber()+' | '+s.getSimCardNumber()}">
+            </li>
+        </ul>
         <button type="submit">Dodaj</button>
-
     </form>
+    <a th:href="@{'/admin/mobile'}">
+        <button>Anuluj</button>
+    </a>
+    <a th:href="@{'/admin/mobile/sim'}">
+        <button>Zwolnij zasoby</button>
+    </a>
 </div>

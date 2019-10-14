@@ -4,6 +4,7 @@ import com.example.company.device_library.model.DeviceType;
 import com.example.company.device_library.repository.DeviceTypeRepository;
 import com.example.company.device_library.util.dtos.DeviceTypesDto;
 import com.example.company.device_library.util.mappers.DeviceTypeMapper;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 
 import java.util.Collection;
@@ -20,8 +21,16 @@ public class DeviceTypeService {
         this.deviceTypeMapper = deviceTypeMapper;
     }
 
-    public DeviceType addDeviceType(DeviceTypesDto deviceTypesDto) {
-        return deviceTypeRepository.save(deviceTypeMapper.reverse(deviceTypesDto));
+    public boolean addDeviceType(DeviceTypesDto deviceTypesDto) {
+        boolean checked = checkDataBeforeSave(deviceTypesDto);
+        if (checked) {
+            try {
+                deviceTypeRepository.save(deviceTypeMapper.reverse(deviceTypesDto));
+            } catch (DataIntegrityViolationException dive) {
+                checked = false;
+            }
+        }
+        return checked;
     }
 
     public Collection<DeviceTypesDto> getAllDeviceTypes() {
@@ -35,11 +44,6 @@ public class DeviceTypeService {
         return deviceTypeRepository.getOne(deviceTypeId);
     }
 
-    public DeviceTypesDto getDeviceTypeByName(String typeName) {
-        return deviceTypeRepository.getDeviceTypeByName(typeName)
-                .map(deviceTypeMapper::map)
-                .get();
-    }
 
     public void updateDeviceType(DeviceTypesDto typeDto) {
         deviceTypeRepository.getDeviceTypeById(typeDto.getDeviceTypeId())
@@ -47,5 +51,10 @@ public class DeviceTypeService {
                     t.setTypeName(typeDto.getTypeName());
                     deviceTypeRepository.save(t);
                 });
+    }
+
+    private boolean checkDataBeforeSave(DeviceTypesDto deviceTypesDto) {
+        return deviceTypeRepository.findAll().stream()
+                .noneMatch(dt -> dt.getTypeName().matches(deviceTypesDto.getTypeName()));
     }
 }

@@ -1,10 +1,16 @@
 <div xmlns:th="http://www.thymeleaf.org" th:fragment="add-type">
     <h4 th:text="${formName}"></h4>
 
-    <form th:action="@{'/admin/type'}" th:method="put" th:object="${deviceTypeDto}">
-        <input type="number" name="deviceTypeId" th:value="${deviceTypeDto.getId()}" readonly hidden>
-        <input type="text" name="typeName" th:value="${deviceTypeDto.getTypeName()}">
-        <button type="submit">Edytuj</button>
+    <form th:action="@{'/admin/type'}" th:method="put" th:object="${deviceTypesDto}">
+        <input type="number" name="deviceTypeId" th:value="${deviceTypesDto.getDeviceTypeId()}" readonly hidden>
 
+        <label for="typeName" style="color: #FF0000"
+               th:if="${#fields.hasErrors('typeName')}"
+               th:errors="*{typeName}"></label>
+        <input id="typeName" type="text" name="typeName" th:value="${deviceTypesDto.getTypeName()}">
+        <button type="submit">Edytuj</button>
     </form>
+    <a th:href="@{'/admin/type'}">
+        <button>Cofnij</button>
+    </a>
 </div>

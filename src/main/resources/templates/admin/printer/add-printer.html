@@ -2,24 +2,34 @@
     <h4 th:text="${formName}"></h4>
 
     <form th:action="@{'/admin/printer'}" th:method="post" th:object="${printerDto}">
-        <select name="deviceManufacturer">
-        <option disabled selected value="">Producent</option>
-        <option th:each="t : ${produces}"
-                th:value="${t.getManufacturerName()}"
-                th:text="${t.getManufacturerName()}"></option>
-    </select>
 
-        <select name="deviceType">
+        <label for="deviceManufacturer" style="color: #FF0000"
+               th:if="${#fields.hasErrors('deviceManufacturer')}"
+               th:errors="*{deviceManufacturer}"></label>
+        <select id="deviceManufacturer" name="deviceManufacturer">
+            <option disabled selected value="">Producent</option>
+            <option th:each="t : ${produces}"
+                    th:value="${t.getManufacturerName()}"
+                    th:text="${t.getManufacturerName()}"></option>
+        </select>
+
+        <label for="deviceType" style="color: #FF0000"
+               th:if="${#fields.hasErrors('deviceType')}"
+               th:errors="*{deviceType}"></label>
+        <select id="deviceType" name="deviceType">
             <option disabled selected value="">Model</option>
             <option th:each="m : ${models}"
                     th:value="${m.getTypeName()}"
                     th:text="${m.getTypeName()}"></option>
         </select>
-        <input type="text" name="serialNumber" placeholder="numer seryjny">
+
+        <label for="serialNumber" style="color: #FF0000"
+               th:if="${#fields.hasErrors('serialNumber')}"
+               th:errors="*{serialNumber}"></label>
+        <input id="serialNumber" type="text" name="serialNumber" placeholder="numer seryjny">
+
         <input type="text" name="ipAddress" placeholder="adres IP">
-        <!--<input type="text" name="computer" placeholder="komputer">-->
 
         <button type="submit">Dodaj</button>
-
     </form>
 </div>

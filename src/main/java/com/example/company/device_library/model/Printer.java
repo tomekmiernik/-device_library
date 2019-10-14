@@ -19,14 +19,6 @@ public class Printer extends Device {
     private String ipAddress;
 
     @OneToMany(mappedBy = "printer", cascade = CascadeType.ALL)
-    private Collection<Consumable> consumableCollection = new HashSet<>();
+    private Collection<Consumable> consumableCollection;
 
-
-    public void addConsumable(Consumable consumable) {
-        if (consumableCollection == null) {
-            consumableCollection = new HashSet<>();
-        }
-        consumable.setPrinter(this);
-        consumableCollection.add(consumable);
-    }
 }

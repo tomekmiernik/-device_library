@@ -1,13 +1,13 @@
 package com.example.company.device_library.util.mappers;
 
-import com.example.company.device_library.model.User;
+import com.example.company.device_library.model.UserApp;
 import com.example.company.device_library.util.dtos.UserDto;
 import org.springframework.stereotype.Component;
 
 @Component
-public class UserMapper implements Mapper<User, UserDto> {
+public class UserMapper implements Mapper<UserApp, UserDto> {
     @Override
-    public UserDto map(User from) {
+    public UserDto map(UserApp from) {
         return UserDto.builder()
                 .userId(from.getId())
                 .firstName(from.getFirstName())
@@ -25,20 +25,20 @@ public class UserMapper implements Mapper<User, UserDto> {
     }
 
     @Override
-    public User reverse(UserDto to) {
-        User user = new User();
-        user.setId(to.getUserId());
-        user.setFirstName(to.getFirstName());
-        user.setLastName(to.getLastName());
-        user.setEmail(to.getEmail());
-        user.setPosition(to.getPosition());
-        user.setActive(to.isActive());
-        user.setDepartment(to.getDepartment());
-        user.setComputer(to.getComputer());
-        user.setLocalization(to.getLocalization());
-        user.setPassword(to.getPassword());
-        user.setRoles(to.getRoles());
-        user.setMobileDevice(to.getMobileDevice());
-        return user;
+    public UserApp reverse(UserDto to) {
+        UserApp userApp = new UserApp();
+        userApp.setId(to.getUserId());
+        userApp.setFirstName(to.getFirstName());
+        userApp.setLastName(to.getLastName());
+        userApp.setEmail(to.getEmail());
+        userApp.setPosition(to.getPosition());
+        userApp.setActive(to.isActive());
+        userApp.setDepartment(to.getDepartment());
+        userApp.setComputer(to.getComputer());
+        userApp.setLocalization(to.getLocalization());
+        userApp.setPassword(to.getPassword());
+        userApp.setRoles(to.getRoles());
+        userApp.setMobileDevice(to.getMobileDevice());
+        return userApp;
     }
 }

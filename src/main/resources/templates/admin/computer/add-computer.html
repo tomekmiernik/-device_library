@@ -2,24 +2,32 @@
     <h4 th:text="${formName}"></h4>
 
     <form th:action="@{'/admin/computer'}" th:method="post" th:object="${computerDto}">
-        <input type="number" name="computerId" th:value="${computerDto.getComputerId()}" hidden="hidden">
-        <select name="deviceManufacturer">
+        <label for="deviceManufacturer" style="color: #FF0000"
+               th:if="${#fields.hasErrors('deviceManufacturer')}"
+               th:errors="*{deviceManufacturer}"></label>
+        <select id="deviceManufacturer" name="deviceManufacturer">
             <option disabled selected value="">Producent</option>
             <option th:each="p : ${produces}"
                     th:value="${p.getManufacturerName()}"
                     th:text="${p.getManufacturerName()}">
             </option>
         </select>
-        <a th:href="@{/admin/manufacturer}" >+</a>
-        <select name="deviceType">
+
+        <label for="deviceType" style="color: #FF0000"
+               th:if="${#fields.hasErrors('deviceType')}"
+               th:errors="*{deviceType}"></label>
+        <select id="deviceType" name="deviceType">
             <option disabled selected value="">Model</option>
             <option th:each="m : ${models}"
                     th:value="${m.getTypeName()}"
                     th:text="${m.getTypeName()}">
             </option>
         </select>
-        <a th:href="@{/admin/type}">+</a>
-        <select name="computerType">
+
+        <label for="computerType" style="color: #FF0000"
+               th:if="${#fields.hasErrors('computerType')}"
+               th:errors="*{computerType}"></label>
+        <select id="computerType" name="computerType">
             <option disabled selected value="">Typ</option>
             <option th:each="ct : ${T(com.example.company.device_library.model.Computer.ComputerType).values()}"
                     th:text="${ct.getType()}"
@@ -27,14 +35,17 @@
             </option>
         </select>
 
-        <input type="text" name="computerAdName" placeholder="nazwa komputera"
-               th:value="${computerDto.getComputerAdName()}">
+        <label for="computerAdName" style="color: #FF0000"
+               th:if="${#fields.hasErrors('computerAdName')}"
+               th:errors="*{computerAdName}"></label>
+        <input id="computerAdName" type="text" name="computerAdName" placeholder="nazwa komputera">
 
+        <label for="serialNumber" style="color: #FF0000"
+               th:if="${#fields.hasErrors('serialNumber')}"
+               th:errors="*{serialNumber}"></label>
+        <input id="serialNumber" type="text" name="serialNumber" placeholder="numer seryjny">
 
-        <input type="text" name="serialNumber" placeholder="numer seryjny"
-               th:value="${computerDto.getSerialNumber()}">
-
-        <button type="submit" th:text="${buttonValue}">Dodaj</button>
+        <button type="submit">Dodaj</button>
 
     </form>
 </div>

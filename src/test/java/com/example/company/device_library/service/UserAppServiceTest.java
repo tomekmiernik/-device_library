@@ -1,6 +1,6 @@
 package com.example.company.device_library.service;
 
-import com.example.company.device_library.model.User;
+import com.example.company.device_library.model.UserApp;
 import com.example.company.device_library.repository.UserRepository;
 import org.junit.After;
 import org.junit.Before;
@@ -21,23 +21,23 @@ import static org.assertj.core.api.Assertions.assertThat;
 @RunWith(SpringRunner.class)
 @DataJpaTest
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
-public class UserServiceTest {
+public class UserAppServiceTest {
 
     @Autowired
     UserRepository userRepository;
 
-    private User user;
+    private UserApp userApp;
 
     @Before
     public void initialize() {
-        user = new User();
-        user.setId(1L);
-        user.setFirstName("UserFirstName");
-        user.setLastName("UserLastName");
-        user.setEmail("user@com.pl");
-        user.setLocalization("User workplace");
-        user.setActive(true);
-        user.setPosition("User work position");
+        userApp = new UserApp();
+        userApp.setId(1L);
+        userApp.setFirstName("UserFirstName");
+        userApp.setLastName("UserLastName");
+        userApp.setEmail("user@com.pl");
+        userApp.setLocalization("User workplace");
+        userApp.setActive(true);
+        userApp.setPosition("User work position");
     }
 
     @After
@@ -48,33 +48,33 @@ public class UserServiceTest {
 
     @Test
     public void shouldInsertUserToDatabase() {
-        Collection<User> userCollection = userRepository.findUsersByLastName("UserLastName");
-        int collectionSize = userCollection.size();
+        Collection<UserApp> userAppCollection = userRepository.findUsersByLastName("UserLastName");
+        int collectionSize = userAppCollection.size();
 
-        userRepository.save(user);
-        Optional<User> user1 = userRepository.findUserByUsernameAsEmail("user@com.pl");
+        userRepository.save(userApp);
+        Optional<UserApp> user1 = userRepository.findUserByUsernameAsEmail("user@com.pl");
         assertThat(user1.get().getId().longValue()).isNotEqualTo(0);
 
-        userCollection = userRepository.findUsersByLastName("UserLastName");
-        assertThat(userCollection.size()).isEqualTo(collectionSize + 1);
+        userAppCollection = userRepository.findUsersByLastName("UserLastName");
+        assertThat(userAppCollection.size()).isEqualTo(collectionSize + 1);
     }
 
     @Test
     public void shouldUpdateUserInformation(){
-        User user = userRepository.save(this.user);
+        UserApp userApp = userRepository.save(this.userApp);
 
-        Optional<User> userBeforeChange = userRepository.getUserById(1L);
+        Optional<UserApp> userBeforeChange = userRepository.getUserById(1L);
         userBeforeChange.ifPresent(u -> u.setPassword("newPassword"));
-        userBeforeChange.ifPresent(u -> userRepository.save(user));
+        userBeforeChange.ifPresent(u -> userRepository.save(userApp));
 
-        assertThat(user.getPassword()).isEqualTo("newPassword");
+        assertThat(userApp.getPassword()).isEqualTo("newPassword");
     }
 
     @Test
     public void shouldNotFindUserByLastName() {
-        Collection<User> userCollection =
+        Collection<UserApp> userAppCollection =
                 userRepository.findUsersByLastName("UserLastName");
-        assertThat(userCollection.isEmpty()).isTrue();
+        assertThat(userAppCollection.isEmpty()).isTrue();
     }
 
 }

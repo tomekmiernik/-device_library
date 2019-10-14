@@ -3,6 +3,8 @@ package com.example.company.device_library.model;
 import lombok.*;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import java.util.Set;
 
 
@@ -13,7 +15,7 @@ import java.util.Set;
 @AllArgsConstructor
 @NoArgsConstructor
 @Table(name = "users")
-public class User extends BasicEntityField {
+public class UserApp extends BasicEntityField {
 
     @Column
     private String firstName;
@@ -30,14 +32,12 @@ public class User extends BasicEntityField {
     @Column
     private String localization;
 
-    @Column
+    @Column(unique = true)
     private String email;
 
     @Column
+    @Size(min=6, max= 30)
     private String password;
-
-    @Transient
-    private String confirmPassword;
 
     @Column
     private boolean active;

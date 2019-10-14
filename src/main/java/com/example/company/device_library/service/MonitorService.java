@@ -1,9 +1,9 @@
 package com.example.company.device_library.service;
 
-import com.example.company.device_library.model.Monitor;
 import com.example.company.device_library.repository.MonitorRepository;
 import com.example.company.device_library.util.dtos.MonitorDto;
 import com.example.company.device_library.util.mappers.MonitorMapper;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 
 import java.util.Collection;
@@ -26,8 +26,17 @@ public class MonitorService {
                 .collect(Collectors.toList());
     }
 
-    public Monitor addMonitor(MonitorDto monitorDto) {
-        return monitorRepository.save(monitorMapper.reverse(monitorDto));
+
+    public boolean addMonitor(MonitorDto monitorDto) {
+        boolean checked = checkDataBeforeSave(monitorDto);
+        if(checked){
+            try {
+                monitorRepository.save(monitorMapper.reverse(monitorDto));
+            }catch (DataIntegrityViolationException dive){
+                checked = false;
+            }
+        }
+        return checked;
     }
 
     public MonitorDto getMonitorById(Long monitorId) {
@@ -44,5 +53,10 @@ public class MonitorService {
                     m.setMonitorType(monitorDto.getMonitorType());
                     monitorRepository.save(m);
                 });
+    }
+
+    private boolean checkDataBeforeSave(MonitorDto monitorDto) {
+        return monitorRepository.findAll().stream()
+                .noneMatch(m -> m.getSerialNumber().matches(monitorDto.getSerialNumber()));
     }
 }

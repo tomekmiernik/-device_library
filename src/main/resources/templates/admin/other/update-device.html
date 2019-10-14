@@ -3,30 +3,49 @@
 
     <form th:action="@{'/admin/other'}" th:method="put" th:object="${otherDeviceDto}">
         <input type="number" name="otherDeviceId" th:value="${otherDeviceDto.getOtherDeviceId()}" readonly hidden="hidden">
-        <select name="deviceManufacturer">
+
+        <label for="deviceManufacturer" style="color: #FF0000"
+               th:if="${#fields.hasErrors('deviceManufacturer')}"
+               th:errors="*{deviceManufacturer}"></label>
+        <select id="deviceManufacturer" name="deviceManufacturer">
             <option disabled selected value="">Producent</option>
             <option th:each="t : ${produces}"
                     th:value="${t.getManufacturerName()}"
                     th:text="${t.getManufacturerName()}"></option>
         </select>
 
-        <select name="deviceType">
+        <label for="deviceType" style="color: #FF0000"
+               th:if="${#fields.hasErrors('deviceType')}"
+               th:errors="*{deviceType}"></label>
+        <select id="deviceType" name="deviceType">
             <option disabled selected value="">Model</option>
             <option th:each="m : ${models}"
                     th:value="${m.getTypeName()}"
                     th:text="${m.getTypeName()}"></option>
         </select>
 
-        <input type="text" name="description" th:value="${otherDeviceDto.getDescription()}">
-        <input type="text" name="serialNumber" th:value="${otherDeviceDto.getSerialNumber()}">
+        <label for="description" style="color: #FF0000"
+               th:if="${#fields.hasErrors('description')}"
+               th:errors="*{description}"></label>
+        <input id="description" type="text" name="description" th:value="${otherDeviceDto.getDescription()}">
 
-        <select name="otherDeviceType">
+        <label for="serialNumber" style="color: #FF0000"
+               th:if="${#fields.hasErrors('serialNumber')}"
+               th:errors="*{serialNumber}"></label>
+        <input id="serialNumber" type="text" name="serialNumber" th:value="${otherDeviceDto.getSerialNumber()}">
+
+        <label for="otherDeviceType" style="color: #FF0000"
+               th:if="${#fields.hasErrors('otherDeviceType')}"
+               th:errors="*{otherDeviceType}"></label>
+        <select id="otherDeviceType" name="otherDeviceType">
             <option disabled selected value="">Rodzaj urządzenia</option>
             <option th:each="t : ${T(com.example.company.device_library.model.OtherDevice.OtherDeviceType).values()}"
                     th:value="${t}"
                     th:text="${t.getType()}"></option>
         </select>
-
         <button type="submit">Edytuj</button>
     </form>
+    <a th:href="@{'/admin/other'}">
+        <button>Cofnij</button>
+    </a>
 </div>

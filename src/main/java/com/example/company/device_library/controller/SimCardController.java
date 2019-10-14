@@ -2,16 +2,20 @@ package com.example.company.device_library.controller;
 
 import com.example.company.device_library.service.SimCardService;
 import com.example.company.device_library.util.dtos.SimCardDto;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+
+import javax.validation.Valid;
 
 @Controller
 @RequestMapping("/admin")
 public class SimCardController {
     private SimCardService simCardService;
 
+    @Autowired
     public SimCardController(SimCardService simCardService) {
         this.simCardService = simCardService;
     }
@@ -20,17 +24,22 @@ public class SimCardController {
     public String getSimPage(Model model) {
         model.addAttribute("formName", "Dodawanie karty SIM");
         model.addAttribute("simCardDto", new SimCardDto());
-        model.addAttribute("sims", simCardService.getAllCardSims());
+        getSimCardsForTableContent(model);
         return "admin/sim/sim";
     }
 
     @PostMapping("/sim")
-    public String addNewSimCardItem(@ModelAttribute("simCardDto") SimCardDto simCardDto, BindingResult bindingResult) {
+    public String addNewSimCardItem(@ModelAttribute("simCardDto") @Valid SimCardDto simCardDto,
+                                    BindingResult bindingResult, Model model) {
         if (bindingResult.hasErrors()) {
+            getSimCardsForTableContent(model);
             return "admin/sim/sim";
-        } else{
-            simCardService.addSimCard(simCardDto);
+        } else if(simCardService.addSimCard(simCardDto)){
             return "redirect:/admin/sim";
+        }else {
+            getSimCardsForTableContent(model);
+            model.addAttribute("info", "Istnieje wpis o podanych parametrach");
+            return "admin/sim/sim";
         }
     }
 
@@ -42,8 +51,17 @@ public class SimCardController {
     }
 
     @PutMapping("/sim")
-    public String updateSimCardItem(@ModelAttribute("simCardDto") SimCardDto simCardDto){
-        simCardService.updateSimCard(simCardDto);
-        return "redirect:/admin/sim";
+    public String updateSimCardItem(@ModelAttribute("simCardDto") @Valid SimCardDto simCardDto,
+                                    BindingResult bindingResult){
+        if(bindingResult.hasErrors()){
+            return "admin/sim/update-sim";
+        }else {
+            simCardService.updateSimCard(simCardDto);
+            return "redirect:/admin/sim";
+        }
+    }
+
+    private void getSimCardsForTableContent(Model model) {
+        model.addAttribute("sims", simCardService.getAllCardSims());
     }
 }

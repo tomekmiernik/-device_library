@@ -1,6 +1,7 @@
 package com.example.company.device_library.model;
 
 import lombok.*;
+import org.hibernate.validator.constraints.UniqueElements;
 
 import javax.persistence.*;
 import java.util.Collection;
@@ -15,12 +16,15 @@ import java.util.HashSet;
 @Table(name = "mobile_device")
 public class MobileDevice extends Device {
 
-    @Column
+    @Column(unique = true)
     private String imeiNumber;
 
     @Enumerated(EnumType.STRING)
     @Column
     private PhoneType phoneType;
+
+    @Column
+    private Boolean isUse;
 
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "simCard_id")

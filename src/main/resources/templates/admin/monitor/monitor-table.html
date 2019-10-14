@@ -5,9 +5,7 @@
             <th>Model</th>
             <th>Numer seryjny</th>
             <th>Ilość cali</th>
-            <th>Rodzaj wyświetlania</th>
-            <!--<th>Komputer zestawiony</th>-->
-
+            <th>Rodzaj monitora</th>
         </tr>
         <tr th:each="m : ${monitors}">
             <td th:text="${m.getDeviceManufacturer()}"></td>
@@ -15,7 +13,6 @@
             <td th:text="${m.getSerialNumber()}"></td>
             <td th:text="${m.getInchValue()}"></td>
             <td th:text="${m.getMonitorType()}"></td>
-           <!-- <td th:text="${m.getComputer().getSerialNumber()}"></td>-->
             <td>
                 <a th:href="@{'/admin/monitor/' +${m.getMonitorId()} + '/updateMonitor'}">Edytuj</a>
             </td>

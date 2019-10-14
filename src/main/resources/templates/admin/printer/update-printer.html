@@ -3,11 +3,36 @@
 
     <form th:action="@{'/admin/printer'}" th:method="put" th:object="${printerDto}">
         <input type="number" name="printerId" th:value="${printerDto.getPrinterId()}" readonly hidden="hidden">
-        <input type="text" name="deviceManufacturer" th:value="${printerDto.getDeviceManufacturer()}">
-        <input type="text" name="deviceType" th:value="${printerDto.getDeviceType()}">
-        <input type="text" name="serialNumber" th:value="${printerDto.getSerialNumber()}">
+
+        <label for="deviceManufacturer" style="color: #FF0000"
+               th:if="${#fields.hasErrors('deviceManufacturer')}"
+               th:errors="*{deviceManufacturer}"></label>
+        <select id="deviceManufacturer" name="deviceManufacturer">
+            <option disabled selected value="">Producent</option>
+            <option th:each="t : ${produces}"
+                    th:value="${t.getManufacturerName()}"
+                    th:text="${t.getManufacturerName()}"></option>
+        </select>
+
+        <label for="deviceType" style="color: #FF0000"
+               th:if="${#fields.hasErrors('deviceType')}"
+               th:errors="*{deviceType}"></label>
+        <select id="deviceType" name="deviceType">
+            <option disabled selected value="">Model</option>
+            <option th:each="m : ${models}"
+                    th:value="${m.getTypeName()}"
+                    th:text="${m.getTypeName()}"></option>
+        </select>
+
+        <label for="serialNumber" style="color: #FF0000"
+               th:if="${#fields.hasErrors('serialNumber')}"
+               th:errors="*{serialNumber}"></label>
+        <input id="serialNumber" type="text" name="serialNumber" th:value="${printerDto.getSerialNumber()}">
+
         <input type="text" name="ipAddress" th:value="${printerDto.getIpAddress()}">
         <button type="submit">Edytuj</button>
-
     </form>
+    <a th:href="@{'/admin/printer'}">
+        <button>Cofnij</button>
+    </a>
 </div>

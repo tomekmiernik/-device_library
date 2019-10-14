@@ -25,8 +25,8 @@ public class Telephone extends Device {
 
     public enum PhoneType{
         WIRELESSLY("Bezprzewodowy"),
-        WIRE("Przewodowy");
-
+        WIRE("Przewodowy"),
+        VOIP("VoIP");
 
         private String type;
         PhoneType(String type){

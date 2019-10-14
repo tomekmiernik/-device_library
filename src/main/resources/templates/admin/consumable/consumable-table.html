@@ -3,15 +3,12 @@
         <tr>
             <th>Rodzaj uzupełnienia</th>
             <th>Kolor uzupełnienia</th>
-            <th>Symbol uzupełnienia</th>
-            <!--<th>Drukarka</th>-->
+            <th>Symbol producenta</th>
         </tr>
         <tr th:each="c : ${consumables}">
             <td th:text="${c.getConsumableType()}"></td>
-            <td th:text="${c.getColor()}"></td>
+            <td th:text="${c.getColor().getColor()}"></td>
             <td th:text="${c.getConsumableMark()}"></td>
-           <!-- <td th:text="${c.getPrinter().getIpAddress()}"></td>-->
-
             <td>
                 <a th:href="@{'/admin/consumable/' +${c.getConsumableId()} + '/updateConsumable'}">Edytuj</a>
             </td>

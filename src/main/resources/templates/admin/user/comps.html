@@ -1,0 +1,24 @@
+<div xmlns:th="http://www.thymeleaf.org" th:fragment="comps">
+    <table>
+        <tr>
+            <th>Producent</th>
+            <th>Model</th>
+            <th>Nazwa urządzenia w AD</th>
+            <th>Numer Seryjny</th>
+        </tr>
+        <tr th:each="c : ${computers}">
+            <td th:text="${c.getDeviceManufacturer()}"></td>
+            <td th:text="${c.getDeviceType()}"></td>
+            <td th:text="${c.getComputerAdName()}"></td>
+            <td th:text="${c.getSerialNumber()}"></td>
+
+            <td>
+                <a th:href="@{'/admin/user/' +${c.getComputerId()} + '/changeCompToFree'}">Zwolnij</a>
+            </td>
+        </tr>
+    </table>
+    <span th:text="${userInfoWarning}" style="color: #FF0000"></span>
+    <a th:href="@{'/admin/user'}">
+        <button>Cofnij</button>
+    </a>
+</div>

@@ -20,6 +20,9 @@ public class Monitor extends Device {
     @Enumerated(EnumType.STRING)
     MonitorType monitorType;
 
+    @Column
+    private Boolean isUse;
+
     public enum MonitorType {
         CRT,
         LCD,

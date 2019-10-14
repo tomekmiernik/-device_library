@@ -13,6 +13,7 @@ public class PeripheralMapper implements Mapper<Peripheral, PeripheralDto> {
                 .deviceManufacturer(from.getDeviceManufacturer())
                 .deviceType(from.getDeviceType())
                 .typeInterface(from.getTypeInterface())
+                .isUse(from.getIsUse())
                 .serialNumber(from.getSerialNumber())
                 .namePeripheral(from.getNamePeripheral())
                 .build();
@@ -25,6 +26,7 @@ public class PeripheralMapper implements Mapper<Peripheral, PeripheralDto> {
         peripheral.setDeviceManufacturer(to.getDeviceManufacturer());
         peripheral.setDeviceType(to.getDeviceType());
         peripheral.setSerialNumber(to.getSerialNumber());
+        peripheral.setIsUse(to.getIsUse());
         peripheral.setTypeInterface(to.getTypeInterface());
         peripheral.setNamePeripheral(to.getNamePeripheral());
         return peripheral;

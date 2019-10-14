@@ -3,11 +3,29 @@
 
     <form th:action="@{'/admin/sim'}" th:method="put" th:object="${simCardDto}">
         <input type="number" name="simCardId" th:value="${simCardDto.getSimCardId()}" readonly hidden>
-        <input type="text" name="phoneNumber" th:value="${simCardDto.getPhoneNumber()}">
-        <input type="text" name="pinNumber" th:value="${simCardDto.getPinNumber()}">
-        <input type="text" name="pukNumber" th:value="${simCardDto.getPukNumber()}">
-        <input type="text" name="simCardNumber" th:value="${simCardDto.getSimCardNumber()}">
-        <button type="submit">Edytuj</button>
 
+        <label for="phoneNumber" style="color: #FF0000"
+               th:if="${#fields.hasErrors('phoneNumber')}"
+               th:errors="*{phoneNumber}"></label>
+        <input id="phoneNumber" type="text" name="phoneNumber" th:value="${simCardDto.getPhoneNumber()}">
+
+        <label for="pinNumber" style="color: #FF0000"
+               th:if="${#fields.hasErrors('pinNumber')}"
+               th:errors="*{pinNumber}"></label>
+        <input id="pinNumber" type="text" name="pinNumber" th:value="${simCardDto.getPinNumber()}">
+
+        <label for="pukNumber" style="color: #FF0000"
+               th:if="${#fields.hasErrors('pukNumber')}"
+               th:errors="*{pukNumber}"></label>
+        <input id="pukNumber" type="text" name="pukNumber" th:value="${simCardDto.getPukNumber()}">
+
+        <label for="simCardNumber" style="color: #FF0000"
+               th:if="${#fields.hasErrors('simCardNumber')}"
+               th:errors="*{simCardNumber}"></label>
+        <input id="simCardNumber" type="text" name="simCardNumber" th:value="${simCardDto.getSimCardNumber()}">
+        <button type="submit">Edytuj</button>
     </form>
+    <a th:href="@{'/admin/sim'}">
+        <button>Cofnij</button>
+    </a>
 </div>

@@ -14,6 +14,7 @@ public class SimCardMapper implements Mapper<SimCard, SimCardDto> {
                 .pinNumber(from.getPinNumber())
                 .pukNumber(from.getPukNumber())
                 .simCardNumber(from.getSimCardNumber())
+                .isUse(from.getIsUse())
                 .build();
     }
 
@@ -25,6 +26,7 @@ public class SimCardMapper implements Mapper<SimCard, SimCardDto> {
         simCard.setPinNumber(to.getPinNumber());
         simCard.setPukNumber(to.getPukNumber());
         simCard.setSimCardNumber(to.getSimCardNumber());
+        simCard.setIsUse(to.getIsUse());
         return simCard;
     }
 }

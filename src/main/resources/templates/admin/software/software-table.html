@@ -3,13 +3,10 @@
         <tr>
             <th>Nazwa programu</th>
             <th>Licencja</th>
-            <th>Komputer zestawiony</th>
-
         </tr>
         <tr th:each="s : ${software}">
             <td th:text="${s.getSoftwareName()}"></td>
             <td th:text="${s.getLicenseNumber()}"></td>
-            <td th:text="${s.getComputer()}"></td>
             <td>
                 <a th:href="@{'/admin/software/' +${s.getSoftwareId()} + '/updateSoftware'}">Edytuj</a>
             </td>

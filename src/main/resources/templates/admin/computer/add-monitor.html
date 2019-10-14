@@ -2,16 +2,18 @@
     <h4 th:text="${formName}"></h4>
 
     <form th:action="@{'/admin/computer/addMonitor/'+${computerDto.getComputerId()}}"
-          th:method="post" th:object="${computerDto}">
-
-        <select  name="monitor">
-            <option selected disabled>Monitor</option>
-            <option th:each="m : ${monitors}"
-                    th:value="${m.getMonitorId()}"
-                    th:text="${m.getDeviceManufacturer()+' | '+m.getSerialNumber()+' | '+m.getInchValue()}">
-            </option>
-        </select>
+          th:method="put" th:object="${computerDto}">
+        <span th:text="${computerInfoWarning}" style="color: #FF0000"></span>
+        <ul style="list-style-type: none">
+            <li th:each="m : ${monitors}">
+                <label for="monitor"></label>
+                <input id="monitor" name="monitor" type="radio" th:value="${m.getMonitorId()}"
+                       th:text="${m.getDeviceManufacturer()+' | '+m.getDeviceType()+' | '+m.getSerialNumber()+' | '+m.getInchValue()} ">
+            </li>
+        </ul>
         <button type="submit">Dodaj</button>
-
     </form>
+    <a th:href="@{'/admin/computer'}">
+        <button>Cofnij</button>
+    </a>
 </div>

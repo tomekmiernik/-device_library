@@ -2,7 +2,12 @@
     <h4 th:text="${formName}"></h4>
 
     <form th:action="@{'/admin/manufacturer'}" th:method="post" th:object="${manufacturerDto}">
-        <input type="text" name="manufacturerName" th:value="${manufacturerDto.getManufacturerName()}">
+
+        <label for="manufacturerName" style="color: #FF0000"
+               th:if="${#fields.hasErrors('manufacturerName')}"
+               th:errors="*{manufacturerName}"></label>
+        <input id="manufacturerName" type="text" name="manufacturerName" th:value="${manufacturerDto.getManufacturerName()}">
+
         <button type="submit">Dodaj</button>
 
     </form>

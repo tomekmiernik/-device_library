@@ -2,10 +2,25 @@
     <h4 th:text="${formName}"></h4>
 
     <form th:action="@{'/admin/sim'}" th:method="post" th:object="${simCardDto}">
-        <input type="text" name="phoneNumber" placeholder="numer telefonu">
-        <input type="text" name="pinNumber" placeholder="kod PIN">
-        <input type="text" name="pukNumber" placeholder="kod PUK">
-        <input type="text" name="simCardNumber" placeholder="numer karty SIM">
+        <label for="phoneNumber" style="color: #FF0000"
+               th:if="${#fields.hasErrors('phoneNumber')}"
+               th:errors="*{phoneNumber}"></label>
+        <input id="phoneNumber" type="text" name="phoneNumber" placeholder="numer telefonu">
+
+        <label for="pinNumber" style="color: #FF0000"
+               th:if="${#fields.hasErrors('pinNumber')}"
+               th:errors="*{pinNumber}"></label>
+        <input id="pinNumber" type="text" name="pinNumber" placeholder="kod PIN">
+
+        <label for="pukNumber" style="color: #FF0000"
+               th:if="${#fields.hasErrors('pukNumber')}"
+               th:errors="*{pukNumber}"></label>
+        <input id="pukNumber" type="text" name="pukNumber" placeholder="kod PUK">
+
+        <label for="simCardNumber" style="color: #FF0000"
+               th:if="${#fields.hasErrors('simCardNumber')}"
+               th:errors="*{simCardNumber}"></label>
+        <input id="simCardNumber" type="text" name="simCardNumber" placeholder="numer karty SIM">
         <button type="submit">Dodaj</button>
     </form>
 </div>

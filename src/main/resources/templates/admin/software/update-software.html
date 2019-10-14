@@ -3,10 +3,17 @@
 
     <form th:action="@{'/admin/software'}" th:method="put" th:object="${softwareDto}">
         <input type="number" name="softwareId" th:value="${softwareDto.getSoftwareId()}" readonly hidden="hidden">
-        <input type="text" name="softwareName" th:value="${softwareDto.getSoftwareName()}">
-        <input type="text" name="licenseNumber" th:value="${softwareDto.getLicenseNumber()}">
-        <input type="text" name="computer" th:value="${softwareDto.getComputer()}">
-        <button type="submit">Edytuj</button>
 
+        <label for="softwareName" style="color: #FF0000"
+               th:if="${#fields.hasErrors('softwareName')}"
+               th:errors="*{softwareName}"></label>
+        <input id="softwareName" type="text" name="softwareName" th:value="${softwareDto.getSoftwareName()}">
+
+        <input type="text" name="licenseNumber" th:value="${softwareDto.getLicenseNumber()}">
+
+        <button type="submit">Edytuj</button>
     </form>
+    <a th:href="@{'/admin/peripheral'}">
+        <button>Cofnij</button>
+    </a>
 </div>

@@ -1,9 +1,8 @@
 package com.example.company.device_library.util.dtos;
 
-import com.example.company.device_library.model.DeviceType;
 import lombok.*;
 
-import java.util.HashSet;
+import javax.validation.constraints.NotEmpty;
 
 @Builder
 @Getter
@@ -12,6 +11,7 @@ import java.util.HashSet;
 @AllArgsConstructor
 public class ManufacturerDto {
     private Long manufacturerId;
+
+    @NotEmpty(message = "To pole jest wymagane")
     private String manufacturerName;
-    private HashSet<DeviceType> deviceTypes;
 }

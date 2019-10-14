@@ -3,14 +3,14 @@ package com.example.company.device_library.service;
 import com.example.company.device_library.model.Computer;
 import com.example.company.device_library.model.MobileDevice;
 import com.example.company.device_library.model.SimCard;
-import com.example.company.device_library.model.User;
+import com.example.company.device_library.model.UserApp;
+import com.example.company.device_library.repository.ComputerRepository;
+import com.example.company.device_library.repository.MobileDeviceRepository;
 import com.example.company.device_library.repository.UserRepository;
-import com.example.company.device_library.util.dtos.ComputerDto;
-import com.example.company.device_library.util.dtos.MobileDeviceDto;
 import com.example.company.device_library.util.dtos.UserDto;
-import com.example.company.device_library.util.mappers.ComputerMapper;
-import com.example.company.device_library.util.mappers.MobileDeviceMapper;
 import com.example.company.device_library.util.mappers.UserMapper;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 
 import java.util.Collection;
@@ -20,20 +20,21 @@ import java.util.stream.Collectors;
 @Service
 public class UserService {
     private UserRepository userRepository;
+    private ComputerRepository computerRepository;
+    private MobileDeviceRepository mobileDeviceRepository;
     private UserMapper userMapper;
-    private ComputerMapper computerMapper;
-    private MobileDeviceMapper mobileDeviceMapper;
 
+
+    @Autowired
     public UserService(UserRepository userRepository,
-                       UserMapper userMapper,
-                       ComputerMapper computerMapper,
-                       MobileDeviceMapper mobileDeviceMapper) {
+                       ComputerRepository computerRepository,
+                       MobileDeviceRepository mobileDeviceRepository,
+                       UserMapper userMapper) {
         this.userRepository = userRepository;
+        this.computerRepository = computerRepository;
+        this.mobileDeviceRepository = mobileDeviceRepository;
         this.userMapper = userMapper;
-        this.computerMapper = computerMapper;
-        this.mobileDeviceMapper = mobileDeviceMapper;
     }
-
 
     public Collection<UserDto> getUsersByLastName(String userLastName) {
         List<UserDto> collectUsers = userRepository.findUsersByLastName(userLastName)
@@ -44,8 +45,16 @@ public class UserService {
         return collectUsers;
     }
 
-    public User addUser(UserDto userDto) {
-        return userRepository.save(userMapper.reverse(userDto));
+    public boolean addUser(UserDto userDto) {
+        boolean checked = checkDataBeforeSave(userDto);
+        if (checked) {
+            try {
+                userRepository.save(userMapper.reverse(userDto));
+            } catch (DataIntegrityViolationException dive) {
+                checked = false;
+            }
+        }
+        return checked;
     }
 
     public UserDto getUserByUsernameAsEmail(String email) {
@@ -57,7 +66,7 @@ public class UserService {
     public Collection<UserDto> getAllUsers() {
         return userRepository.findAll()
                 .stream()
-                .filter(User::isActive)
+                .filter(UserApp::isActive)
                 .map(userMapper::map)
                 .collect(Collectors.toList());
     }
@@ -83,15 +92,17 @@ public class UserService {
                 });
     }
 
-    public void addComputer(Computer computer, UserDto databaseUser) {
-        ComputerDto computerDto = computerMapper.map(computer);
-        databaseUser.setComputer(computerMapper.reverse(computerDto));
+    public void getUserAndAddMobileDeviceHim(Long mobileId, UserDto databaseUser) {
+        MobileDevice databaseDevice = mobileDeviceRepository.getOne(mobileId);
+        databaseDevice.setIsUse(Boolean.TRUE);
+        databaseUser.setMobileDevice(databaseDevice);
         userRepository.save(userMapper.reverse(databaseUser));
     }
 
-    public void addDevice(MobileDevice mobileDevice, UserDto databaseUser) {
-        MobileDeviceDto mobileDeviceDto = mobileDeviceMapper.map(mobileDevice);
-        databaseUser.setMobileDevice(mobileDeviceMapper.reverse(mobileDeviceDto));
+    public void getUserAndAddComputerHim(Long computerId, UserDto databaseUser) {
+        Computer databaseComputer = computerRepository.getOne(computerId);
+        databaseComputer.setIsUse(Boolean.TRUE);
+        databaseUser.setComputer(databaseComputer);
         userRepository.save(userMapper.reverse(databaseUser));
     }
 
@@ -106,6 +117,26 @@ public class UserService {
                     u.setMobileDevice(new MobileDevice());
                     u.getMobileDevice().setSimCard(new SimCard());
                     u.getMobileDevice().getSimCard().setPhoneNumber("- - -");
+                });
+    }
+
+    private boolean checkDataBeforeSave(UserDto userDto) {
+        return userRepository.findAll()
+                .stream()
+                .noneMatch(u -> u.getEmail()
+                        .matches(userDto.getEmail()));
+    }
+
+
+    public boolean checkPasswordValue(String pass, String confPass) {
+        return pass.equals(confPass);
+    }
+
+    public void resetPassword(Long userId, String pass) {
+        userRepository.getUserById(userId)
+                .ifPresent(u -> {
+                    u.setPassword(pass);
+                    userRepository.save(u);
                 });
     }
 }

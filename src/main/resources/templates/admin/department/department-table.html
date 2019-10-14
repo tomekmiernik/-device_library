@@ -3,7 +3,6 @@
         <tr>
             <th>Nazwa działu</th>
             <th>Skrót nazwy</th>
-
         </tr>
         <tr th:each="d : ${departments}">
             <td th:text="${d.getDepartmentName()}"></td>

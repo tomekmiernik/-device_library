@@ -2,16 +2,27 @@
     <h4 th:text="${formName}"></h4>
 
     <form th:action="@{'/admin/user/addDevice/'+${userDto.getUserId()}}"
-          th:method="post" th:object="${userDto}">
-
-        <select name="mobileDevice">
-            <option selected disabled>Urządzenie</option>
-            <option th:each="m : ${mobileDevices}"
-                    th:value="${m.getMobileDeviceId()}"
-                    th:text="${m.getPhoneNumber()+' | '+m.getSerialNumber()}">
-            </option>
-        </select>
+          th:method="put" th:object="${userDto}">
+        <span th:text="${userInfoWarning}" style="color: #FF0000"></span>
+        <table>
+            <tr>
+                <td>
+                    <ul style="list-style-type: none">
+                        <li th:each="m : ${mobiles}">
+                            <label for="mobileDevice"></label>
+                            <input id="mobileDevice" name="mobileDevice" type="radio"
+                                   th:value="${m.getMobileDeviceId()}"
+                                   th:text="${m.getDeviceManufacturer()+' '+m.getDeviceType()+' '+m.getSerialNumber()}">
+                    </ul>
+                </td>
+            </tr>
+        </table>
         <button type="submit">Dodaj</button>
-
     </form>
+    <a th:href="@{'/admin/user'}">
+        <button>Cofnij</button>
+    </a>
+    <a th:href="@{'/admin/user/mobiles'}">
+        <button>Zwolnij zasoby</button>
+    </a>
 </div>

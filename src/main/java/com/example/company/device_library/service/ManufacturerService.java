@@ -4,6 +4,7 @@ import com.example.company.device_library.model.DeviceManufacturer;
 import com.example.company.device_library.repository.ManufacturerRepository;
 import com.example.company.device_library.util.dtos.ManufacturerDto;
 import com.example.company.device_library.util.mappers.ManufacturerMapper;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 
 import java.util.Collection;
@@ -20,8 +21,16 @@ public class ManufacturerService {
         this.manufacturerMapper = manufacturerMapper;
     }
 
-    public DeviceManufacturer addDeviceManufacturer(ManufacturerDto manufacturerDto) {
-        return manufacturerRepository.save(manufacturerMapper.reverse(manufacturerDto));
+    public boolean addDeviceManufacturer(ManufacturerDto manufacturerDto) {
+        boolean checked = checkDataBeforeSave(manufacturerDto);
+        if (checked) {
+            try {
+                manufacturerRepository.save(manufacturerMapper.reverse(manufacturerDto));
+            }catch (DataIntegrityViolationException dive){
+                checked = false;
+            }
+        }
+        return checked;
     }
 
     public Collection<ManufacturerDto> getAllManufacturers() {
@@ -36,17 +45,17 @@ public class ManufacturerService {
         return manufacturerMapper.map(getOne);
     }
 
-    public DeviceManufacturer getDeviceManufacturerByName(String typeName) {
-        return manufacturerRepository.getManufacturerByName(typeName)
-                .get();
-    }
 
     public void updateManufacturer(ManufacturerDto manufacturerDto) {
         manufacturerRepository.getManufacturerById(manufacturerDto.getManufacturerId())
                 .ifPresent(p -> {
                     p.setManufacturerName(manufacturerDto.getManufacturerName());
-                    p.setDeviceTypeCollection(manufacturerDto.getDeviceTypes());
                     manufacturerRepository.save(p);
                 });
+    }
+
+    private boolean checkDataBeforeSave(ManufacturerDto manufacturerDto) {
+        return manufacturerRepository.findAll().stream()
+                .noneMatch(m -> m.getManufacturerName().matches(manufacturerDto.getManufacturerName()));
     }
 }

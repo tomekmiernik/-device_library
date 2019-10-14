@@ -1,15 +1,61 @@
-<div xmlns:th="http://www.thymeleaf.org" th:fragment="add-computer">
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/header :: header"></head>
+
+<body>
+<div xmlns:th="http://www.thymeleaf.org" th:fragment="update-computer">
     <h4 th:text="${formName}"></h4>
 
     <form th:action="@{'/admin/computer'}" th:method="put" th:object="${computerDto}">
         <input type="number" name="computerId" th:value="${computerDto.getComputerId()}" hidden="hidden">
-        <input type="text" name="deviceManufacturer" th:value="${computerDto.getDeviceManufacturer()}">
-        <input type="text" name="deviceType" th:value="${computerDto.getDeviceType()}">
-        <input type="text" name="computerType" th:value="${computerDto.getComputerType()}">
-        <input type="text" name="serialNumber" th:value="${computerDto.getSerialNumber()}">
+
+        <label for="deviceManufacturer" style="color: #FF0000"
+               th:if="${#fields.hasErrors('deviceManufacturer')}"
+               th:errors="*{deviceManufacturer}"></label>
+        <select id="deviceManufacturer" name="deviceManufacturer">
+            <option disabled selected value="">Producent</option>
+            <option th:each="p : ${produces}"
+                    th:value="${p.getManufacturerName()}"
+                    th:text="${p.getManufacturerName()}">
+            </option>
+        </select>
+
+        <label for="deviceType" style="color: #FF0000"
+               th:if="${#fields.hasErrors('deviceType')}"
+               th:errors="*{deviceType}"></label>
+        <select id="deviceType" name="deviceType">
+            <option disabled selected value="">Model</option>
+            <option th:each="m : ${models}"
+                    th:value="${m.getTypeName()}"
+                    th:text="${m.getTypeName()}">
+            </option>
+        </select>
+
+        <label for="computerType" style="color: #FF0000"
+               th:if="${#fields.hasErrors('computerType')}"
+               th:errors="*{computerType}"></label>
+        <select id="computerType" name="computerType">
+            <option disabled selected value="">Typ</option>
+            <option th:each="ct : ${T(com.example.company.device_library.model.Computer.ComputerType).values()}"
+                    th:text="${ct.getType()}"
+                    th:value="${ct}">
+            </option>
+        </select>
+
+        <label for="computerAdName" style="color: #FF0000"
+               th:if="${#fields.hasErrors('computerAdName')}"
+               th:errors="*{computerAdName}"></label>
+        <input id="computerAdName" type="text" name="computerAdName" th:value="${computerDto.getComputerAdName()}">
+
+        <label for="serialNumber" style="color: #FF0000"
+               th:if="${#fields.hasErrors('serialNumber')}"
+               th:errors="*{serialNumber}"></label>
+        <input id="serialNumber" type="text" name="serialNumber" th:value="${computerDto.getSerialNumber()}">
 
         <button type="submit">Edytuj</button>
-
     </form>
+    <a th:href="@{'/admin/computer'}">
+        <button>Cofnij</button>
+    </a>
 </div>
-
+</body>

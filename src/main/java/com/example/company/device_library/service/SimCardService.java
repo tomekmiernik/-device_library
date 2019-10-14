@@ -1,9 +1,9 @@
 package com.example.company.device_library.service;
 
-import com.example.company.device_library.model.SimCard;
 import com.example.company.device_library.repository.SimCardRepository;
 import com.example.company.device_library.util.dtos.SimCardDto;
 import com.example.company.device_library.util.mappers.SimCardMapper;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 
 import java.util.Collection;
@@ -26,8 +26,31 @@ public class SimCardService {
                 .collect(Collectors.toList());
     }
 
-    public SimCard addSimCard(SimCardDto simCardDto) {
-        return simCardRepository.save(simCardMapper.reverse(simCardDto));
+    public Collection<SimCardDto> getAllFreeSimCards() {
+        return simCardRepository.findAllFreeSimCards()
+                .stream()
+                .map(simCardMapper::map)
+                .collect(Collectors.toList());
+    }
+
+    public Collection<SimCardDto> getAllNotFreeSimCards() {
+        return simCardRepository.findAllNotFreeSimCards()
+                .stream()
+                .map(simCardMapper::map)
+                .collect(Collectors.toList());
+    }
+
+    public boolean addSimCard(SimCardDto simCardDto) {
+        boolean checked = checkNumbersOfSimCard(simCardDto);
+        if (checked) {
+            try {
+                simCardDto.setIsUse(Boolean.FALSE);
+                simCardRepository.save(simCardMapper.reverse(simCardDto));
+            } catch (DataIntegrityViolationException dive) {
+                checked = false;
+            }
+        }
+        return checked;
     }
 
     public SimCardDto getSimCardById(Long simCardId) {
@@ -43,5 +66,23 @@ public class SimCardService {
                     s.setSimCardNumber(simCardDto.getSimCardNumber());
                     simCardRepository.save(s);
                 });
+    }
+
+    public void changeSimOnReadyToUse(Long simId) {
+        simCardRepository.getSimCardById(simId)
+                .ifPresent(s -> {
+                    s.setIsUse(Boolean.FALSE);
+                    simCardRepository.save(s);
+                });
+    }
+
+    private boolean checkNumbersOfSimCard(SimCardDto simCardDto) {
+        boolean checkCardNumb = simCardRepository.findAll().stream()
+                .noneMatch(sc -> sc.getSimCardNumber().matches(simCardDto.getSimCardNumber()));
+        boolean checkCardPin = simCardRepository.findAll().stream()
+                .noneMatch(sc -> sc.getPinNumber().matches(simCardDto.getPinNumber()));
+        boolean checkCardPuk = simCardRepository.findAll().stream()
+                .noneMatch(sc -> sc.getPukNumber().matches(simCardDto.getPukNumber()));
+        return checkCardNumb && checkCardPin && checkCardPuk;
     }
 }

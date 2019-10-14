@@ -3,13 +3,47 @@
 
     <form th:action="@{'/admin/monitor'}" th:method="put" th:object="${monitorDto}">
         <input type="number" name="monitorId" th:value="${monitorDto.getMonitorId()}" readonly hidden="hidden">
-        <input type="text" name="deviceManufacturer" th:value="${monitorDto.getDeviceManufacturer()}">
-        <input type="text" name="deviceType" th:value="${monitorDto.getDeviceType()}">
-        <input type="text" name="serialNumber" th:value="${monitorDto.getSerialNumber()}">
-        <input type="text" name="inchValue" th:value="${monitorDto.getInchValue()}">
-        <input type="text" name="monitorType" th:value="${monitorDto.getMonitorType()}">
-        <input type="text" name="computer" th:value="${monitorDto.getComputer()}">
-        <button type="submit">Edytuj</button>
 
+        <label for="deviceManufacturer" style="color: #FF0000"
+               th:if="${#fields.hasErrors('deviceManufacturer')}"
+               th:errors="*{deviceManufacturer}"></label>
+        <select id="deviceManufacturer" name="deviceManufacturer">
+            <option disabled selected value="">Producent</option>
+            <option th:each="t : ${produces}"
+                    th:value="${t.getManufacturerName()}"
+                    th:text="${t.getManufacturerName()}"></option>
+        </select>
+
+        <label for="deviceType" style="color: #FF0000"
+               th:if="${#fields.hasErrors('deviceType')}"
+               th:errors="*{deviceType}"></label>
+        <select id="deviceType" name="deviceType">
+            <option disabled selected value="">Model</option>
+            <option th:each="m : ${models}"
+                    th:value="${m.getTypeName()}"
+                    th:text="${m.getTypeName()}"></option>
+        </select>
+
+        <label for="serialNumber" style="color: #FF0000"
+               th:if="${#fields.hasErrors('serialNumber')}"
+               th:errors="*{serialNumber}"></label>
+        <input id="serialNumber" type="text" name="serialNumber" th:value="${monitorDto.getSerialNumber()}">
+
+        <label for="inchValue" style="color: #FF0000"
+               th:if="${#fields.hasErrors('inchValue')}"
+               th:errors="*{inchValue}"></label>
+        <input id="inchValue" type="text" name="inchValue" th:value="${monitorDto.getInchValue()}">
+
+        <select  name="monitorType">
+            <option disabled selected value="">Rodzaj</option>
+            <option th:each="m : ${T(com.example.company.device_library.model.Monitor.MonitorType).values()}"
+                    th:value="${m}"
+                    th:text="${m}"></option>
+        </select>
+
+        <button type="submit">Edytuj</button>
     </form>
+    <a th:href="@{'/admin/monitor'}">
+        <button>Cofnij</button>
+    </a>
 </div>

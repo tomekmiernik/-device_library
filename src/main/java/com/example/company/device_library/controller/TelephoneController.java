@@ -4,10 +4,13 @@ import com.example.company.device_library.service.DeviceTypeService;
 import com.example.company.device_library.service.ManufacturerService;
 import com.example.company.device_library.service.TelephoneService;
 import com.example.company.device_library.util.dtos.TelephoneDto;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+
+import javax.validation.Valid;
 
 @Controller
 @RequestMapping("/admin")
@@ -17,6 +20,7 @@ public class TelephoneController {
     private ManufacturerService manufacturerService;
     private DeviceTypeService deviceTypeService;
 
+    @Autowired
     public TelephoneController(TelephoneService telephoneService,
                                ManufacturerService manufacturerService,
                                DeviceTypeService deviceTypeService) {
@@ -30,17 +34,24 @@ public class TelephoneController {
         model.addAttribute("formName", "Dodawnaie telefonu stacjonarnego");
         model.addAttribute("telephoneDto", new TelephoneDto());
         setCollectionsManufacturersAndDeviceTypes(model);
-        model.addAttribute("phones", telephoneService.getAllTelephones());
+        getPhonesForTableContent(model);
         return "admin/phone/phone";
     }
 
     @PostMapping("/phone")
-    public String addNewTelephoneItem(@ModelAttribute("telephoneDot") TelephoneDto telephoneDto, BindingResult bindingResult){
+    public String addNewTelephoneItem(@ModelAttribute("telephoneDto") @Valid TelephoneDto telephoneDto,
+                                      BindingResult bindingResult, Model model){
         if (bindingResult.hasErrors()){
+            setCollectionsManufacturersAndDeviceTypes(model);
+            getPhonesForTableContent(model);
             return "admin/phone/phone";
-        }else {
-            telephoneService.addTelephone(telephoneDto);
+        }else if(telephoneService.addTelephone(telephoneDto)) {
             return "redirect:/admin/phone";
+        }else {
+            setCollectionsManufacturersAndDeviceTypes(model);
+            getPhonesForTableContent(model);
+            model.addAttribute("info", "Istnieje urządzenie o takim numerze seryjnym");
+            return "admin/phone/phone";
         }
     }
 
@@ -53,7 +64,12 @@ public class TelephoneController {
     }
 
     @PutMapping("/phone")
-    public String updateTelephoneItem(@ModelAttribute("telephoneDto") TelephoneDto telephoneDto){
+    public String updateTelephoneItem(@ModelAttribute("telephoneDto") @Valid TelephoneDto telephoneDto,
+                                      BindingResult bindingResult, Model model){
+        if (bindingResult.hasErrors()) {
+            setCollectionsManufacturersAndDeviceTypes(model);
+            return "admin/phone/update-phone";
+        }
         telephoneService.updateTelephone(telephoneDto);
         return "redirect:/admin/phone";
     }
@@ -63,4 +79,8 @@ public class TelephoneController {
         model.addAttribute("models",deviceTypeService.getAllDeviceTypes());
     }
 
+
+    private void getPhonesForTableContent(Model model) {
+        model.addAttribute("phones", telephoneService.getAllTelephones());
+    }
 }

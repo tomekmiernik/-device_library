@@ -15,13 +15,16 @@ public class SimCard extends BasicEntityField{
     @Column
     private String phoneNumber;
 
-    @Column
+    @Column(unique = true)
     private String pinNumber;
 
-    @Column
+    @Column(unique = true)
     private String pukNumber;
 
-    @Column
+    @Column(unique = true)
     private String simCardNumber;
+
+    @Column
+    private Boolean isUse;
 
 }

@@ -2,16 +2,21 @@
     <h4 th:text="${formName}"></h4>
 
     <form th:action="@{'/admin/computer/addPeripheral/'+${computerDto.getComputerId()}}"
-          th:method="post" th:object="${computerDto}">
-
-        <select name="peripheral">
-            <option selected disabled>Peryferia</option>
-            <option th:each="p : ${peripherals}"
-                    th:value="${p.getPeripheralId()}"
-                    th:text="${p.getNamePeripheral()+' | '+p.getSerialNumber()}">
-            </option>
-        </select>
+          th:method="put" th:object="${computerDto}">
+        <span th:text="${computerInfoWarning}" style="color: #FF0000"></span>
+        <ul style="list-style-type: none">
+            <li th:each="p : ${peripherals}">
+                <label for="peripheral"></label>
+                <input id="peripheral" name="peripheral" type="checkbox" th:value="${p.getPeripheralId()}"
+                       th:text="${p.getNamePeripheral()+' | '+p.getDeviceType()+' | '+p.getDeviceManufacturer()+' | ' +p.getSerialNumber()}">
+            </li>
+        </ul>
         <button type="submit">Dodaj</button>
-
     </form>
+    <a th:href="@{'/admin/computer'}">
+        <button>Anuluj</button>
+    </a>
+    <a th:href="@{'/admin/computer/kit'}">
+        <button>Zwolnij zasoby</button>
+    </a>
 </div>

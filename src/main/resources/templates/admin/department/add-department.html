@@ -2,8 +2,15 @@
     <h4 th:text="${formName}"></h4>
 
     <form th:action="@{'/admin/department'}" th:method="post" th:object="${departmentDto}">
-        <input type="text" name="departmentName" placeholder="nazwa działu">
-        <input type="text" name="departmentShortName" placeholder="skrót nazwy">
+        <label for="departmentName" style="color: #FF0000"
+               th:if="${#fields.hasErrors('departmentName')}"
+               th:errors="*{departmentName}"></label>
+        <input id="departmentName" type="text" name="departmentName" placeholder="nazwa działu">
+
+        <label for="departmentShortName" style="color: #FF0000"
+               th:if="${#fields.hasErrors('departmentShortName')}"
+               th:errors="*{departmentShortName}"></label>
+        <input id="departmentShortName" type="text" name="departmentShortName" placeholder="skrót nazwy">
         <button type="submit">Dodaj</button>
 
     </form>

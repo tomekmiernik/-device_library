@@ -12,7 +12,6 @@ public class SoftwareMapper implements Mapper<Software, SoftwareDto> {
                 .softwareId(from.getId())
                 .softwareName(from.getSoftwareName())
                 .licenseNumber(from.getLicenseNumber())
-                .computer(from.getComputer())
                 .build();
     }
 
@@ -22,7 +21,6 @@ public class SoftwareMapper implements Mapper<Software, SoftwareDto> {
         software.setId(to.getSoftwareId());
         software.setSoftwareName(to.getSoftwareName());
         software.setLicenseNumber(to.getLicenseNumber());
-        software.setComputer(to.getComputer());
         return software;
     }
 }

@@ -2,16 +2,20 @@ package com.example.company.device_library.controller;
 
 import com.example.company.device_library.service.SoftwareService;
 import com.example.company.device_library.util.dtos.SoftwareDto;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+
+import javax.validation.Valid;
 
 @Controller
 @RequestMapping("/admin")
 public class SoftwareController {
     private SoftwareService softwareService;
 
+    @Autowired
     public SoftwareController(SoftwareService softwareService) {
         this.softwareService = softwareService;
     }
@@ -20,13 +24,15 @@ public class SoftwareController {
     public String softwarePage(Model model) {
         model.addAttribute("formName", "Dodawanie oprogramowania");
         model.addAttribute("softwareDto", new SoftwareDto());
-        model.addAttribute("software", softwareService.getAllSoftwares());
+        getSoftwareForTableContent(model);
         return "admin/software/software";
     }
 
     @PostMapping("/software")
-    public String addNewSoftwareItem(@ModelAttribute("softwareDto") SoftwareDto softwareDto, BindingResult bindingResult) {
+    public String addNewSoftwareItem(@ModelAttribute("softwareDto") @Valid SoftwareDto softwareDto,
+                                     BindingResult bindingResult, Model model) {
         if (bindingResult.hasErrors()) {
+            getSoftwareForTableContent(model);
             return "admin/software/software";
         } else {
             softwareService.addSoftware(softwareDto);
@@ -41,8 +47,17 @@ public class SoftwareController {
     }
 
     @PutMapping("/software")
-    public String updateSoftwareItem(@ModelAttribute("softwareDto") SoftwareDto softwareDto) {
-        softwareService.updateSoftware(softwareDto);
-        return "redirect:/admin/software";
+    public String updateSoftwareItem(@ModelAttribute("softwareDto") @Valid SoftwareDto softwareDto,
+                                     BindingResult bindingResult, Model model) {
+        if (bindingResult.hasErrors()) {
+            return "admin/software/update-software";
+        }else {
+            softwareService.updateSoftware(softwareDto);
+            return "redirect:/admin/software";
+        }
+    }
+
+    private void getSoftwareForTableContent(Model model) {
+        model.addAttribute("software", softwareService.getAllSoftwares());
     }
 }

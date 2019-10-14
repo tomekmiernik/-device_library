@@ -3,9 +3,19 @@
 
     <form th:action="@{'/admin/department'}" th:method="put" th:object="${departmentDto}">
         <input type="number" name="departmentId" th:value="${departmentDto.getDepartmentId()}" readonly hidden="hidden">
-        <input type="text" name="departmentName" th:value="${departmentDto.getDepartmentName()}">
-        <input type="text" name="departmentShortName" th:value="${departmentDto.getDepartmentShortName()}">
-        <button type="submit">Edytuj</button>
 
+        <label for="departmentName" style="color: #FF0000"
+               th:if="${#fields.hasErrors('departmentName')}"
+               th:errors="*{departmentName}"></label>
+        <input id="departmentName" type="text" name="departmentName" th:value="${departmentDto.getDepartmentName()}">
+
+        <label for="departmentShortName" style="color: #FF0000"
+               th:if="${#fields.hasErrors('departmentShortName')}"
+               th:errors="*{departmentShortName}"></label>
+        <input id="departmentShortName" type="text" name="departmentShortName" th:value="${departmentDto.getDepartmentShortName()}">
+        <button type="submit">Edytuj</button>
     </form>
+    <a th:href="@{'/admin/department'}">
+        <button>Cofnij</button>
+    </a>
 </div>

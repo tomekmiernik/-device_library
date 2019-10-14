@@ -19,7 +19,7 @@ public class WelcomeController {
         this.userService = userService;
     }
 
-    @GetMapping("/")
+    @GetMapping()
     public String getMainPage(Model model) {
         Collection<UserDto> users = userService.getAllUsers();
         userService.getUsersFilerByPhoneNumber(users);

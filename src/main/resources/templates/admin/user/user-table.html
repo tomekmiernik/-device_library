@@ -8,22 +8,29 @@
             <td th:text="${u.getFirstName()+' '+u.getLastName()}"></td>
             <td th:text="${u.getEmail()}"></td>
             <td>
-                <a th:href="@{'/admin/user/' +${u.getUserId()} + '/addComputer'}">Dodaj komputer</a>
+                <a th:href="@{'/details/' +${u.getUserId()}}">Zobacz</a>
             </td>
             <td>
-                <a th:href="@{'/admin/user/' +${u.getUserId()} + '/addDevice'}">Dodaj telefon/tablet</a>
+                <a th:href="@{'/admin/user/' +${u.getUserId()} + '/addComputer'}">Przypisz komputer</a>
             </td>
+            <td>
+                <a th:href="@{'/admin/user/' +${u.getUserId()} + '/addDevice'}">Przypisz telefon/tablet</a>
+            </td>
+
             <td>
                 <a th:href="@{'/admin/user/' +${u.getUserId()} + '/updateUser'}">Edytuj</a>
             </td>
             <td>
+                <a th:href="@{'/admin/user/' +${u.getUserId()} + '/resetPassword'}">Resetuj hasło</a>
+            </td>
+            <!--<td>
                 <form action="/delete" method="get">
                     <input type="hidden" th:value="${u.getUserId()}" name="userId">
                     <button type="submit">
                         <i aria-hidden="true"></i> Delete
                     </button>
                 </form>
-            </td>
+            </td>-->
         </tr>
     </table>
 </div>

@@ -16,9 +16,10 @@ public class Consumable extends BasicEntityField {
     private ConsumableType consumableType;
 
     @Column
-    private String color;
+    @Enumerated(EnumType.STRING)
+    private Color color;
 
-    @Column
+    @Column(unique = true)
     private String consumableMark;
 
     @ManyToOne
@@ -38,5 +39,18 @@ public class Consumable extends BasicEntityField {
         public String getType() {
             return type;
         }
+    }
+
+    public enum Color{
+        CYAN("Niebieski"),
+        MAGENTA("Czerwony"),
+        YELLOW("Żółty"),
+        BLACK("Czarny");
+
+        private String color;
+
+        Color(String color){this.color = color;}
+
+        public String getColor(){return color; }
     }
 }

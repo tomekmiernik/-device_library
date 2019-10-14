@@ -2,22 +2,32 @@
     <h4 th:text="${formName}"></h4>
 
     <form th:action="@{'/admin/consumable'}" th:method="post" th:object="${consumableDto}">
-        <select name="consumableType">
-            <option selected disabled value="">Wybierz...</option>
+
+        <label for="consumableType" style="color: #FF0000"
+               th:if="${#fields.hasErrors('consumableType')}"
+               th:errors="*{consumableType}"></label>
+        <select id="consumableType" name="consumableType">
+            <option selected disabled value="">Tusz/Toner</option>
             <option th:each="c : ${T(com.example.company.device_library.model.Consumable.ConsumableType).values()}"
                     th:text="${c.getType()}"
                     th:value="${c}"></option>
         </select>
 
-        <input type="text" name="color">
-        <input type="text" name="consumableMark">
+        <label for="color" style="color: #FF0000"
+               th:if="${#fields.hasErrors('color')}"
+               th:errors="*{color}"></label>
+        <select id="color" name="color">
+            <option selected disabled value="">Kolor</option>
+            <option th:each="c : ${T(com.example.company.device_library.model.Consumable.Color).values()}"
+                    th:text="${c.getColor()}"
+                    th:value="${c}"></option>
+        </select>
 
-        <!--<select name="printer">
-            <option disabled selected value="">Wybierz...</option>
-            <option th:each="p : ${printers}"
-                    th:text="p.getIpAddress()"
-                    th:value="p.getId()"></option>
-        </select>-->
+        <label for="consumableMark" style="color: #FF0000"
+               th:if="${#fields.hasErrors('consumableMark')}"
+               th:errors="*{consumableMark}"></label>
+        <input id="consumableMark" type="text" name="consumableMark" placeholder="symbol producenta">
+
         <button type="submit">Dodaj</button>
 
     </form>

@@ -183,7 +183,7 @@
               <!-- Dropdown - User Information -->
               <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
                 <a class="dropdown-item" href="#">
-                  <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
+                  <i class="fas fa-userApp fa-sm fa-fw mr-2 text-gray-400"></i>
                   Profile
                 </a>
                 <a class="dropdown-item" href="#">
@@ -245,14 +245,14 @@
                     </tr>
                   </tfoot>
                   <tbody>
-                  <tr th:each="user : ${users}">
-                    <td style="font-size: 18px;" th:text="${user.getFirstName()}"></td>
-                    <td style="font-size: 18px;" th:text="${user.getLastName()}"></td>
-                    <td style="font-size: 18px;" th:text="${user.getDepartment()}"></td>
-                    <td style="font-size: 18px;" th:text="${user.getLocalization()}"></td>
-                    <td style="font-size: 18px;" th:text="${user.getMobileDevice().getSimCard().getPhoneNumber()}"></td>
-                    <td style="font-size: 18px;" th:text="${user.getEmail()}"></td>
-                    <td style="font-size: 18px;"><a th:href="@{'/details/'+${user.getUserId()}}">Podgląd</a></td>
+                  <tr th:each="userApp : ${userApps}">
+                    <td style="font-size: 18px;" th:text="${userApp.getFirstName()}"></td>
+                    <td style="font-size: 18px;" th:text="${userApp.getLastName()}"></td>
+                    <td style="font-size: 18px;" th:text="${userApp.getDepartment()}"></td>
+                    <td style="font-size: 18px;" th:text="${userApp.getLocalization()}"></td>
+                    <td style="font-size: 18px;" th:text="${userApp.getMobileDevice().getSimCard().getPhoneNumber()}"></td>
+                    <td style="font-size: 18px;" th:text="${userApp.getEmail()}"></td>
+                    <td style="font-size: 18px;"><a th:href="@{'/details/'+${userApp.getUserId()}}">Podgląd</a></td>
                   </tr>
                   </tbody>
                 </table>

@@ -1,0 +1,33 @@
+<div xmlns:th="http://www.thymeleaf.org" th:fragment="kit">
+    <span th:text="${computerInfoWarning}" style="color: #FF0000"></span>
+    <table>
+        <tr>
+            <th>Producent</th>
+            <th>Model</th>
+            <th>Nazwa urządzenia</th>
+            <th>Numer Seryjny</th>
+            <th>Komunikacja</th>
+        </tr>
+        <tr th:each="p : ${peripherals}">
+            <td th:text="${p.getDeviceManufacturer()}"></td>
+            <td th:text="${p.getDeviceType()}"></td>
+            <td th:text="${p.getNamePeripheral()}"></td>
+            <td th:text="${p.getSerialNumber()}"></td>
+            <td th:text="${p.getTypeInterface().getType()}"></td>
+            <td>
+                <a th:href="@{'/admin/computer/' +${p.getPeripheralId()} + '/changeToFree'}">Zwolnij</a>
+            </td>
+            <td>
+                <form action="/delete" method="get">
+                    <input type="hidden" th:value="${p.getPeripheralId()}" name="peripheralId">
+                    <button type="submit">
+                        <i aria-hidden="true"></i> Delete
+                    </button>
+                </form>
+            </td>
+        </tr>
+    </table>
+    <a th:href="@{'/admin/computer'}">
+        <button>Cofnij</button>
+    </a>
+</div>

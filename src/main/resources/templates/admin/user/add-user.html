@@ -3,22 +3,44 @@
 
     <form th:action="@{'/admin/user'}" th:method="post" th:object="${userDto}">
 
-        <input type="text" name="firstName" placeholder="Imię">
-        <input type="text" name="lastName" placeholder="nazwisko">
-        <input type="text" name="position" placeholder="stanowisko">
-        <input type="text" name="localization" placeholder="lokalizacja">
-        <input type="text" name="email" placeholder="e-mail">
+        <label for="userFirstName" style="color: #FF0000"
+               th:if="${#fields.hasErrors('firstName')}"
+               th:errors="*{firstName}"></label>
+        <input id="userFirstName" type="text" name="firstName" placeholder="Imię">
+
+        <label for="userLastName" style="color: #FF0000"
+               th:if="${#fields.hasErrors('lastName')}"
+               th:errors="*{lastName}"></label>
+        <input id="userLastName" type="text" name="lastName" placeholder="nazwisko">
+
+        <label for="userPosition" style="color: #FF0000"
+               th:if="${#fields.hasErrors('position')}"
+               th:errors="*{position}"></label>
+        <input id="userPosition" type="text" name="position" placeholder="stanowisko">
+
+        <label for="userLocalization" style="color: #FF0000"
+               th:if="${#fields.hasErrors('localization')}"
+               th:errors="*{localization}"></label>
+        <input id="userLocalization" type="text" name="localization" placeholder="lokalizacja">
+
+        <label for="userEmail" style="color: #FF0000"
+               th:if="${#fields.hasErrors('email')}"
+               th:errors="*{email}"></label>
+        <input id="userEmail" type="text" name="email" placeholder="e-mail">
+
         <input type="checkbox" name="active" th:checked="${userDto?.isActive()}">
 
-        <select  name="department">
+        <label for="userDepartment" style="color: #FF0000"
+               th:if="${#fields.hasErrors('department')}"
+               th:errors="*{department}"></label>
+        <select name="department" id="userDepartment">
             <option selected disabled>Dział</option>
             <option th:each="d : ${departments}"
                     th:value="${d.getDepartmentShortName()}"
                     th:text="${d.getDepartmentShortName()}">
-
             </option>
         </select>
-        <button type="submit">Dodaj</button>
 
+        <button type="submit">Dodaj</button>
     </form>
 </div>

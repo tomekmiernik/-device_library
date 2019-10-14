@@ -4,6 +4,7 @@ import com.example.company.device_library.model.Consumable;
 import com.example.company.device_library.repository.ConsumableRepository;
 import com.example.company.device_library.util.dtos.ConsumableDto;
 import com.example.company.device_library.util.mappers.ConsumableMapper;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 
 import java.util.Collection;
@@ -27,8 +28,16 @@ public class ConsumableService {
                 .collect(Collectors.toList());
     }
 
-    public Consumable addConsumable(ConsumableDto consumableDto) {
-        return consumableRepository.save(consumableMapper.reverse(consumableDto));
+    public boolean addConsumable(ConsumableDto consumableDto) {
+        boolean checked = checkDataBeforeSave(consumableDto);
+        if (checked) {
+            try {
+                consumableRepository.save(consumableMapper.reverse(consumableDto));
+            }catch (DataIntegrityViolationException dive){
+                checked = false;
+            }
+        }
+        return checked;
     }
 
     public ConsumableDto getConsumableById(Long consumableId) {
@@ -44,5 +53,12 @@ public class ConsumableService {
                     c.setPrinter(consumableDto.getPrinter());
                     consumableRepository.save(c);
                 });
+    }
+
+    private boolean checkDataBeforeSave(ConsumableDto consumableDto) {
+        return consumableRepository.findAll()
+                .stream()
+                .noneMatch(c -> c.getConsumableMark()
+                        .matches(consumableDto.getConsumableMark()));
     }
 }

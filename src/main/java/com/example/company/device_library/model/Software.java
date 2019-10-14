@@ -3,6 +3,7 @@ package com.example.company.device_library.model;
 import lombok.*;
 
 import javax.persistence.*;
+import java.util.Collection;
 
 @Entity
 @Getter
@@ -10,7 +11,7 @@ import javax.persistence.*;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-@Table(name = "softwares")
+@Table(name = "software")
 public class Software extends BasicEntityField {
 
     @Column
@@ -18,7 +19,6 @@ public class Software extends BasicEntityField {
     @Column
     private String licenseNumber;
 
-    @ManyToOne
-    @JoinColumn(name = "computer_id")
-    private Computer computer;
+    @ManyToMany(mappedBy = "softwareCollection")
+    private Collection<Computer> computers;
 }

@@ -2,28 +2,45 @@
     <h4 th:text="${formName}"></h4>
 
     <form th:action="@{'/admin/peripheral'}" th:method="post" th:object="${peripheralDto}">
-        <select name="deviceManufacturer">
+        <label for="namePeripheral" style="color: #FF0000"
+               th:if="${#fields.hasErrors('namePeripheral')}"
+               th:errors="*{namePeripheral}"></label>
+        <input id="namePeripheral" type="text" name="namePeripheral" placeholder="nazwa urządzenia">
+
+        <label for="deviceManufacturer" style="color: #FF0000"
+        th:if="${#fields.hasErrors('deviceManufacturer')}"
+        th:errors="*{deviceManufacturer}"></label>
+        <select id="deviceManufacturer" name="deviceManufacturer">
             <option disabled selected value="">Producent</option>
             <option th:each="t : ${produces}"
-                    th:value="${t.getManufacturerName()}"
-                    th:text="${t.getManufacturerName()}"></option>
+            th:value="${t.getManufacturerName()}"
+            th:text="${t.getManufacturerName()}"></option>
         </select>
 
-        <select name="deviceType">
+        <label for="deviceType" style="color: #FF0000"
+        th:if="${#fields.hasErrors('deviceType')}"
+        th:errors="*{deviceType}"></label>
+        <select id="deviceType" name="deviceType">
             <option disabled selected value="">Model</option>
             <option th:each="m : ${models}"
-                    th:value="${m.getTypeName()}"
-                    th:text="${m.getTypeName()}"></option>
+            th:value="${m.getTypeName()}"
+            th:text="${m.getTypeName()}"></option>
         </select>
 
-        <select name="typeInterface">
+        <label for="typeInterface" style="color: #FF0000"
+        th:if="${#fields.hasErrors('typeInterface')}"
+        th:errors="*{typeInterface}"></label>
+        <select id="typeInterface" name="typeInterface">
             <option disabled selected value="">Rodzaj połaczenia</option>
             <option th:each="t : ${T(com.example.company.device_library.model.Peripheral.Interface).values()}"
-                    th:value="${t}"
-                    th:text="${t.getType()}"></option>
+            th:value="${t}"
+            th:text="${t.getType()}"></option>
         </select>
-        <input type="text" name="namePeripheral" placeholder="nazwa urządzenia">
-        <input type="text" name="serialNumber" placeholder="numer seryjny">
+
+        <label for="serialNumber" style="color: #FF0000"
+               th:if="${#fields.hasErrors('serialNumber')}"
+               th:errors="*{serialNumber}"></label>
+        <input id="serialNumber" type="text" name="serialNumber" placeholder="numer seryjny">
 
         <button type="submit">Dodaj</button>
 

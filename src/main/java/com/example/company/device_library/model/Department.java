@@ -6,6 +6,7 @@ import lombok.Setter;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Table;
+import javax.persistence.UniqueConstraint;
 
 @Entity
 @Getter
@@ -13,10 +14,10 @@ import javax.persistence.Table;
 @Table(name = "departments")
 public class Department extends BasicEntityField {
 
-    @Column
+    @Column(unique = true)
     private String departmentName;
 
-    @Column
+    @Column(unique = true)
     private String departmentShortName;
 
 }

@@ -20,6 +20,9 @@ public class Peripheral extends Device {
     @Column
     private String namePeripheral;
 
+    @Column
+    private Boolean isUse;
+
     @ManyToOne
     @JoinColumn(name = "computer_id")
     private Computer computer;

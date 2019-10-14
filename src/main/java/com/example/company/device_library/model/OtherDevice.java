@@ -25,10 +25,12 @@ public class OtherDevice extends Device {
         STATIONARY("Stacjonarne");
 
         private String type;
-        OtherDeviceType(String type){
+
+        OtherDeviceType(String type) {
             this.type = type;
         }
-        public String getType(){
+
+        public String getType() {
             return type;
         }
     }

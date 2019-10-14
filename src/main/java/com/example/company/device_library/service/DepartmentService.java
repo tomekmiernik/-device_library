@@ -1,9 +1,9 @@
 package com.example.company.device_library.service;
 
-import com.example.company.device_library.model.Department;
 import com.example.company.device_library.repository.DepartmentRepository;
 import com.example.company.device_library.util.dtos.DepartmentDto;
 import com.example.company.device_library.util.mappers.DepartmentMapper;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 
 import java.util.Collection;
@@ -27,8 +27,16 @@ public class DepartmentService {
                 .collect(Collectors.toList());
     }
 
-    public Department addDepartment(DepartmentDto departmentDto) {
-        return departmentRepository.save(departmentMapper.reverse(departmentDto));
+    public boolean addDepartment(DepartmentDto departmentDto) {
+        boolean checked = checkDataBeforeSave(departmentDto);
+        if (checked) {
+            try {
+                departmentRepository.save(departmentMapper.reverse(departmentDto));
+            } catch (DataIntegrityViolationException dive) {
+                checked = false;
+            }
+        }
+        return checked;
     }
 
     public DepartmentDto getDepartmentById(Long departmentId) {
@@ -42,5 +50,17 @@ public class DepartmentService {
                     d.setDepartmentShortName(departmentDto.getDepartmentShortName());
                     departmentRepository.save(d);
                 });
+    }
+
+    private boolean checkDataBeforeSave(DepartmentDto departmentDto) {
+        boolean checkDepName = departmentRepository.findAll()
+                .stream()
+                .noneMatch(d -> d.getDepartmentName()
+                        .matches(departmentDto.getDepartmentName()));
+        boolean checkDepShortName = departmentRepository.findAll()
+                .stream()
+                .noneMatch(d -> d.getDepartmentShortName()
+                        .matches(departmentDto.getDepartmentShortName()));
+        return checkDepName && checkDepShortName;
     }
 }

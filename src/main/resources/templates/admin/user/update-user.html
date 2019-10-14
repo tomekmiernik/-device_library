@@ -1,23 +1,50 @@
-<div xmlns:th="http://www.thymeleaf.org" th:fragment="add-user">
+<div xmlns:th="http://www.thymeleaf.org" th:fragment="add-userApp">
     <h4 th:text="${formName}"></h4>
 
     <form th:action="@{'/admin/user'}" th:method="put" th:object="${userDto}">
         <input type="number" name="userId" th:value="${userDto.getUserId()}" readonly hidden="hidden">
-        <input type="text" name="firstName" th:value="${userDto.getFirstName()}">
-        <input type="text" name="lastName" th:value="${userDto.getLastName()}">
-        <input type="text" name="position" th:value="${userDto.getPosition()}">
-        <select  name="department">
+
+        <label for="userFirstName" style="color: #FF0000"
+               th:if="${#fields.hasErrors('firstName')}"
+               th:errors="*{firstName}"></label>
+        <input id="userFirstName" type="text" name="firstName" th:value="${userDto.getFirstName()}">
+
+        <label for="userLastName" style="color: #FF0000"
+               th:if="${#fields.hasErrors('lastName')}"
+               th:errors="*{lastName}"></label>
+        <input id="userLastName" type="text" name="lastName" th:value="${userDto.getLastName()}">
+
+        <label for="userPosition" style="color: #FF0000"
+               th:if="${#fields.hasErrors('position')}"
+               th:errors="*{position}"></label>
+        <input id="userPosition" type="text" name="position" th:value="${userDto.getPosition()}">
+
+        <label for="userLocalization" style="color: #FF0000"
+               th:if="${#fields.hasErrors('localization')}"
+               th:errors="*{localization}"></label>
+        <input id="userLocalization" type="text" name="localization" th:value="${userDto.getLocalization()}">
+
+        <label for="userEmail" style="color: #FF0000"
+               th:if="${#fields.hasErrors('email')}"
+               th:errors="*{email}">
+        </label>
+        <input id="userEmail" type="text" name="email" th:value="${userDto.getEmail()}">
+
+        <input type="checkbox" name="active" th:checked="${userDto?.isActive()}">
+
+        <label for="userDepartment" style="color: #FF0000"
+               th:if="${#fields.hasErrors('department')}"
+               th:errors="*{department}"></label>
+        <select id="userDepartment" name="department">
             <option selected disabled>Dział</option>
             <option th:each="d : ${departments}"
-                    th:value="${d.getDepartmentShortName()}"
-                    th:text="${d.getDepartmentShortName()}">
-
-            </option>
+            th:value="${d.getDepartmentShortName()}"
+            th:text="${d.getDepartmentShortName()}"></option>
         </select>
-        <input type="text" name="localization" th:value="${userDto.getLocalization()}">
-        <input type="text" name="email" th:value="${userDto.getEmail()}">
-        <input type="checkbox" name="active" th:checked="${userDto?.isActive()}">
-        <button type="submit">Edytuj</button>
 
+        <button type="submit">Edytuj</button>
     </form>
+    <a th:href="@{'/admin/user'}">
+        <button>Cofnij</button>
+    </a>
 </div>

@@ -2,16 +2,24 @@
     <h4 th:text="${formName}"></h4>
 
     <form th:action="@{'/admin/printer/addConsumable/'+${printerDto.getPrinterId()}}"
-          th:method="post" th:object="${printerDto}">
-
-        <select  name="consumable">
-            <option selected disabled>Tusz / Toner</option>
-            <option th:each="c : ${consumables}"
-                    th:value="${c.getConsumableId()}"
-                    th:text="${c.getConsumableMark()+' | '+c.getConsumableType()+' | '+c.getColor()}">
-            </option>
-        </select>
+          th:method="put" th:object="${printerDto}">
+        <span th:text="${printerInfoWarning}" style="color: #FF0000"></span>
+        <table>
+            <tr>
+                <td>
+                    <ul style="list-style-type: none">
+                        <li th:each="c : ${consumables}">
+                            <label for="consumable"></label>
+                            <input id="consumable" name="consumable" type="checkbox"
+                                   th:value="${c.getConsumableId()}"
+                                   th:text="${c.getConsumableMark()+' | '+c.getConsumableType()+' | '+c.getColor()}">
+                    </ul>
+                </td>
+            </tr>
+        </table>
         <button type="submit">Dodaj</button>
-
     </form>
+    <a th:href="@{'/admin/printer'}">
+        <button>Cofnij</button>
+    </a>
 </div>

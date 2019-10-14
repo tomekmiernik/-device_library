@@ -2,16 +2,18 @@
     <h4 th:text="${formName}"></h4>
 
     <form th:action="@{'/admin/computer/addSoftware/'+${computerDto.getComputerId()}}"
-          th:method="post" th:object="${computerDto}">
-
-        <select name="software">
-            <option selected disabled>Program</option>
-            <option th:each="s : ${softwares}"
-                    th:value="${s.getSoftwareId()}"
-                    th:text="${s.getSoftwareName()+' | '+s.getLicenseNumber()}">
-            </option>
-        </select>
+          th:method="put" th:object="${computerDto}">
+        <span th:text="${computerInfoWarning}" style="color: #FF0000"></span>
+        <ul style="list-style-type: none">
+            <li th:each="s : ${software}">
+                <label for="software"></label>
+                <input id="software" name="software" type="checkbox" th:value="${s.getSoftwareId()}"
+                       th:text="${s.getSoftwareName()+' | '+s.getLicenseNumber()}">
+            </li>
+        </ul>
         <button type="submit">Dodaj</button>
-
     </form>
+    <a th:href="@{'/admin/computer'}">
+        <button>Cofnij</button>
+    </a>
 </div>

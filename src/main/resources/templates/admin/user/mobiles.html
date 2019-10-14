@@ -1,0 +1,22 @@
+<div xmlns:th="http://www.thymeleaf.org" th:fragment="mobiles">
+    <table>
+        <tr>
+            <th>Producent</th>
+            <th>Model</th>
+            <th>Numer Seryjny</th>
+        </tr>
+        <tr th:each="m : ${mobiles}">
+            <td th:text="${m.getDeviceManufacturer()}"></td>
+            <td th:text="${m.getDeviceType()}"></td>
+            <td th:text="${m.getSerialNumber()}"></td>
+
+            <td>
+                <a th:href="@{'/admin/user/' +${m.getMobileDeviceId()} + '/changeMobileToFree'}">Zwolnij</a>
+            </td>
+        </tr>
+    </table>
+    <span th:text="${userInfoWarning}" style="color: #FF0000"></span>
+    <a th:href="@{'/admin/user'}">
+        <button>Cofnij</button>
+    </a>
+</div>

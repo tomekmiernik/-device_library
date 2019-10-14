@@ -15,6 +15,7 @@ public class MobileDeviceMapper implements Mapper<MobileDevice, MobileDeviceDto>
                 .serialNumber(from.getSerialNumber())
                 .imeiNumber(from.getImeiNumber())
                 .phoneType(from.getPhoneType())
+                .isUse(from.getIsUse())
                 .simCard(from.getSimCard())
                 .build();
     }
@@ -26,6 +27,7 @@ public class MobileDeviceMapper implements Mapper<MobileDevice, MobileDeviceDto>
         mobileDevice.setDeviceManufacturer(to.getDeviceManufacturer());
         mobileDevice.setDeviceType(to.getDeviceType());
         mobileDevice.setSerialNumber(to.getSerialNumber());
+        mobileDevice.setIsUse(to.getIsUse());
         mobileDevice.setImeiNumber(to.getImeiNumber());
         mobileDevice.setPhoneType(to.getPhoneType());
         mobileDevice.setSimCard(to.getSimCard());

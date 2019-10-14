@@ -1,0 +1,23 @@
+<div xmlns:th="http://www.thymeleaf.org" th:fragment="sim">
+    <table>
+        <tr>
+            <th>Numer telefonu</th>
+            <th>Kod PIN</th>
+            <th>Kod PUK</th>
+            <th>Numer karty SIM</th>
+        </tr>
+        <tr th:each="s : ${sims}">
+            <td th:text="${s.getPhoneNumber()}"></td>
+            <td th:text="${s.getPinNumber()}"></td>
+            <td th:text="${s.getPukNumber()}"></td>
+            <td th:text="${s.getSimCardNumber()}"></td>
+            <td>
+                <a th:href="@{'/admin/mobile/' +${s.getSimCardId()} + '/changeToFree'}">Zwolnij</a>
+            </td>
+        </tr>
+    </table>
+    <span th:text="${mobileInfoWarning}" style="color: #FF0000"></span>
+    <a th:href="@{'/admin/mobile'}">
+        <button>Anuluj</button>
+    </a>
+</div>

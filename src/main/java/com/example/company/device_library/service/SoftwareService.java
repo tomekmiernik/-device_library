@@ -39,7 +39,6 @@ public class SoftwareService {
                 .ifPresent(s -> {
                     s.setSoftwareName(softwareDto.getSoftwareName());
                     s.setLicenseNumber(softwareDto.getLicenseNumber());
-                    s.setComputer(softwareDto.getComputer());
                     softwareRepository.save(s);
                 });
     }

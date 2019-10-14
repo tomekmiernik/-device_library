@@ -3,10 +3,33 @@
 
     <form th:action="@{'/admin/consumable'}" th:method="put" th:object="${consumableDto}">
         <input type="number" name="consumableId" th:value="${consumableDto.getConsumableId()}" readonly hidden="hidden">
-        <input type="text" name="consumableType" th:value="${consumableDto.getConsumableType()}">
-        <input type="text" name="color" th:value="${consumableDto.getColor()}">
-        <input type="text" name="consumableMark" th:value="${consumableDto.getConsumableMark()}">
-        <button type="submit">Edytuj</button>
+        <label for="consumableType" style="color: #FF0000"
+               th:if="${#fields.hasErrors('consumableType')}"
+               th:errors="*{consumableType}"></label>
+        <select id="consumableType" name="consumableType">
+            <option selected disabled value="">Tusz/Toner</option>
+            <option th:each="c : ${T(com.example.company.device_library.model.Consumable.ConsumableType).values()}"
+                    th:text="${c.getType()}"
+                    th:value="${c}"></option>
+        </select>
 
+        <label for="color" style="color: #FF0000"
+               th:if="${#fields.hasErrors('color')}"
+               th:errors="*{color}"></label>
+        <select id="color" name="color">
+            <option selected disabled value="">Kolor</option>
+            <option th:each="c : ${T(com.example.company.device_library.model.Consumable.Color).values()}"
+                    th:text="${c.getColor()}"
+                    th:value="${c}"></option>
+        </select>
+
+        <label for="consumableMark" style="color: #FF0000"
+               th:if="${#fields.hasErrors('consumableMark')}"
+               th:errors="*{consumableMark}"></label>
+        <input id="consumableMark" type="text" name="consumableMark" th:value="${consumableDto.getConsumableMark()}">
+        <button type="submit">Edytuj</button>
     </form>
+    <a th:href="@{'/admin/consumable'}">
+        <button>Cofnij</button>
+    </a>
 </div>

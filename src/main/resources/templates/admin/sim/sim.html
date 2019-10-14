@@ -3,10 +3,12 @@
 <head th:replace="fragments/header :: header"></head>
 
 <body>
-<div th:replace="admin/admin-tools :: admin-tools"></div>
-<br>
+<span th:text="${info}" style="color: #FF0000"></span>
 <div th:replace="admin/sim/add-sim :: add-sim"></div>
 <br>
 <div th:replace="admin/sim/sim-table :: sim-table"></div>
+<a th:href="@{'/admin'}">
+    <button>Cofnij</button>
+</a>
 </body>
 </html>

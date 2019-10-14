@@ -2,6 +2,7 @@ package com.example.company.device_library.model;
 
 import lombok.Getter;
 import lombok.Setter;
+import org.hibernate.validator.constraints.UniqueElements;
 
 import javax.persistence.*;
 
@@ -11,10 +12,7 @@ import javax.persistence.*;
 @Table(name = "device_types")
 public class DeviceType extends BasicEntityField {
 
-    @Column
+    @Column(unique = true)
     private String typeName;
 
-    @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "manufacturer_id")
-    private DeviceManufacturer deviceManufacturer;
 }

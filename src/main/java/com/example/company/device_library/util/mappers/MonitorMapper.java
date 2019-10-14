@@ -14,6 +14,7 @@ public class MonitorMapper implements Mapper<Monitor, MonitorDto> {
                 .deviceType(from.getDeviceType())
                 .serialNumber(from.getSerialNumber())
                 .inchValue(from.getInchValue())
+                .isUse(from.getIsUse())
                 .monitorType(from.getMonitorType())
                 .build();
     }
@@ -25,6 +26,7 @@ public class MonitorMapper implements Mapper<Monitor, MonitorDto> {
         monitor.setDeviceManufacturer(to.getDeviceManufacturer());
         monitor.setDeviceType(to.getDeviceType());
         monitor.setSerialNumber(to.getSerialNumber());
+        monitor.setIsUse(to.getIsUse());
         monitor.setInchValue(to.getInchValue());
         monitor.setMonitorType(to.getMonitorType());
         return monitor;

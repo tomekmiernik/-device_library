@@ -2,7 +2,12 @@ package com.example.company.device_library.util.dtos;
 
 import com.example.company.device_library.model.*;
 import lombok.*;
+import org.hibernate.validator.constraints.UniqueElements;
 
+import javax.persistence.Column;
+import javax.persistence.UniqueConstraint;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 import java.util.Collection;
 
 @Builder
@@ -12,14 +17,29 @@ import java.util.Collection;
 @AllArgsConstructor
 public class ComputerDto {
     private Long computerId;
-    private String computerAdName;
+
+    @NotEmpty(message = "To pole jest wymagane")
     private String deviceManufacturer;
+
+    @NotEmpty(message = "To pole jest wymagane")
     private String deviceType;
+
+    @NotEmpty(message = "To pole jest wymagane")
     private String serialNumber;
+
+    @NotEmpty(message = "To pole jest wymagane")
+    private String computerAdName;
+
+    @NotNull(message = "To pole jest wymagane")
     private Computer.ComputerType computerType;
+
+    private Printer printer;
+
+    private Monitor monitor;
+
+    private Boolean isUse;
+
     private Collection<Software> softwareCollection;
     private Collection<Peripheral> peripheralCollection;
-    private Printer printer;
-    private Monitor monitor;
 
 }

@@ -1,16 +1,28 @@
 <div xmlns:th="http://www.thymeleaf.org" th:fragment="add-computer">
     <h4 th:text="${formName}"></h4>
 
-    <form th:action="@{'/admin/user/addComputer/'+${userDto.getUserId()}}" th:method="post" th:object="${userDto}">
+    <form th:action="@{'/admin/user/addComputer/'+${userDto.getUserId()}}"
+          th:method="put" th:object="${userDto}">
 
-        <select  name="computer">
-            <option selected disabled>Komputer</option>
-            <option th:each="c : ${computers}"
-                    th:value="${c.getComputerId()}"
-                    th:text="${c.getComputerAdName()+' | '+c.getSerialNumber()}">
-            </option>
-        </select>
+        <span th:text="${userInfoWarning}" style="color: #FF0000"></span>
+        <table>
+            <tr>
+                <td>
+                    <ul style="list-style-type: none">
+                        <li th:each="c : ${computers}">
+                            <label for="computer"></label>
+                            <input id="computer" name="computer" type="radio" th:value="${c.getComputerId()}"
+                                   th:text="${c.getDeviceManufacturer()+' | '+c.getDeviceType()+' | '+c.getComputerAdName()+' | '+c.getSerialNumber()}">
+                    </ul>
+                </td>
+            </tr>
+        </table>
         <button type="submit">Dodaj</button>
-
     </form>
+    <a th:href="@{'/admin/user'}">
+        <button>Cofnij</button>
+    </a>
+    <a th:href="@{'/admin/user/comps'}">
+        <button>Zwolnij zasoby</button>
+    </a>
 </div>

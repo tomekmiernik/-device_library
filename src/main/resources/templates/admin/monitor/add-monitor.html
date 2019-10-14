@@ -2,33 +2,44 @@
     <h4 th:text="${formName}"></h4>
 
     <form th:action="@{'/admin/monitor'}" th:method="post" th:object="${monitorDto}">
-        <select name="deviceManufacturer">
+
+        <label for="deviceManufacturer" style="color: #FF0000"
+               th:if="${#fields.hasErrors('deviceManufacturer')}"
+               th:errors="*{deviceManufacturer}"></label>
+        <select id="deviceManufacturer" name="deviceManufacturer">
             <option disabled selected value="">Producent</option>
             <option th:each="t : ${produces}"
                     th:value="${t.getManufacturerName()}"
                     th:text="${t.getManufacturerName()}"></option>
         </select>
 
-        <select name="deviceType">
+        <label for="deviceType" style="color: #FF0000"
+               th:if="${#fields.hasErrors('deviceType')}"
+               th:errors="*{deviceType}"></label>
+        <select id="deviceType" name="deviceType">
             <option disabled selected value="">Model</option>
             <option th:each="m : ${models}"
                     th:value="${m.getTypeName()}"
                     th:text="${m.getTypeName()}"></option>
         </select>
-        <input type="text" name="serialNumber" placeholder="numer seryjny">
-        <input type="text" name="inchValue" placeholder="ilość cali">
-        <select name="monitorType">
+
+        <label for="serialNumber" style="color: #FF0000"
+               th:if="${#fields.hasErrors('serialNumber')}"
+               th:errors="*{serialNumber}"></label>
+        <input id="serialNumber" type="text" name="serialNumber" placeholder="numer seryjny">
+
+        <label for="inchValue" style="color: #FF0000"
+               th:if="${#fields.hasErrors('inchValue')}"
+               th:errors="*{inchValue}"></label>
+        <input id="inchValue" type="text" name="inchValue" placeholder="ilość cali">
+
+        <select  name="monitorType">
             <option disabled selected value="">Rodzaj</option>
             <option th:each="m : ${T(com.example.company.device_library.model.Monitor.MonitorType).values()}"
                     th:value="${m}"
                     th:text="${m}"></option>
         </select>
-        <!--<select name="computer">
-            <option disabled selected value="">Zestawiony komputer</option>
-            <option th:each="c : ${computers}"
-                    th:value="${c.getComputerId()}"
-                    th:text="${c.getSerialNumber()}"></option>
-        </select>-->
+
         <button type="submit">Dodaj</button>
 
     </form>

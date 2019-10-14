@@ -2,7 +2,11 @@
     <h4 th:text="${formName}"></h4>
 
     <form th:action="@{'/admin/phone'}" th:method="post" th:object="${telephoneDto}">
-        <select name="deviceManufacturer">
+
+        <label for="deviceManufacturer" style="color: #FF0000"
+               th:if="${#fields.hasErrors('deviceManufacturer')}"
+               th:errors="*{deviceManufacturer}"></label>
+        <select id="deviceManufacturer" name="deviceManufacturer">
             <option disabled selected value="">Producent</option>
             <option th:each="p : ${produces}"
                     th:value="${p.getManufacturerName()}"
@@ -10,7 +14,10 @@
             </option>
         </select>
 
-        <select name="deviceType">
+        <label for="deviceType" style="color: #FF0000"
+               th:if="${#fields.hasErrors('deviceType')}"
+               th:errors="*{deviceType}"></label>
+        <select id="deviceType" name="deviceType">
             <option disabled selected value="">Model</option>
             <option th:each="m : ${models}"
                     th:value="${m.getTypeName()}"
@@ -18,11 +25,22 @@
             </option>
         </select>
 
-        <input type="text" name="serialNumber" placeholder="numer seryjny">
-        <input type="text" name="phoneNumber" placeholder="numer telefonu">
+        <label for="serialNumber" style="color: #FF0000"
+               th:if="${#fields.hasErrors('serialNumber')}"
+               th:errors="*{serialNumber}"></label>
+        <input id="serialNumber" type="text" name="serialNumber" placeholder="numer seryjny">
+
+        <label for="phoneNumber" style="color: #FF0000"
+               th:if="${#fields.hasErrors('phoneNumber')}"
+               th:errors="*{phoneNumber}"></label>
+        <input id="phoneNumber" type="text" name="phoneNumber" placeholder="numer telefonu">
+
         <input type="text" name="internalNumber" placeholder="numer wewnętrzny">
 
-        <select name="phoneType">
+        <label for="phoneType" style="color: #FF0000"
+               th:if="${#fields.hasErrors('phoneType')}"
+               th:errors="*{phoneType}"></label>
+        <select id="phoneType" name="phoneType">
             <option disabled selected value="">Typ telefonu</option>
             <option th:each="t : ${T(com.example.company.device_library.model.Telephone.PhoneType).values()}"
                     th:value="${t}"

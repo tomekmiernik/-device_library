@@ -28,7 +28,8 @@ target/
 build/
 
 ### VS Code ###
-/src/main/resources/config.properties
+/src/main/resources/localConfig.properties
+/src/main/resources/remoteConfig.properties
 mvnw
 mvnw.cmd
 /.mvn

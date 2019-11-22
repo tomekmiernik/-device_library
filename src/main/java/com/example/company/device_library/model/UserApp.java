@@ -1,10 +1,15 @@
 package com.example.company.device_library.model;
 
 import lombok.*;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.Set;
 
 
@@ -36,7 +41,7 @@ public class UserApp extends BasicEntityField {
     private String email;
 
     @Column
-    @Size(min=6, max= 30)
+    @Size(min=6)
     private String password;
 
     @Column
@@ -54,6 +59,6 @@ public class UserApp extends BasicEntityField {
     @JoinTable(name = "users_roles",
             joinColumns = @JoinColumn(name = "user_id"),
             inverseJoinColumns = @JoinColumn(name = "role_id"))
-    private Set<Role> roles;
+    private Collection<Role> roles;
 
 }

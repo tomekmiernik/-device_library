@@ -1,17 +1,20 @@
 package com.example.company.device_library.model;
 
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
+import java.util.Collection;
 import java.util.Set;
 
 @Entity
+@Builder
 @Getter
 @Setter
+@NoArgsConstructor
+@AllArgsConstructor
 @Table(name = "roles")
 public class Role extends BasicEntityField {
 
@@ -19,5 +22,5 @@ public class Role extends BasicEntityField {
     private String roleName;
 
     @ManyToMany(mappedBy = "roles")
-    private Set<UserApp> userApps;
+    private Collection<UserApp> userApps;
 }

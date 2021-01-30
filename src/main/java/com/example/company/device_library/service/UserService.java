@@ -1,20 +1,22 @@
 package com.example.company.device_library.service;
 
-import com.example.company.device_library.model.Computer;
-import com.example.company.device_library.model.MobileDevice;
-import com.example.company.device_library.model.SimCard;
-import com.example.company.device_library.model.UserApp;
+import com.example.company.device_library.model.*;
 import com.example.company.device_library.repository.ComputerRepository;
 import com.example.company.device_library.repository.MobileDeviceRepository;
+import com.example.company.device_library.repository.RoleRepository;
 import com.example.company.device_library.repository.UserRepository;
 import com.example.company.device_library.util.dtos.UserDto;
 import com.example.company.device_library.util.mappers.UserMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.context.event.ApplicationReadyEvent;
+import org.springframework.context.ApplicationEvent;
+import org.springframework.context.event.ApplicationContextEvent;
+import org.springframework.context.event.EventListener;
 import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import java.util.Collection;
-import java.util.List;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Service
@@ -22,18 +24,24 @@ public class UserService {
     private UserRepository userRepository;
     private ComputerRepository computerRepository;
     private MobileDeviceRepository mobileDeviceRepository;
+    private RoleRepository roleRepository;
     private UserMapper userMapper;
+    private PasswordEncoder passwordEncoder;
 
 
     @Autowired
     public UserService(UserRepository userRepository,
                        ComputerRepository computerRepository,
                        MobileDeviceRepository mobileDeviceRepository,
-                       UserMapper userMapper) {
+                       RoleRepository roleRepository,
+                       UserMapper userMapper,
+                       PasswordEncoder passwordEncoder) {
         this.userRepository = userRepository;
         this.computerRepository = computerRepository;
         this.mobileDeviceRepository = mobileDeviceRepository;
+        this.roleRepository = roleRepository;
         this.userMapper = userMapper;
+        this.passwordEncoder = passwordEncoder;
     }
 
     public Collection<UserDto> getUsersByLastName(String userLastName) {
@@ -49,6 +57,7 @@ public class UserService {
         boolean checked = checkDataBeforeSave(userDto);
         if (checked) {
             try {
+                userDto.setRoles(setDefaultUserRole());
                 userRepository.save(userMapper.reverse(userDto));
             } catch (DataIntegrityViolationException dive) {
                 checked = false;
@@ -110,14 +119,24 @@ public class UserService {
         setDefaultCharsWhenUserHasNotMobileDevice(users);
     }
 
-    private void setDefaultCharsWhenUserHasNotMobileDevice(Collection<UserDto> users) {
-        users.stream()
-                .filter(u -> u.getMobileDevice() == null)
-                .forEach(u -> {
-                    u.setMobileDevice(new MobileDevice());
-                    u.getMobileDevice().setSimCard(new SimCard());
-                    u.getMobileDevice().getSimCard().setPhoneNumber("- - -");
+
+    public boolean checkPasswordValue(String pass, String confPass) {
+        return pass.equals(confPass);
+    }
+
+    public void resetPassword(Long userId, String pass) {
+        userRepository.getUserById(userId)
+                .ifPresent(u -> {
+                    u.setPassword(passwordEncoder.encode(pass));
+                    userRepository.save(u);
                 });
+    }
+
+    private Collection<Role> setDefaultUserRole() {
+        Collection<Role> roles = new ArrayList<>();
+        Role defaultRoleUser = roleRepository.findByRoleName("USER");
+        roles.add(defaultRoleUser);
+        return roles;
     }
 
     private boolean checkDataBeforeSave(UserDto userDto) {
@@ -127,16 +146,13 @@ public class UserService {
                         .matches(userDto.getEmail()));
     }
 
-
-    public boolean checkPasswordValue(String pass, String confPass) {
-        return pass.equals(confPass);
-    }
-
-    public void resetPassword(Long userId, String pass) {
-        userRepository.getUserById(userId)
-                .ifPresent(u -> {
-                    u.setPassword(pass);
-                    userRepository.save(u);
+    private void setDefaultCharsWhenUserHasNotMobileDevice(Collection<UserDto> users) {
+        users.stream()
+                .filter(u -> u.getMobileDevice() == null)
+                .forEach(u -> {
+                    u.setMobileDevice(new MobileDevice());
+                    u.getMobileDevice().setSimCard(new SimCard());
+                    u.getMobileDevice().getSimCard().setPhoneNumber("- - -");
                 });
     }
 }

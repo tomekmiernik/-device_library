@@ -23,5 +23,7 @@
     <a th:href="@{/admin/consumable}">Eksploatacja</a><br>
     <hr>
     <a th:href="@{/admin/other}">Inne urządzenia</a><br>
-
+    <form th:method="post" th:action="@{'/logout'}">
+        <button type="submit">Wyloguj</button>
+    </form>
 </div>

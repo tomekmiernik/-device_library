@@ -24,7 +24,7 @@ public class Computer extends Device {
     @Column
     private Boolean isUse;
 
-    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinTable(name = "comp_soft",
             joinColumns = @JoinColumn(name = "computer_id"),
             inverseJoinColumns = @JoinColumn(name = "software_id"))

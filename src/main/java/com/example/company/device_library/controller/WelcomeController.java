@@ -22,7 +22,7 @@ public class WelcomeController {
     @GetMapping()
     public String getMainPage(Model model) {
         Collection<UserDto> users = userService.getAllUsers();
-        userService.getUsersFilerByPhoneNumber(users);
+        userService.getUsersFilterByPhoneNumber(users);
         model.addAttribute("users", users);
         return "welcome";
     }
@@ -67,7 +67,8 @@ public class WelcomeController {
     }
 
     @GetMapping("/login")
-    public String getLoginPage() {
+    public String getLoginPage(Model model) {
+        model.addAttribute("formName", "Panel logowania");
         return "login";
     }
 

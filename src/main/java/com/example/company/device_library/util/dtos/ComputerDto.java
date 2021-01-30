@@ -2,10 +2,7 @@ package com.example.company.device_library.util.dtos;
 
 import com.example.company.device_library.model.*;
 import lombok.*;
-import org.hibernate.validator.constraints.UniqueElements;
 
-import javax.persistence.Column;
-import javax.persistence.UniqueConstraint;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import java.util.Collection;

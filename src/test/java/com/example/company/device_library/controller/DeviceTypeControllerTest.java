@@ -24,8 +24,8 @@ public class DeviceTypeControllerTest {
     public void shouldLoadMainTypesPageGivenAddTypesFormAndTypesList() throws Exception {
         mvc.perform(get("/admin/type"))
                 .andExpect(status().isOk())
-                .andExpect(model().attribute("formName", "Dodawanie modelu sprzętu"))
-                .andExpect(model().attributeExists("typeDto", "types"))
+                .andExpect(model().attribute("formName", "Dodawanie modelu urządzenia"))
+                .andExpect(model().attributeExists("deviceTypesDto", "types"))
                 .andExpect(view().name("admin/type/type"));
     }
 

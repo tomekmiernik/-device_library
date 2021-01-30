@@ -16,13 +16,13 @@ import java.util.Collection;
 @RequestMapping("/admin")
 public class ComputerController {
 
-    private ComputerService computerService;
-    private DeviceTypeService deviceTypeService;
-    private ManufacturerService manufacturerService;
-    private PrinterService printerService;
-    private MonitorService monitorService;
-    private PeripheralService peripheralService;
-    private SoftwareService softwareService;
+    private final ComputerService computerService;
+    private final DeviceTypeService deviceTypeService;
+    private final ManufacturerService manufacturerService;
+    private final PrinterService printerService;
+    private final MonitorService monitorService;
+    private final PeripheralService peripheralService;
+    private final SoftwareService softwareService;
 
     @Autowired
     public ComputerController(ComputerService computerService,
@@ -57,9 +57,9 @@ public class ComputerController {
             setCollectionsManufacturersAndDeviceTypes(model);
             getComputersForTableContent(model);
             return "admin/computer/computer";
-        } else if(computerService.addComputer(computerDto)){
+        } else if (computerService.addComputer(computerDto)) {
             return "redirect:/admin/computer";
-        }else {
+        } else {
             setCollectionsManufacturersAndDeviceTypes(model);
             getComputersForTableContent(model);
             model.addAttribute("info", "Numer seryjny istnieje w bazie");
@@ -180,9 +180,9 @@ public class ComputerController {
     }
 
     @GetMapping("/computer/kit")
-    public String kitsPage(Model model){
+    public String kitsPage(Model model) {
         Collection<PeripheralDto> notFreePeripherals = peripheralService.getNotFreePeripherals();
-        if(notFreePeripherals == null || notFreePeripherals.isEmpty()){
+        if (notFreePeripherals == null || notFreePeripherals.isEmpty()) {
             model.addAttribute("computerInfoWarning", "Lista nie zawiera wolnych elementów");
             return "admin/computer/kit";
         }
@@ -191,7 +191,7 @@ public class ComputerController {
     }
 
     @GetMapping("/computer/{peripheralId}/changeToFree")
-    public String changePeripheralOnReadyForUse(@PathVariable("peripheralId") Long peripheralId){
+    public String changePeripheralOnReadyForUse(@PathVariable("peripheralId") Long peripheralId) {
         peripheralService.changePeripheralOnReadyToUse(peripheralId);
         return "redirect:/admin/computer";
     }

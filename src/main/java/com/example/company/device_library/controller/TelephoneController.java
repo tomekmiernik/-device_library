@@ -31,7 +31,7 @@ public class TelephoneController {
 
     @GetMapping("/phone")
     public String getTelephonePage(Model model){
-        model.addAttribute("formName", "Dodawnaie telefonu stacjonarnego");
+        model.addAttribute("formName", "Dodawanie telefonu stacjonarnego");
         model.addAttribute("telephoneDto", new TelephoneDto());
         setCollectionsManufacturersAndDeviceTypes(model);
         getPhonesForTableContent(model);

@@ -28,12 +28,6 @@ public class WelcomeControllerTest {
                 .andExpect(view().name("welcome"));
     }
 
-    @Test
-    public void shouldLoadLoginPageGivenLoginForm() throws Exception {
-        mvc.perform(get("/login"))
-                .andExpect(status().isOk())
-                .andExpect(view().name("login"));
-    }
 
     @Test
     public void shouldLoadRegisterPageGivenRegisterForm() throws Exception {

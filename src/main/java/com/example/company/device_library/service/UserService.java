@@ -115,7 +115,7 @@ public class UserService {
         userRepository.save(userMapper.reverse(databaseUser));
     }
 
-    public void getUsersFilerByPhoneNumber(Collection<UserDto> users) {
+    public void getUsersFilterByPhoneNumber(Collection<UserDto> users) {
         setDefaultCharsWhenUserHasNotMobileDevice(users);
     }
 

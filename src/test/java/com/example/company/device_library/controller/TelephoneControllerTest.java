@@ -24,9 +24,9 @@ public class TelephoneControllerTest {
 
     @Test
     public void shouldLoadAddTelephonePageGivenAddTelephoneForm() throws Exception{
-        mvc.perform(get("/admin/telephone"))
-                .andExpect(model().attribute("formName", "Dodawanie telefonu"))
+        mvc.perform(get("/admin/phone"))
+                .andExpect(model().attribute("formName", "Dodawanie telefonu stacjonarnego"))
                 .andExpect(model().attributeExists("telephoneDto"))
-                .andExpect(view().name("admin/telephone/telephone"));
+                .andExpect(view().name("admin/phone/phone"));
     }
 }
